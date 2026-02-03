@@ -1,21 +1,31 @@
 :host {
     display: block;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 97vw;
+    height: 95vh;
     z-index: 1;
     background-image: url('../../../assets/windows.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    border-radius: 28px;
+    overflow: hidden;
+    /* Contour écran */
+    border: 48px solid #3a3a3a;
+    box-sizing: border-box;
+    box-shadow: 
+        0 0 0 5px #2a2a2a,
+        0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
     font-family: "Pixelify Sans", sans-serif;
     text-align: center;
-    padding-top: 15%;
+    padding-top: 0;
+    margin-top: 60px;
     font-size: 3em;
     color: black;
 }
