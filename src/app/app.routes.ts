@@ -4,12 +4,7 @@ import { Computer } from './components/computer/computer';
 
 export const routes: Routes = [
   {
-    path: '',              // route racine
-    redirectTo: 'accueil', // redirige vers accueil
-    pathMatch: 'full'      // obligatoire pour éviter une redirection infinie
-  },
-  {
-    path: 'accueil',
+    path: '',
     component: Accueil,
   },
   {
