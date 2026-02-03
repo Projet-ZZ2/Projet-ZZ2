@@ -42,10 +42,12 @@
     "@angular/compiler-cli": "^21.1.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
-    "angular-cli-ghpages": "^3.0.2",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> aa0d60f8924251548e4ea18653ad17d4b8159fd6
