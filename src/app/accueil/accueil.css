@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+h1{
+    font-family: "Pixelify Sans", sans-serif;
+    text-align: center;
+    margin: 5% 20%;
+    font-size: 3em;
+    color: rgb(174, 224, 255);
+}
+
+p{
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    margin: 5% 15%;
+    font-size: 1.5em;
+    color: white;
+}
+
+button{
+    font-family: monospace, sans-serif;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.btn-wrap { text-align: center; }
