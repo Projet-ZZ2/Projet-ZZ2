@@ -6,6 +6,9 @@ on:
 
 jobs:
   build-and-deploy:
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
@@ -25,5 +28,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/Projet-ZZ2/browser
+          folder: dist/zz2Project/browser
           branch: gh-pages
