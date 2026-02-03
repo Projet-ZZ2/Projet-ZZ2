@@ -1,16 +1,21 @@
-h1{
-    font-family: "Pixelify Sans", sans-serif;
-    text-align: center;
-    margin: 5% 20%;
-    font-size: 3em;
-    color: rgb(174, 224, 255);
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-image: url('../../../assets/windows.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
-/* use a specific class instead of generic `div` if possible to avoid styling all divs */
-.computer-illustration {
-    background-image: url('/assets/images/computer.png'); /* use absolute /assets path — more reliable */
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: contain;      /* or `cover` if you want to fill/crop */
-    min-height: 300px;             /* ensures the background is visible; adjust as needed */
+h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    text-align: center;
+    padding-top: 15%;
+    font-size: 3em;
+    color: black;
 }
