@@ -1,15 +1,50 @@
 name: Build and Deploy Angular
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '24.x'
 
 jobs:
+  test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Build for testing
+        run: npm run build:prod
+
+  # Job de déploiement pour main
   build-and-deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
+      pages: write
+      id-token: write
 
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
@@ -17,20 +52,23 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '24.x'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-
-      - name: Clear npm cache
-        run: npm cache clean --force
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Build
         run: npx ng build --configuration production --base-href /Projet-ZZ2/
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist/zz2Project/browser
           branch: gh-pages
+          clean: true
+          single-commit: true
