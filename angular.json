@@ -27,7 +27,12 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -67,6 +72,27 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "server": {
+          "builder": "@angular/build:application",
+          "options": {
+            "server": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "outputHashing": "none"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

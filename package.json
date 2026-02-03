@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "http-server -p $PORT -c-1 dist/zz2Project/browser --spa",
+    "start": "npm run serve:ssr",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:zz2Project": "node dist/zz2Project/server/server.mjs",
-    "postinstall": "ng build --configuration production"
+    "serve:ssr": "node dist/zz2Project/server/server.mjs",
+    "postinstall": "npm run build:prod"
   },
   "prettier": {
     "printWidth": 100,
