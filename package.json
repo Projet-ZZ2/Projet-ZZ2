@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "http-server -p $PORT -c-1 dist/zz2Project/browser --spa",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:zz2Project": "node dist/zz2Project/server/server.mjs"
+    "serve:ssr:zz2Project": "node dist/zz2Project/server/server.mjs",
+    "postinstall": "ng build --configuration production"
   },
   "prettier": {
     "printWidth": 100,
@@ -44,6 +45,11 @@
     "@types/node": "^20.17.19",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.8",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": "22.x",
+    "npm": "10.x"
   }
 }
