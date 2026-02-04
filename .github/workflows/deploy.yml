@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: true
+          # Supprimer lfs: true pour laisser le buildpack gérer LFS
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,7 +33,7 @@ jobs:
             heroku buildpacks:add --index 1 https://github.com/infinitly/heroku-buildpack-git-lfs --app ${{ secrets.HEROKU_APP_NAME }}
           fi
           
-          # Configurer la variable d'environnement
+          # Configurer la variable d'environnement pour que le buildpack sache d'où télécharger LFS
           heroku config:set GIT_LFS_REPOSITORY=https://${{ secrets.TOKEN_GITHUB }}@github.com/LouisKostadinov/Projet-ZZ2.git --app ${{ secrets.HEROKU_APP_NAME }}
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
