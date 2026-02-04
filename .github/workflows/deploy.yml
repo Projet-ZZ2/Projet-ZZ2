@@ -65,7 +65,7 @@ jobs:
 
           # 2. "Détacher" les fichiers de LFS pour le déploiement
           # Cette commande remplace les pointeurs par les vrais fichiers dans l'index Git
-          git lfs export-exports --include="*" 
+          git lfs pull
           git lfs uninstall
           
           # 3. Ajouter le remote Heroku
