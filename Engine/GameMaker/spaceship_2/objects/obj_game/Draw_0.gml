@@ -1,5 +1,8 @@
-draw_set_color(c_white);
-draw_set_font(-1); // police par défaut
+draw_set_alpha(1); 
+draw_set_color(c_white); 
+draw_set_halign(fa_left); 
+draw_set_valign(fa_top); 
+draw_set_font(Corps);
 draw_text(20, 20, "Score: " + string(score_total));
 for (var i = 0; i < vie; i++)
 {
