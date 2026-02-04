@@ -24,6 +24,9 @@ export class Espace3d implements OnInit, OnDestroy {
     companyName: 'DefaultCompany',
     productName: 'UnityGame',
     productVersion: '1.0',
+    cacheControl: function () {
+      return "no-store";
+    },
   };
 
   private unlisten?: () => void;
