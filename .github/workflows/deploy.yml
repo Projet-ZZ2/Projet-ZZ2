@@ -10,12 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-            fetch-depth: 0
+          fetch-depth: 0
+          lfs: true # On récupère les fichiers pour les tests/build
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -27,10 +29,11 @@ jobs:
     needs: build-and-test 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: false
+          lfs: true # OBLIGATOIRE : pour avoir les vrais fichiers à envoyer
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -44,10 +47,6 @@ jobs:
       - name: Build for production
         run: npm run build
 
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
       - name: Login to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -56,22 +55,21 @@ jobs:
           echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
           chmod 600 ~/.netrc
 
-      - name: Disable Git LFS and Deploy
+      - name: Prepare and Push to Heroku
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-          # Désactiver complètement Git LFS
-          git lfs uninstall --local
-          git config --unset filter.lfs.clean || true
-          git config --unset filter.lfs.smudge || true  
-          git config --unset filter.lfs.process || true
-          git config --unset filter.lfs.required || true
-          
-          # Configurer Git
-          heroku git:remote -a $HEROKU_APP_NAME
+          # 1. Configurer l'identité Git
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+
+          # 2. "Détacher" les fichiers de LFS pour le déploiement
+          # Cette commande remplace les pointeurs par les vrais fichiers dans l'index Git
+          git lfs export-exports --include="*" 
+          git lfs uninstall
           
-          # Push sans LFS
+          # 3. Ajouter le remote Heroku
+          git remote add heroku https://git.heroku.com/$HEROKU_APP_NAME.git
+          
+          # 4. Push forcé (car on modifie l'historique localement pour inclure les gros fichiers)
           git push heroku HEAD:main --force
