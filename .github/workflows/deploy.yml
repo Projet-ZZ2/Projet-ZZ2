@@ -63,16 +63,31 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-          # 1. Configurer l'identité Git
+          # 1. Vérifier la taille des fichiers LFS avant migration
+          echo "Fichiers LFS avant migration:"
+          git lfs ls-files -s
+          ls -lh src/assets/unity/espace3d/ || ls -lh assets/unity/espace3d/ || echo "Dossier non trouvé"
+          
+          # 2. Configurer l'identité Git
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          # 2. Migrer les fichiers LFS vers Git standard
-          git lfs migrate export --include="*"
+          # 3. Migrer TOUS les fichiers LFS vers Git standard
+          git lfs migrate export --include="*.data,*.wasm,*.unityweb" --everything
           git lfs uninstall --local
           
-          # 3. Ajouter le remote Heroku
-          heroku git:remote -a $HEROKU_APP_NAME
+          # 4. Vérifier après migration
+          echo "Après migration:"
+          ls -lh src/assets/unity/espace3d/ || ls -lh assets/unity/espace3d/ || echo "Dossier non trouvé"
           
-          # 4. Push forcé
+          # 5. S'assurer que les assets sont copiés dans dist/
+          if [ -d "src/assets/unity" ]; then
+            mkdir -p dist/zz2Project/browser/assets/unity
+            cp -r src/assets/unity/* dist/zz2Project/browser/assets/unity/
+          fi
+          
+          # 6. Ajouter le remote Heroku et pousser
+          heroku git:remote -a $HEROKU_APP_NAME
+          git add -A
+          git commit -m "Deploy with LFS files converted" || echo "No changes to commit"
           git push heroku HEAD:main --force
