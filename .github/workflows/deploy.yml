@@ -29,7 +29,11 @@ jobs:
           
       - name: Configure Heroku Git LFS Buildpack
         run: |
-          heroku buildpacks:add --index 1 https://github.com/infinitly/heroku-buildpack-git-lfs --app ${{ secrets.HEROKU_APP_NAME }}
+          if ! heroku buildpacks --app ${{ secrets.HEROKU_APP_NAME }} | grep -q "heroku-buildpack-git-lfs"; then
+            heroku buildpacks:add --index 1 https://github.com/infinitly/heroku-buildpack-git-lfs --app ${{ secrets.HEROKU_APP_NAME }}
+          fi
+          
+          # Configurer la variable d'environnement
           heroku config:set GIT_LFS_REPOSITORY=https://${{ secrets.TOKEN_GITHUB }}@github.com/LouisKostadinov/Projet-ZZ2.git --app ${{ secrets.HEROKU_APP_NAME }}
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
