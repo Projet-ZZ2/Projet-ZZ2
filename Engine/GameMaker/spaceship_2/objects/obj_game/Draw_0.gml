@@ -66,6 +66,8 @@ if (perdu == true){
     draw_set_color(c_red);
     draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 - 20, "Game Over !");
     
+	draw_set_color(c_white);
+    draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 + 30, "Appuyez sur M pour rejouer");
     
     // Réinitialiser l'alignement
     draw_set_halign(fa_left);
