@@ -31,6 +31,7 @@
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"background","path":"sprites/background/background.yy",},},
     {"id":{"name":"bullet","path":"sprites/bullet/bullet.yy",},},
+    {"id":{"name":"coeur","path":"sprites/coeur/coeur.yy",},},
     {"id":{"name":"explo","path":"sprites/explo/explo.yy",},},
     {"id":{"name":"logo_git","path":"sprites/logo_git/logo_git.yy",},},
     {"id":{"name":"meteor","path":"sprites/meteor/meteor.yy",},},
