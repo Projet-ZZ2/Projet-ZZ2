@@ -52,13 +52,12 @@ export class Espace3d implements OnInit, OnDestroy {
     }
   }
 
-  handleUnityMessage(jsonString: string) {
+  handleUnityMessage(str: string) {
     try {
-      const data = JSON.parse(jsonString);
 
       // 4. IMPORTANT: Run inside NgZone to update the UI
       this.ngZone.run(() => {
-        if (data.type === 'SwitchToComputer') {
+        if (str == 'SwitchToComputer') {
           this.router.navigate(['/computer']);
         }
       });
