@@ -28,6 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -58,7 +61,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-          git fetch --all --unshallow
+          git lfs install
           heroku git:remote -a $HEROKU_APP_NAME
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
