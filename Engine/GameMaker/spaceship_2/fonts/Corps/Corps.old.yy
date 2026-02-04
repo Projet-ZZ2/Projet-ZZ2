@@ -119,8 +119,8 @@
   "maintainGms1Font":false,
   "name":"Corps",
   "parent":{
-    "name":"Police",
-    "path":"folders/Police.yy",
+    "name":"BLANK GAME",
+    "path":"BLANK GAME.yyp",
   },
   "pointRounding":0,
   "ranges":[

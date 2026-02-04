@@ -528,8 +528,8 @@
   "maintainGms1Font":false,
   "name":"Titre",
   "parent":{
-    "name":"BLANK GAME",
-    "path":"BLANK GAME.yyp",
+    "name":"Police",
+    "path":"folders/Police.yy",
   },
   "pointRounding":0,
   "ranges":[
