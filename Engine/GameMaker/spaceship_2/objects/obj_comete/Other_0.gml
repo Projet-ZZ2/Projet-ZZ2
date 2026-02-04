@@ -1,7 +1,7 @@
 obj_game.vie -= 1
 
 if(obj_game.vie <= 0){
-	game_restart();
+	obj_game.perdu = true;
 } 
 
 instance_destroy();

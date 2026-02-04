@@ -1,0 +1,1 @@
+munition_lancee = false

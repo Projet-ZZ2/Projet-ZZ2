@@ -1,0 +1,10 @@
+{
+  "FolderOrderSettings":[
+    {"name":"img","order":4,"path":"folders/img.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"Object1","order":5,"path":"objects/Object1/Object1.yy",},
+    {"name":"logo_git","order":1,"path":"sprites/logo_git/logo_git.yy",},
+    {"name":"meteor","order":2,"path":"sprites/meteor/meteor.yy",},
+  ],
+}
