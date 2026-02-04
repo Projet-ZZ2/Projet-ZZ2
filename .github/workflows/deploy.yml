@@ -1,34 +1,65 @@
-name: Deploy to GitHub Pages
+name: CI/CD Angular Heroku
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # Permet le déclenchement manuel
 
 jobs:
-  deploy:
+  build-and-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint & Build
+        run: npm run build
+
+  deploy:
+    needs: build-and-test 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npx ng build --configuration production --base-href /Projet-ZZ2/
+      - name: Build for production
+        run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist/zz2Project/browser
-          branch: gh-pages
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Login to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "machine api.heroku.com login blank password $HEROKU_API_KEY" > ~/.netrc
+          echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
+          chmod 600 ~/.netrc
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        run: |
+          git fetch --all --unshallow
+          heroku git:remote -a $HEROKU_APP_NAME
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git push heroku HEAD:main --force
