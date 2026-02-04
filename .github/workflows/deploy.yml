@@ -63,31 +63,53 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-          # 1. Vérifier la taille des fichiers LFS avant migration
-          echo "Fichiers LFS avant migration:"
-          git lfs ls-files -s
-          ls -lh src/assets/unity/espace3d/ || ls -lh assets/unity/espace3d/ || echo "Dossier non trouvé"
-          
-          # 2. Configurer l'identité Git
+          # 1. Configurer l'identité Git
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          # 3. Migrer TOUS les fichiers LFS vers Git standard
+          # 2. Migrer les fichiers LFS
           git lfs migrate export --include="*.data,*.wasm,*.unityweb" --everything
           git lfs uninstall --local
           
-          # 4. Vérifier après migration
-          echo "Après migration:"
-          ls -lh src/assets/unity/espace3d/ || ls -lh assets/unity/espace3d/ || echo "Dossier non trouvé"
+          # 3. Créer une branche orpheline pour un déploiement propre
+          git checkout --orphan heroku-deploy
+          git rm -rf .
           
-          # 5. S'assurer que les assets sont copiés dans dist/
+          # 4. Copier SEULEMENT les fichiers nécessaires
+          cp -r dist/ .
+          cp package.json .
+          cp server.mjs .
+          cp Procfile .
+          
+          # 5. Copier les assets Unity (pas les sources Engine/)
           if [ -d "src/assets/unity" ]; then
             mkdir -p dist/zz2Project/browser/assets/unity
-            cp -r src/assets/unity/* dist/zz2Project/browser/assets/unity/
+            cp -r src/assets/unity/* dist/zz2Project/browser/assets/unity/ 2>/dev/null || true
           fi
           
-          # 6. Ajouter le remote Heroku et pousser
+          # 6. Optimiser package.json (supprimer devDependencies)
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            delete pkg.devDependencies;
+            delete pkg.scripts.build;
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+          
+          # 7. Créer .slugignore pour exclure les gros dossiers inutiles
+          cat > .slugignore << EOF
+          Engine/
+          src/
+          node_modules/
+          *.log
+          .git/
+          .github/
+          README.md
+          EOF
+          
+          # 8. Initialiser et déployer
+          git init
+          git add .
+          git commit -m "Optimized deployment without Engine folder"
+          
           heroku git:remote -a $HEROKU_APP_NAME
-          git add -A
-          git commit -m "Deploy with LFS files converted" || echo "No changes to commit"
-          git push heroku HEAD:main --force
+          git push heroku main --force
