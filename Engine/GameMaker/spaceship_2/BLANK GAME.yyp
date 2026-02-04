@@ -27,6 +27,7 @@
     {"id":{"name":"obj_exp","path":"objects/obj_exp/obj_exp.yy",},},
     {"id":{"name":"obj_game","path":"objects/obj_game/obj_game.yy",},},
     {"id":{"name":"obj_git","path":"objects/obj_git/obj_git.yy",},},
+    {"id":{"name":"obj_spawn_comete","path":"objects/obj_spawn_comete/obj_spawn_comete.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"background","path":"sprites/background/background.yy",},},
     {"id":{"name":"bullet","path":"sprites/bullet/bullet.yy",},},

@@ -9,28 +9,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Lint & Build
-        run: npm run build --prod
+        run: npm run build
 
   deploy:
     needs: build-and-test 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -51,12 +56,22 @@ jobs:
           echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
           chmod 600 ~/.netrc
 
-      - name: Deploy to Heroku
+      - name: Disable Git LFS and Deploy
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
+          # Désactiver complètement Git LFS
+          git lfs uninstall --local
+          git config --unset filter.lfs.clean || true
+          git config --unset filter.lfs.smudge || true  
+          git config --unset filter.lfs.process || true
+          git config --unset filter.lfs.required || true
+          
+          # Configurer Git
           heroku git:remote -a $HEROKU_APP_NAME
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          
+          # Push sans LFS
           git push heroku HEAD:main --force

@@ -2,13 +2,13 @@
   "name": "zz2-project",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server.js",
+    "start": "node dist/zz2Project/server/server.mjs",
     "build": "ng build --configuration production",
     "heroku-postbuild": "npm run build"
   },
   "prettier": {
     "printWidth": 100,
-    "singleQuote": true, 
+    "singleQuote": true,
     "overrides": [
       {
         "files": "*.html",
