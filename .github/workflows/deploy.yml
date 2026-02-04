@@ -23,40 +23,33 @@ jobs:
           npm ci
           npm run build
       
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+      # - name: Install Heroku CLI
+      #   run: |
+      #     curl https://cli-assets.heroku.com/install.sh | sh
           
-      - name: Configure Heroku Git LFS Buildpack
-        run: |
-          if ! heroku buildpacks --app ${{ secrets.HEROKU_APP_NAME }} | grep -q "heroku-buildpack-git-lfs"; then
-            heroku buildpacks:add --index 1 https://github.com/infinitly/heroku-buildpack-git-lfs --app ${{ secrets.HEROKU_APP_NAME }}
-          fi
-          
-          heroku config:set GIT_LFS_REPOSITORY=https://${{ secrets.TOKEN_GITHUB }}@github.com/LouisKostadinov/Projet-ZZ2.git --app ${{ secrets.HEROKU_APP_NAME }}
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #   env:
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-      - name: Completely disable Git LFS for deployment
-        run: |
-          # Désinstaller Git LFS localement
-          git lfs uninstall --local
+      # - name: Completely disable Git LFS for deployment
+      #   run: |
+      #     # Désinstaller Git LFS localement
+      #     git lfs uninstall --local
           
-          # Supprimer tous les fichiers de config LFS
-          rm -f .gitattributes
-          rm -f .lfsconfig
+      #     # Supprimer tous les fichiers de config LFS
+      #     rm -f .gitattributes
+      #     rm -f .lfsconfig
           
-          # Désactiver LFS globalement dans ce repo
-          git config --unset filter.lfs.clean || true
-          git config --unset filter.lfs.smudge || true
-          git config --unset filter.lfs.process || true
-          git config --unset filter.lfs.required || true
+      #     # Désactiver LFS globalement dans ce repo
+      #     git config --unset filter.lfs.clean || true
+      #     git config --unset filter.lfs.smudge || true
+      #     git config --unset filter.lfs.process || true
+      #     git config --unset filter.lfs.required || true
           
-          # Commit les changements
-          git add -A
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git commit -m "Disable LFS completely for Heroku deployment" || echo "No changes to commit"
+      #     # Commit les changements
+      #     git add -A
+      #     git config user.name "GitHub Actions"
+      #     git config user.email "actions@github.com"
+      #     git commit -m "Disable LFS completely for Heroku deployment" || echo "No changes to commit"
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.14
