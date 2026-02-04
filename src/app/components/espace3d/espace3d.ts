@@ -17,9 +17,9 @@ export class Espace3d implements OnInit, OnDestroy {
   score: number = 0;
   
   private config = {
-    dataUrl: `${this.buildUrl}/Export.data`,
-    frameworkUrl: `${this.buildUrl}/Export.framework.js`,
-    codeUrl: `${this.buildUrl}/Export.wasm`,
+    dataUrl: `${this.buildUrl}/export.data`,
+    frameworkUrl: `${this.buildUrl}/export.framework.js`,
+    codeUrl: `${this.buildUrl}/export.wasm`,
     streamingAssetsUrl: 'StreamingAssets',
     companyName: 'DefaultCompany',
     productName: 'UnityGame',
@@ -32,7 +32,7 @@ export class Espace3d implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const loaderScriptSrc = `${this.buildUrl}/Export.loader.js`;
+      const loaderScriptSrc = `${this.buildUrl}/export.loader.js`;
       
       this.loadScript(loaderScriptSrc)
         .then(() => {
