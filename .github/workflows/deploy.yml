@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Pas de lfs: true
+          lfs: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -39,8 +39,8 @@ jobs:
 
       - name: Completely disable Git LFS for deployment
         run: |
-          # Désinstaller Git LFS complètement
-          git lfs uninstall --local --skip-smudge
+          # Désinstaller Git LFS localement
+          git lfs uninstall --local
           
           # Supprimer tous les fichiers de config LFS
           rm -f .gitattributes
