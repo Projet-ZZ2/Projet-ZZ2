@@ -26,7 +26,7 @@ public class Computer : MonoBehaviour
             {
               opening = true;
               Debug.Log("Opening Computer !");
-              // Call camera animation funcition
+              AngularBridge.Instance.ComputerOpen();
             }
           }
 
