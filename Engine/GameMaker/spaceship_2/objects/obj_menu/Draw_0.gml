@@ -17,9 +17,11 @@ draw_text(display_get_gui_width() / 2, 250, "D / Q - git branch, sert a basculer
 draw_text(display_get_gui_width() / 2, 280, "Clic gauche - git add et git commit pour recuperer une munition");
 draw_text(display_get_gui_width() / 2, 310, "E - git push pour envoyer la munition");
 
+draw_text(display_get_gui_width() / 2, 340, "R - mettre en pause");
+
 // Instructions pour démarrer
 draw_set_color(c_teal);
-draw_text(display_get_gui_width() / 2, 400, "Appuyez sur I (git init) pour commencer");
+draw_text(display_get_gui_width() / 2, 430, "Appuyez sur I (git init) pour commencer");
 
 // Réinitialiser l'alignement
 draw_set_halign(fa_left);

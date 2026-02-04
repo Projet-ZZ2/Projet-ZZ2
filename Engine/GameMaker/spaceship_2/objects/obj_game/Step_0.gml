@@ -10,7 +10,11 @@ if (gagne)
     instance_deactivate_object(obj_git);
 }
 
-if (keyboard_check_pressed(ord("P")))
+if (keyboard_check_pressed(ord("R")))
 {
     room_goto(Pause); // change "room1" par le nom de ta room de jeu si différent
+}
+
+if(keyboard_check_pressed(ord("M"))){
+	game_restart();
 }
