@@ -27,6 +27,14 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
           
+      - name: Configure Heroku Git LFS Buildpack
+        run: |
+          heroku login --interactive
+          heroku buildpacks:add --index 1 https://github.com/infinitly/heroku-buildpack-git-lfs --app ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set GIT_LFS_REPOSITORY=https://${{ secrets.TOEKN_GITHUB }}@github.com/LouisKostadinov/Projet-ZZ2.git --app ${{ secrets.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.14
         with:
