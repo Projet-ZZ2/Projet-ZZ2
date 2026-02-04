@@ -43,10 +43,20 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
+      - name: Login to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "machine api.heroku.com login blank password $HEROKU_API_KEY" > ~/.netrc
+          echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
+          chmod 600 ~/.netrc
+
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
           heroku git:remote -a $HEROKU_APP_NAME
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git push heroku HEAD:main --force
