@@ -5,3 +5,10 @@ for (var i = 0; i < vie; i++)
 {
     draw_sprite(coeur, 0, 20 + (i * 40), 60);
 }
+
+if(gagne == true){
+	draw_text(40, 20, "Victoire !");
+}
+if (perdu == true){
+	draw_text(40, 20, "Perdu !");
+}
