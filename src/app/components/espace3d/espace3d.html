@@ -1,3 +1,18 @@
 <div class="unity-container">
-  <canvas #unityCanvas id="unity-canvas" tabindex="-1"></canvas>
+  
+  <canvas #unityCanvas id="unity-canvas"></canvas>
+
+  @if (isLoading) {
+    <div class="loading-overlay">
+      <div class="loader-content">
+        <h2>Loading World...</h2>
+        
+        <div class="progress-bar">
+          <div class="fill" [style.width.%]="loadingPercentage"></div>
+        </div>
+        
+        <p>{{ loadingPercentage }}%</p>
+      </div>
+    </div>
+  }
 </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID, NgZone, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID, NgZone, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,8 @@ export class Espace3d implements OnInit, OnDestroy {
   
   unityInstance: any = null;
   private buildUrl = 'assets/unity/espace3d';
+  isLoading = true;
+  loadingPercentage = 0;
   
   private config = {
     dataUrl: `${this.buildUrl}/export.data`,
@@ -26,7 +28,7 @@ export class Espace3d implements OnInit, OnDestroy {
 
   private unlisten?: () => void;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone, private renderer: Renderer2, private router: Router) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone, private renderer: Renderer2, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -89,10 +91,19 @@ export class Espace3d implements OnInit, OnDestroy {
   private initializeUnity() {
     if (isPlatformBrowser(this.platformId)) {
       createUnityInstance(this.canvasRef.nativeElement, this.config, (progress) => {
-        console.log(`Unity Loading: ${100 * progress}%`);
+        //console.log(`Unity Loading: ${100 * progress}%`);
+        this.ngZone.run(() => {
+          this.loadingPercentage = Math.round(progress * 100);
+          this.cdr.detectChanges();
+      });
+      console.log(this.loadingPercentage);
       })
       .then((instance) => {
         this.unityInstance = instance;
+        this.ngZone.run(() => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        });
       })
       .catch((message) => {
         alert(message);
