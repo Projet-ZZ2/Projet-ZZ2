@@ -5,26 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint & Build
-        run: npm run build
-
   deploy:
-    needs: build-and-test 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,42 +17,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build for production
-        run: npm run build
-
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+      
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Login to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo "machine api.heroku.com login blank password $HEROKU_API_KEY" > ~/.netrc
-          echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
-          chmod 600 ~/.netrc
-
-      - name: Disable Git LFS and Deploy
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          # Désactiver complètement Git LFS
-          git lfs uninstall --local
-          git config --unset filter.lfs.clean || true
-          git config --unset filter.lfs.smudge || true  
-          git config --unset filter.lfs.process || true
-          git config --unset filter.lfs.required || true
           
-          # Configurer Git
-          heroku git:remote -a $HEROKU_APP_NAME
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          
-          # Push sans LFS
-          git push heroku HEAD:main --force
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: "louis.kostadinov@gmail.com"
+          usedocker: false
