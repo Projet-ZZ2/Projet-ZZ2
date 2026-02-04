@@ -9,6 +9,7 @@
 **/Obj/
 **/Build/
 **/Builds/
+**/Export/
 
 .utmp/
 /[Ll]ibrary/
