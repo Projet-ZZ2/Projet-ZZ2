@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID, NgZone, Renderer2 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-espace3d',
@@ -12,9 +13,6 @@ export class Espace3d implements OnInit, OnDestroy {
   
   unityInstance: any = null;
   private buildUrl = 'assets/unity/espace3d';
-
-  gameState: string = 'Playing...';
-  score: number = 0;
   
   private config = {
     dataUrl: `${this.buildUrl}/export.data`,
@@ -28,7 +26,7 @@ export class Espace3d implements OnInit, OnDestroy {
 
   private unlisten?: () => void;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone, private renderer: Renderer2) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone, private renderer: Renderer2, private router: Router) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -60,9 +58,8 @@ export class Espace3d implements OnInit, OnDestroy {
 
       // 4. IMPORTANT: Run inside NgZone to update the UI
       this.ngZone.run(() => {
-        if (data.type === 'GameOver') {
-           this.gameState = 'Game Over!';
-           this.score = data.score;
+        if (data.type === 'SwitchToComputer') {
+          this.router.navigate(['/computer']);
         }
       });
     } catch (e) {
