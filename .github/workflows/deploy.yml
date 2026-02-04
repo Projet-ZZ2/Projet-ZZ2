@@ -63,13 +63,12 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          # 2. "Détacher" les fichiers de LFS pour le déploiement
-          # Cette commande remplace les pointeurs par les vrais fichiers dans l'index Git
-          git lfs pull
-          git lfs uninstall
+          # 2. Migrer les fichiers LFS vers Git standard
+          git lfs migrate export --include="*"
+          git lfs uninstall --local
           
           # 3. Ajouter le remote Heroku
-          git remote add heroku https://git.heroku.com/$HEROKU_APP_NAME.git
+          heroku git:remote -a $HEROKU_APP_NAME
           
-          # 4. Push forcé (car on modifie l'historique localement pour inclure les gros fichiers)
+          # 4. Push forcé
           git push heroku HEAD:main --force
