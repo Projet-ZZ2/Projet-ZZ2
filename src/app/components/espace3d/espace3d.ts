@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID, NgZone, Renderer2 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-espace3d',
@@ -6,6 +7,109 @@ import { Component } from '@angular/core';
   templateUrl: './espace3d.html',
   styleUrl: './espace3d.css',
 })
-export class Espace3d {
+export class Espace3d implements OnInit, OnDestroy {
+  @ViewChild('unityCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  
+  unityInstance: any = null;
+  private buildUrl = 'assets/unity/espace3d';
 
+  gameState: string = 'Playing...';
+  score: number = 0;
+  
+  private config = {
+    dataUrl: `${this.buildUrl}/webgl.data`,
+    frameworkUrl: `${this.buildUrl}/build.framework.js`,
+    codeUrl: `${this.buildUrl}/build.wasm`,
+    streamingAssetsUrl: 'StreamingAssets',
+    companyName: 'DefaultCompany',
+    productName: 'UnityGame',
+    productVersion: '1.0',
+  };
+
+  private unlisten?: () => void;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone, private renderer: Renderer2) {}
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const loaderScriptSrc = `${this.buildUrl}/loader.js`;
+      
+      this.loadScript(loaderScriptSrc)
+        .then(() => {
+          this.initializeUnity();
+        })
+        .catch((err) => {
+          console.error("Could not load Unity loader script:", err);
+        });
+
+      this.unlisten = this.renderer.listen(window, 'UnityToAngular', (event: any) => {
+      
+      // 2. The data is inside event.detail (as defined in the .jslib)
+      const dataString = event.detail;
+      console.log('Received from Unity:', dataString);
+
+      // 3. Process the data
+      this.handleUnityMessage(dataString);
+    });
+    }
+  }
+
+  handleUnityMessage(jsonString: string) {
+    try {
+      const data = JSON.parse(jsonString);
+
+      // 4. IMPORTANT: Run inside NgZone to update the UI
+      this.ngZone.run(() => {
+        if (data.type === 'GameOver') {
+           this.gameState = 'Game Over!';
+           this.score = data.score;
+        }
+      });
+    } catch (e) {
+      console.error('Failed to parse JSON from Unity:', e);
+    }
+  }
+
+  private loadScript(url: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!isPlatformBrowser(this.platformId)) {
+        resolve(); 
+        return;
+      }
+
+      if (document.querySelector(`script[src="${url}"]`)) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = url;
+      script.onload = () => resolve();
+      script.onerror = () => reject();
+      document.body.appendChild(script);
+    });
+  }
+
+  private initializeUnity() {
+    if (isPlatformBrowser(this.platformId)) {
+      createUnityInstance(this.canvasRef.nativeElement, this.config, (progress) => {
+        console.log(`Unity Loading: ${100 * progress}%`);
+      })
+      .then((instance) => {
+        this.unityInstance = instance;
+      })
+      .catch((message) => {
+        alert(message);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.unityInstance) {
+      this.unityInstance.Quit().catch(() => console.log("Unity quit"));
+    }
+    if (this.unlisten) {
+      this.unlisten();
+    }
+  }
 }
