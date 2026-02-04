@@ -5,111 +5,28 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: true # On récupère les fichiers pour les tests/build
+          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Lint & Build
-        run: npm run build
-
-  deploy:
-    needs: build-and-test 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.14
         with:
-          fetch-depth: 0
-          lfs: true # OBLIGATOIRE : pour avoir les vrais fichiers à envoyer
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build for production
-        run: npm run build
-
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Login to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo "machine api.heroku.com login blank password $HEROKU_API_KEY" > ~/.netrc
-          echo "machine git.heroku.com login blank password $HEROKU_API_KEY" >> ~/.netrc
-          chmod 600 ~/.netrc
-
-      - name: Prepare and Push to Heroku
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          # 1. Configurer l'identité Git
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-          # 2. Migrer les fichiers LFS
-          git lfs migrate export --include="*.data,*.wasm,*.unityweb" --everything
-          git lfs uninstall --local
-          
-          # 3. Créer une branche orpheline pour un déploiement propre
-          git checkout --orphan heroku-deploy
-          git rm -rf .
-          
-          # 4. Copier SEULEMENT les fichiers nécessaires
-          cp -r dist/ .
-          cp package.json .
-          cp server.mjs .
-          cp Procfile .
-          
-          # 5. Copier les assets Unity (pas les sources Engine/)
-          if [ -d "src/assets/unity" ]; then
-            mkdir -p dist/zz2Project/browser/assets/unity
-            cp -r src/assets/unity/* dist/zz2Project/browser/assets/unity/ 2>/dev/null || true
-          fi
-          
-          # 6. Optimiser package.json (supprimer devDependencies)
-          node -e "
-            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            delete pkg.devDependencies;
-            delete pkg.scripts.build;
-            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-          "
-          
-          # 7. Créer .slugignore pour exclure les gros dossiers inutiles
-          cat > .slugignore << EOF
-          Engine/
-          src/
-          node_modules/
-          *.log
-          .git/
-          .github/
-          README.md
-          EOF
-          
-          # 8. Initialiser et déployer
-          git init
-          git add .
-          git commit -m "Optimized deployment without Engine folder"
-          
-          heroku git:remote -a $HEROKU_APP_NAME
-          git push heroku main --force
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: "louis.kostadinov@gmail.com"
+          usedocker: false
