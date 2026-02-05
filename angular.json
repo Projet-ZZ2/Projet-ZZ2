@@ -24,7 +24,12 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "src/assets/gamemaker/html5game",
+                "output": "/html5game/"
+              }
             ],
             "styles": [
               "src/styles.css"
