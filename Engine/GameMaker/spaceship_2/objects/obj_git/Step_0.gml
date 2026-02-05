@@ -1,12 +1,12 @@
 // Recalculer l'espacement (au cas où nb_branche change)
-espacement = room_width / nb_branche;
+espacement = room_width / nb_branche_uti;
 
 // Touche D - déplacer à droite
 if (keyboard_check_pressed(ord("D"))) {
-    if (position_actuelle < nb_branche - 1) {
+    if (position_actuelle < nb_branche_uti - 1) {
         position_actuelle += 1;
 		obj_message.message = "git checkout"; 
-		obj_message.m_timer = 60; // environ 1.5 secondes
+		obj_message.m_timer = 60;
     }
 }
 
@@ -15,7 +15,7 @@ if (keyboard_check_pressed(ord("Q"))) {
     if (position_actuelle > 0) {
         position_actuelle -= 1;
 		obj_message.message = "git checkout"; 
-		obj_message.m_timer = 60; // environ 1.5 secondes
+		obj_message.m_timer = 60;
     }
 }
 
@@ -27,5 +27,14 @@ if (mouse_check_button_pressed(mb_left))
 {
     instance_create_layer(x, y, "Instances", obj_bullet);
 	obj_message.message = "git add/commit"; 
-	obj_message.m_timer = 60; // environ 1.5 secondes
+	obj_message.m_timer = 60;
+}
+
+if (keyboard_check_pressed(ord("A"))) {
+	nb_branche_uti += 1;
+}
+
+if(obj_game.score_total == 50 && !a_augmente) {
+	nb_branche_tot += 1;
+	a_augmente = true;
 }
