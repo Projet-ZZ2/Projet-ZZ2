@@ -30,7 +30,7 @@ if (mouse_check_button_pressed(mb_left))
 	obj_message.m_timer = 60;
 }
 
-if (keyboard_check_pressed(ord("A"))) {
+if (keyboard_check_pressed(ord("R")) && nb_branche_uti < 5) {
 	nb_branche_uti += 1;
 	obj_message.message = "git branch"; 
 	obj_message.m_timer = 60;

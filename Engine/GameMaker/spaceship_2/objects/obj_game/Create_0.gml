@@ -7,3 +7,4 @@ perdu = false;
 
 
 tmp = round(score_a_atteindre / 3);
+randomize();

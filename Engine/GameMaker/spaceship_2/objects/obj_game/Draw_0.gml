@@ -36,7 +36,7 @@ if (gagne == true)
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(c_aqua);
-    draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 - 20, "VICTOIRE !");
+    draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2, "VICTOIRE !");
     
     
     // Réinitialiser l'alignement
