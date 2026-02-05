@@ -32,9 +32,19 @@ if (mouse_check_button_pressed(mb_left))
 
 if (keyboard_check_pressed(ord("A"))) {
 	nb_branche_uti += 1;
+	obj_message.message = "git branch"; 
+	obj_message.m_timer = 60;
 }
 
-if(obj_game.score_total == 50 && !a_augmente) {
+//show_debug_message("tmp: " + string(obj_game.tmp));
+
+if(obj_game.score_total >= obj_game.tmp && !a_augmente1) {
 	nb_branche_tot += 1;
-	a_augmente = true;
+	a_augmente1 = true;
+}
+
+
+if(obj_game.score_total >= obj_game.tmp*2 && !a_augmente2) {
+	nb_branche_tot += 1;
+	a_augmente2 = true;
 }

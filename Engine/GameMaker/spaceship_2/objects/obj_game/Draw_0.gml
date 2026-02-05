@@ -32,6 +32,7 @@ if (gagne == true)
     draw_rectangle(encadre_x + 5, encadre_y + 5, encadre_x + encadre_largeur - 5, encadre_y + encadre_hauteur - 5, false);
     
     // Texte "VICTOIRE !"
+	draw_set_font(Titre);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(c_aqua);
@@ -64,11 +65,13 @@ if (perdu == true){
     draw_rectangle(encadre_x + 5, encadre_y + 5, encadre_x + encadre_largeur - 5, encadre_y + encadre_hauteur - 5, false);
     
     // Texte "VICTOIRE !"
+	draw_set_font(Titre);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(c_red);
     draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 - 20, "Game Over !");
     
+	draw_set_font(Corps);
 	draw_set_color(c_white);
     draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 + 30, "Appuyez sur M pour rejouer");
     

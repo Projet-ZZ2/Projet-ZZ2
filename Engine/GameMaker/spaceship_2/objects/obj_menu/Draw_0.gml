@@ -13,11 +13,12 @@ draw_text(display_get_gui_width() / 2, 100, "GIT SHOOTER");
 draw_set_font(Corps);
 draw_set_color(c_white);
 draw_text(display_get_gui_width() / 2, 200, "COMMANDES :");
-draw_text(display_get_gui_width() / 2, 250, "D / Q - git checkout, sert a basculer sur une autre branche (gauche, milieu, droite)");
-draw_text(display_get_gui_width() / 2, 280, "Clic gauche - git add et git commit pour recuperer une munition");
-draw_text(display_get_gui_width() / 2, 310, "E - git push pour envoyer la munition");
+draw_text(display_get_gui_width() / 2, 250, "D / Q - git checkout (basculer sur une autre branche)");
+draw_text(display_get_gui_width() / 2, 280, "Clic gauche - git add et git commit (recuperer une munition)");
+draw_text(display_get_gui_width() / 2, 310, "E - git push (envoyer la munition)");
+draw_text(display_get_gui_width() / 2, 340, "A - git branch (creer une nouvelle branche)");
 
-draw_text(display_get_gui_width() / 2, 340, "R - mettre en pause");
+draw_text(display_get_gui_width() / 2, 370, "R - mettre en pause");
 
 // Instructions pour démarrer
 draw_set_color(c_teal);
