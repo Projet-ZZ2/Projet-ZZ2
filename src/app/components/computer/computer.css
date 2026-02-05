@@ -11,14 +11,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    border-radius: 28px;
+    border-radius: 5vh;
     overflow: hidden;
     /* Contour écran */
-    border: 48px solid #3a3a3a;
+    border: 1vh solid #3a3a3a;
     box-sizing: border-box;
-    box-shadow: 
-        0 0 0 5px #2a2a2a,
-        0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
