@@ -6,7 +6,7 @@ branche_aleatoire = irandom(nb_branche - 1);
 espacement = room_width / nb_branche;
 x_comete = espacement * branche_aleatoire + espacement / 2;
 // LIGNE DE DEBUG (maintenant APRÈS tous les calculs)
-show_debug_message("nb_branche: " + string(nb_branche) + " | branche: " + string(branche_aleatoire) + " | x: " + string(x_comete));
+show_debug_message("nb_branche: " + string(nb_branche));
 // Créer la comète en haut de l'écran
 instance_create_layer(x_comete, 0, "Instances", obj_comete);
 // Relancer l'alarm pour créer une autre comète plus tard

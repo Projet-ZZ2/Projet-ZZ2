@@ -15,6 +15,6 @@ if (keyboard_check_pressed(ord("R")))
     room_goto(Pause); // change "room1" par le nom de ta room de jeu si différent
 }
 
-if(keyboard_check_pressed(ord("M"))){
+if(keyboard_check_pressed(ord("M")) && perdu){
 	game_restart();
 }
