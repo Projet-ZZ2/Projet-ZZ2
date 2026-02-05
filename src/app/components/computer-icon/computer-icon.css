@@ -1,0 +1,22 @@
+.icon-container {
+    height: 15em;
+    width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+img {
+    max-width: 70%;
+    height: auto;
+}
+
+h4 {
+    text-align: center;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1em;
+    color: whitesmoke;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}

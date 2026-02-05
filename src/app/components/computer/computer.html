@@ -1,1 +1,5 @@
-<h1>Et voici ton ordinateur !</h1>
+<div class="computer-apps">
+    @for (icon of computerIcons; track icon.id) {
+        <app-computer-icon [icon]="icon"></app-computer-icon>
+    }
+</div>
