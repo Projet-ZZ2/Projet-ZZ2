@@ -20,12 +20,6 @@
         <h4>{{ rule.name }}</h4>
         <p *ngIf="rule.status !== 'locked'">{{ rule.description }}</p>
       </div>
-      <div class="status-icon">
-        <span *ngIf="rule.status === 'success'">Réussi</span>
-        <span *ngIf="rule.status === 'failed'">Echoué</span>
-        <span *ngIf="rule.status === 'pending'">En attente</span>
-        <span *ngIf="rule.status === 'locked'">Bloqué</span>
-      </div>
     </div>
   </aside>
 </div>
