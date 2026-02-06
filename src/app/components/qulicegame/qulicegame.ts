@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, afterNextRender, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
@@ -11,9 +11,9 @@ import { VALIDATION_RULES } from '../../model/rulesQuLice';
   imports: [CommonModule, FormsModule], // Vérifie bien que FormsModule est ici
   templateUrl: './qulicegame.html',
   styleUrl: './qulicegame.css',
-  host: {
-    'ngSkipHydration': 'true'
-  }
+  // host: {
+  //   'ngSkipHydration': 'true'
+  // }
 })
 export class Qulicegame implements OnInit {
   codeContent: string = "";
@@ -22,7 +22,14 @@ export class Qulicegame implements OnInit {
   // Utilisation du nom EXACT utilisé dans ton HTML (*ngFor="let rule of validationRules")
   validationRules: Rule[] = VALIDATION_RULES;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient, 
+    private cdr: ChangeDetectorRef
+  ) {
+    afterNextRender(() => {
+      this.loadCode();
+    });
+  }
 
   ngOnInit(): void {
     this.loadCode();
@@ -47,6 +54,8 @@ export class Qulicegame implements OnInit {
           this.codeContent = data;
           this.initialCode = data;
           this.checkRules(); // Vérification initiale
+
+          this.cdr.detectChanges();
         },
         error: (err) => console.error("Erreur de chargement du fichier code.txt", err)
       });
