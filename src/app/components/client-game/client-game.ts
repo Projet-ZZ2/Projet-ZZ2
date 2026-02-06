@@ -1,25 +1,27 @@
-import { Component, viewChild } from "@angular/core";
+import { Component, viewChild, Inject, PLATFORM_ID } from "@angular/core";
 import { ClientGameplay } from "./client-gameplay";
-//import { Game } from "../../../assets/phaser/scenes/Game";
-import {CommonModule} from '@angular/common'
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Ajoutez isPlatformBrowser
 import { EventBus } from "../../../assets/phaser_engine/EventBus";
 
 @Component({
   selector: 'client-game',
   standalone: true,
   imports: [CommonModule, ClientGameplay],
-  templateUrl:'./client-game.html'
+  templateUrl: './client-game.html'
 })
-export class ClientGame{
+export class ClientGame {
   public spritePosition = { x: 0, y: 0 };
   public canMoveSprite = false;
 
-  
   gameRef = viewChild.required(ClientGameplay);
 
-  constructor(){
-    EventBus.on('current-scene-ready', (scene : Phaser.Scene) => {
-      this.canMoveSprite = scene.scene.key !== 'MainMenu';
-    });
+  // Injectez PLATFORM_ID
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // N'écoutez les événements QUE dans le navigateur
+    if (isPlatformBrowser(this.platformId)) {
+      EventBus.on('current-scene-ready', (scene: any) => {
+        this.canMoveSprite = scene.scene.key !== 'MainMenu';
+      });
+    }
   }
 }

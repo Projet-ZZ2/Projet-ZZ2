@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import Phaser from 'phaser';
-import StartGame from '../../../assets/phaser_engine/main';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+// On importe uniquement les types (ceci disparait au build et ne fait pas planter le SSR)
+import type Phaser from 'phaser';
 import { EventBus } from '../../../assets/phaser_engine/EventBus';
 
 @Component({
@@ -8,28 +9,41 @@ import { EventBus } from '../../../assets/phaser_engine/EventBus';
   template: '<div id="game-container"></div>',
   standalone: true
 })
-export class ClientGameplay implements OnInit {
-  scene: Phaser.Scene;
-  game : Phaser.Game;
-  sceneCallBack: (scene : Phaser.Scene) => void;
+export class ClientGameplay implements OnInit, OnDestroy {
+  // On utilise les types de Phaser pour garder l'intelligence de l'IDE
+  scene?: Phaser.Scene;
+  game?: Phaser.Game;
+  sceneCallBack?: (scene: Phaser.Scene) => void;
 
-  ngOnInit(): void {
-    this.game=StartGame('game-container');
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-    EventBus.on('current-scene-ready', (scene : Phaser.Scene) =>
-    {
-      this.scene = scene;
+  async ngOnInit(): Promise<void> {
+    // BLOCAGE SSR : On n'exécute le moteur de jeu QUE sur le navigateur
+    if (isPlatformBrowser(this.platformId)) {
+      
+      // Import dynamique de la fonction StartGame
+      // Cela évite que le serveur ne lise le fichier 'main.ts' de Phaser
+      const { default: StartGame } = await import('../../../assets/phaser_engine/main');
 
-      if(this.sceneCallBack){
-        this.sceneCallBack(scene);
-      }
+      // Initialisation du jeu
+      this.game = StartGame('game-container');
+
+      // Écoute de l'EventBus (déjà sécurisé de son côté)
+      EventBus.on('current-scene-ready', (scene: Phaser.Scene) => {
+        this.scene = scene;
+        if (this.sceneCallBack) {
+          this.sceneCallBack(scene);
+        }
+      });
     }
-    )
   }
 
-  ngOnDestroy(){
-    if(this.game){
+  ngOnDestroy(): void {
+    // On ne détruit le jeu que s'il a été créé (donc côté navigateur)
+    if (this.game) {
       this.game.destroy(true);
+      // Optionnel : Nettoyer l'EventBus pour éviter les fuites mémoire
+      EventBus.off('current-scene-ready');
     }
   }
 }
