@@ -4,6 +4,7 @@ import { Computer } from './components/computer/computer';
 import { Espace3d } from './components/espace3d/espace3d';
 import { ClientGame } from './components/client-game/client-game';
 import { Gitgame } from './components/gitgame/gitgame';
+import { Qulicegame } from './components/qulicegame/qulicegame';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'game/2',
     component: Gitgame
+  },
+    {
+    path: 'game/3',
+    component: Qulicegame
   }
 ];
