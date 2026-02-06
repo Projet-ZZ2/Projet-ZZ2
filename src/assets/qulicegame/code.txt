@@ -9,6 +9,6 @@ class ordinateur
 
     public connaitrememoire()
     {
-        return espace_memoire
+        return espace_memoire;
     }
 }
