@@ -5,6 +5,7 @@ import { ClientGame } from './components/client-game/client-game';
 import { Gitgame } from './components/gitgame/gitgame';
 import { Qulicegame } from './components/qulicegame/qulicegame';
 import { Desktop } from './components/desktop/desktop';
+import { Ctf } from './components/ctf/ctf';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,9 @@ export const routes: Routes = [
     {
     path: 'game/3',
     component: Qulicegame
+  },
+  {
+    path: 'game/4',
+    component: Ctf
   }
 ];
