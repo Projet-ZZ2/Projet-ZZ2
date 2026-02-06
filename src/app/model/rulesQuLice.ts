@@ -17,7 +17,7 @@ export const VALIDATION_RULES: Rule[] = [
     {
         id: 2,
         name: 'PascalCase pour la classe',
-        description: 'Les noms de classes doivent être en PascalCase.',
+        description: 'Les noms de classes doivent être en PascalCase, c\'est à dire avec une majuscule au début de chaque mot du texte concaténé.',
         status: 'locked',
         validator: (code) => {
             const classMatch = code.match(/class\s+([a-zA-Z0-9_]+)/);
@@ -29,7 +29,7 @@ export const VALIDATION_RULES: Rule[] = [
     {
         id: 3,
         name: 'CamleCase pour les méthodes',
-        description: 'Les noms de méthodes doivent être en camelCase.',
+        description: 'Les noms de méthodes doivent être en camelCase, c\'est à dire en minuscule au début puis avec des majuscules en début de chaque mot du texte concaténé.',
         status: 'locked',
         validator: (code) => {
             // Trouve les noms de méthodes (mot suivi de parenthèses)
