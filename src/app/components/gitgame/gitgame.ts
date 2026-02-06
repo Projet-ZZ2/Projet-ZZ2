@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'app-gitgame',
-  imports: [],
+  imports: [Computer],
   templateUrl: './gitgame.html',
   styleUrl: './gitgame.css',
 })

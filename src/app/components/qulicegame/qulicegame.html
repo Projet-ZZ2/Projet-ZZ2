@@ -1,0 +1,16 @@
+<h1>Jeu du formattage</h1>
+
+<p>Bienvenue dans le jeu du formattage !</p>
+<p>Le but du jeu est de formater correctement le code pour le rendre plus lisible et compréhensible.</p>
+
+<textarea name="message" rows="5" cols="40" placeholder="Entrez votre code"></textarea>
+
+<div class="rules-container">
+  <h2>Règles de validation</h2>
+  
+  <ul class="rules-list">
+    <li *ngFor="let rule of validationRules">
+      {{ rule.name }} - {{ rule.description }}
+    </li>
+  </ul>
+</div>

@@ -1,6 +1,6 @@
 .icon-container {
-    height: 12em;
-    width: 10em;
+    width: max-content;
+    height: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,14 +28,14 @@
 }
 
 img {
-    max-width: 70%;
-    height: auto;
+    width: 7em;
 }
 
 h4 {
     text-align: center;
+    width: 7em;
     font-family: "Pixelify Sans", sans-serif;
-    font-size: 1em;
+    font-size: 1.5em;
     color: whitesmoke;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
