@@ -1,36 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import Phaser from 'phaser';
-import StartGame from '../../../assets/phaser/main';
-import { EventBus } from '../../../assets/phaser/EventBus';
+import { Component, viewChild } from "@angular/core";
+import { ClientGameplay } from "./client-gameplay";
+//import { Game } from "../../../assets/phaser/scenes/Game";
+import {CommonModule} from '@angular/common'
+import { EventBus } from "../../../assets/phaser/EventBus";
 
 @Component({
-  selector: 'app-client-game',
-  templateUrl: './client-game.html',
-  styleUrl: './client-game.css',
-  standalone: true
+  selector: 'client-game',
+  standalone: true,
+  imports: [CommonModule, ClientGameplay],
+  templateUrl:'./client-game.html'
 })
-export class ClientGame implements OnInit {
-  scene: Phaser.Scene;
-  game : Phaser.Game;
-  sceneCallBack: (scene : Phaser.Scene) => void;
+export class ClientGame{
+  public spritePosition = { x: 0, y: 0 };
+  public canMoveSprite = false;
 
-  ngOnInit(): void {
-    this.game=StartGame('game-container');
+  
+  gameRef = viewChild.required(ClientGameplay);
 
-    EventBus.on('current-scene-ready', (scene : Phaser.Scene) =>
-    {
-      this.scene = scene;
-
-      if(this.sceneCallBack){
-        this.sceneCallBack(scene);
-      }
-    }
-    )
-  }
-
-  ngOnDestroy(){
-    if(this.game){
-      this.game.destroy(true);
-    }
+  constructor(){
+    EventBus.on('current-scene-ready', (scene : Phaser.Scene) => {
+      this.canMoveSprite = scene.scene.key !== 'MainMenu';
+    });
   }
 }
