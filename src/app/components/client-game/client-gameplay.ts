@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import Phaser from 'phaser';
-import StartGame from '../../../assets/phaser/main';
-import { EventBus } from '../../../assets/phaser/EventBus';
+import StartGame from '../../../assets/phaser_engine/main';
+import { EventBus } from '../../../assets/phaser_engine/EventBus';
 
 @Component({
-  selector: 'app-client-game',
+  selector: 'client-gameplay',
   template: '<div id="game-container"></div>',
   standalone: true
 })

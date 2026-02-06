@@ -2,7 +2,7 @@ import { Component, viewChild } from "@angular/core";
 import { ClientGameplay } from "./client-gameplay";
 //import { Game } from "../../../assets/phaser/scenes/Game";
 import {CommonModule} from '@angular/common'
-import { EventBus } from "../../../assets/phaser/EventBus";
+import { EventBus } from "../../../assets/phaser_engine/EventBus";
 
 @Component({
   selector: 'client-game',
