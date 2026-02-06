@@ -1,16 +1,25 @@
-<h1>Jeu du formattage</h1>
+<h1 class="game-title">Jeu du formattage</h1>
 
-<p>Bienvenue dans le jeu du formattage !</p>
-<p>Le but du jeu est de formater correctement le code pour le rendre plus lisible et compréhensible.</p>
+<div class="game-wrapper" ngSkipHydration>
+  <section class="editor-container">
+    <div class="header"><span class="file-icon"></span> code.txt</div>
+    
+    <textarea [(ngModel)]="codeContent" (input)="checkRules()" spellcheck="false"></textarea>
+    
+    <div class="action-bar">
+      <button (click)="submitGame()" [disabled]="!allRulesValid" class="submit-button">
+        Soumettre le code
+      </button>
+    </div>
+  </section>
 
-<textarea name="message" rows="5" cols="40" placeholder="Entrez votre code"></textarea>
-
-<div class="rules-container">
-  <h2>Règles de validation</h2>
-  
-  <ul class="rules-list">
-    <li *ngFor="let rule of validationRules">
-      {{ rule.name }} - {{ rule.description }}
-    </li>
-  </ul>
+  <aside class="rules-container">
+    <h3>Règles de validation</h3>
+    <div *ngFor="let rule of validationRules" class="rule-card" [ngClass]="rule.status">
+      <div class="rule-content">
+        <h4>{{ rule.name }}</h4>
+        <p *ngIf="rule.status !== 'locked'">{{ rule.description }}</p>
+      </div>
+    </div>
+  </aside>
 </div>
