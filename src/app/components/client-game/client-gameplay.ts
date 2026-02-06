@@ -40,7 +40,7 @@ export class ClientGameplay implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // On ne détruit le jeu que s'il a été créé (donc côté navigateur)
-    if (this.game) {
+    if (isPlatformBrowser(this.platformId) && this.game) {
       this.game.destroy(true);
       // Optionnel : Nettoyer l'EventBus pour éviter les fuites mémoire
       EventBus.off('current-scene-ready');

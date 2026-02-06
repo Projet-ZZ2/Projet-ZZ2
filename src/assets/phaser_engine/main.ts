@@ -1,24 +1,19 @@
 import { AUTO, Game } from 'phaser';
-import {Game as MainGame} from './scenes/Game'
-
-
-const windowWidth = typeof window !== 'undefined' ? window.innerWidth: 1920;
-const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 1080; 
-
-const config: Phaser.Types.Core.GameConfig = {
-    type: AUTO,
-    width: windowWidth,
-    height: windowHeight,
-    parent: 'game-container',
-    backgroundColor: '#028af8',
-    scene: [
-        MainGame
-     ]
-};
+import { Game as MainGame } from './scenes/Game';
 
 const StartGame = (parent: string) => {
-
-    return new Game({ ...config, parent });
+    const config: Phaser.Types.Core.GameConfig = {
+        type: AUTO,
+        parent,
+        backgroundColor: '#028af8',
+        scene: [MainGame],
+        scale: {
+            mode: Phaser.Scale.RESIZE,
+            autoCenter: Phaser.Scale.CENTER_BOTH
+        }
+    };
+    
+    return new Game(config);
 }
 
 export default StartGame;
