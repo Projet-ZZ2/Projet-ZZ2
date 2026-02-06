@@ -1,13 +1,8 @@
 .screen-container {
     display: block;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 97vw;
-    height: 95vh;
-    z-index: 1;
-    border-radius: 5vh;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
     /* Contour écran */
     border: 1vh solid #3a3a3a;
