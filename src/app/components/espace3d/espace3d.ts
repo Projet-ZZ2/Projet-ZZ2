@@ -63,7 +63,7 @@ export class Espace3d implements OnInit, OnDestroy {
       // 4. IMPORTANT: Run inside NgZone to update the UI
       this.ngZone.run(() => {
         if (str == 'SwitchToComputer') {
-          this.router.navigate(['/computer']);
+          this.router.navigate(['/desktop']);
         }
       });
     } catch (e) {
