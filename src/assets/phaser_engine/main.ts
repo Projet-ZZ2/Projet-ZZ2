@@ -1,12 +1,14 @@
 import { AUTO, Game } from 'phaser';
 import {Game as MainGame} from './scenes/Game'
 
-// Find out more information about the Game Config at:
-// https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
+
+const windowWidth = typeof window !== 'undefined' ? window.innerWidth: 1920;
+const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 1080; 
+
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
-    width: 1024,
-    height: 768,
+    width: windowWidth,
+    height: windowHeight,
     parent: 'game-container',
     backgroundColor: '#028af8',
     scene: [
