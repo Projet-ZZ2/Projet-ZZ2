@@ -1,0 +1,9 @@
+<app-computer>
+    <div class="wallpaper">
+        <div class="computer-apps">
+            @for (icon of computerIcons; track icon.id) {
+                <app-computer-icon [icon]="icon"></app-computer-icon>
+            }
+        </div>
+    </div>
+</app-computer>
