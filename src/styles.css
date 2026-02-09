@@ -12,3 +12,9 @@ html, body {
 * {
     box-sizing: border-box;
 }
+
+h1{
+    font-family: 'Pixelify Sans', sans-serif;
+    text-align: center;
+    margin-top: 40px;
+}

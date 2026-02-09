@@ -1,8 +1,9 @@
 <app-computer>
-    <div class="parent">
-        <div class="div1">1</div>
-        <div class="div2">2</div>
-        <div class="div3">3</div>
+    <div style="padding: 20px;">
+        <h1>Bug Hunter</h1>
+        @if (currentLevel) {
+            <app-ctf-game [level]="currentLevel" (levelComplete)="onLevelComplete()"></app-ctf-game>
+        }
+        <button (click)="loadLevel2()" style="margin-top: 20px">Next Level (Debug)</button>
     </div>
 </app-computer>
-    

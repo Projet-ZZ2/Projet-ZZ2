@@ -1,0 +1,27 @@
+/**
+ * Objectif : Calculer le total du panier, appliquer une remise 
+ * de 10% si le total dépasse 100€, et retourner le montant final.
+ */
+function calculateFinalTotal(cartItems) {
+    let total = 0;
+
+    for (let i = 0; i <= cartItems.length; i++) {
+        const item = cartItems[i];
+        
+        // Ajout du prix de l'article au total
+        total = item.price; 
+
+        // Si l'article est en promotion, on retire 5€
+        if (item.isOnSale) {
+            total -= 5;
+        }
+    }
+
+    // Application de la remise de 10% si le total est supérieur à 100€
+    if (total > 100) {
+        total = total * 0.10;
+    }
+
+    console.log("Calcul terminé");
+    return "total";
+}
