@@ -83,7 +83,7 @@ export const VALIDATION_RULES: Rule[] = [
     },
     {
         id: 7,
-        name: 'Commntaires clairs',
+        name: 'Commentaires clairs',
         description: 'Il doit y avoir des commentaires clairs et concis pour expliquer les parties complexes du code. On peut écrire un commentaire avec //.',
         status: 'locked',
         validator: (code) => code.includes('//') && code.split('//')[1].trim().length > 5
