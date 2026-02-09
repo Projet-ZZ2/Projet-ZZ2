@@ -1,0 +1,54 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <div class="window-controls">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="filename">{{ level.name || 'challenge.ts' }}</div>
+  </div>
+
+  <div class="mission-brief">
+    {{ level.description }}
+  </div>
+
+  <div class="code-body">
+    <div class="gutter">
+      @for (line of level.codeLines; track $index) {
+        <div class="line-number">
+          {{ $index + 1 }}
+        </div>
+      }
+    </div>
+
+    <div class="content">
+      @for (line of level.codeLines; track $index) {
+        <div class="code-line">
+          @for (token of line; track token.id; let tokenIndex = $index) {
+            @if (token.isWhitespace && tokenIndex === 0) {
+                {{ token.text }}
+            }
+            @else if (!token.isWhitespace) {
+                <span 
+                class="token"
+                [ngClass]="[
+                    token.type, 
+                    foundTarget && token.id === level.targetId ? 'winner' : '',
+                    clickedWrongId === token.id ? 'shaker' : ''
+                ]"
+                (click)="handleTokenClick(token)">
+                {{ token.text }}
+                </span>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+  
+  @if (foundTarget) {
+    <div class="success-overlay">
+      <h2>BUG FOUND!</h2>
+    </div>
+  }
+</div>

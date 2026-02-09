@@ -1,0 +1,147 @@
+/* 1. Define variables at the root or host level */
+:host {
+  --bg-color: #1e1e1e;
+  --gutter-bg: #252526;
+  --text-color: #d4d4d4;
+  --keyword: #569cd6;
+  --function: #dcdcaa;
+  --string: #ce9178;
+  --number: #b5cea8;
+  --comment: #6a9955;
+  --operator: #d4d4d4;
+}
+
+.editor-container {
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #333;
+}
+
+.editor-header {
+  background-color: #333;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+.window-controls .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.window-controls .dot.red { background: #ff5f56; }
+.window-controls .dot.yellow { background: #ffbd2e; }
+.window-controls .dot.green { background: #27c93f; }
+
+.filename {
+  color: #ccc;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.mission-brief {
+  background: #2d2d2d;
+  color: #fff;
+  padding: 8px 15px;
+  border-bottom: 1px solid #3e3e3e;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code-body {
+  display: flex;
+  position: relative;
+}
+
+.gutter {
+  background-color: var(--gutter-bg);
+  padding: 15px 10px;
+  text-align: right;
+  color: #858585;
+  user-select: none;
+  min-width: 40px;
+  border-right: 1px solid #333;
+}
+
+.content {
+  padding: 15px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.code-line {
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.token {
+  cursor: pointer;
+  transition: background 0.1s;
+  border-radius: 3px;
+}
+
+.token:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Syntax Highlighting using CSS Variables */
+.token.keyword { color: var(--keyword); }
+.token.function { color: var(--function); }
+.token.string { color: var(--string); }
+.token.number { color: var(--number); }
+.token.comment { color: var(--comment); }
+.token.operator { color: var(--operator); }
+
+/* Game States */
+.token.winner {
+  background-color: #27c93f !important;
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 0 10px #27c93f;
+}
+
+.token.shaker {
+  display: inline-block;
+  color: #ff5f56 !important;
+  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+.success-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #27c93f;
+  font-size: 2rem;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
