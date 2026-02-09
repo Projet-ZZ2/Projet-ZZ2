@@ -68,11 +68,8 @@ export class LevelGeneratorService {
         }
 
         // Check if this is the winner
-        // We trim whitespace to ensure strict matching isn't ruined by spaces
         let isTarget = text === winningText;
         
-        // Fail-safe: If the winning text didn't appear yet, and this matches, set it.
-        // If there are multiple occurrences, this logic picks the first one (or you can customize).
         if (isTarget && !targetFound) {
             targetFound = true;
             tokens.push({ text, type, id: targetId, isWhitespace }); 

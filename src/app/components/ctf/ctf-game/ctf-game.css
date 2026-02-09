@@ -88,6 +88,11 @@
   white-space: pre;
 }
 
+.whitespace {
+  pointer-events: none;
+  user-select: none;
+}
+
 .token {
   cursor: pointer;
   transition: background 0.1s;
