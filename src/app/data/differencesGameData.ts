@@ -20,7 +20,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 2 : L\'accès aux données',
-      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit.',
+      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès à l\'ID la première du tableau.',
       buggyCode: `function userId(users) {\n  const id = users.id;\n  return id;\n}`,
       correctCode: `function userId(users) {\n  const id = users[0].id;\n  return id;\n}`,
       language: 'javascript',
@@ -33,7 +33,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 3 : L\'Assignation',
-      instructions: 'La condition de ce IF est toujours vraie. Trouve pourquoi.',
+      instructions: 'La condition de ce IF est toujours vraie. Trouve pourquoi (=== sert à comparer deux variables).',
       buggyCode: `if (user.isAdmin = true) {\n  grantAccess();\n}`,
       correctCode: `if (user.isAdmin === true) {\n  grantAccess();\n}`,
       language: 'javascript',
