@@ -1,59 +1,55 @@
-# Zz2Project
+# Documentation
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Ce fichier a pour but de décrire chacun des mini-jeux produits ainsi que la structure globale du site.
 
-## Development server
+## Mini-jeux
 
-To start a local development server, run:
+### Jeu de QuLice
 
-```bash
-ng serve
-```
+Le but de ce mini-jeu est d'apprendre à l'utilisateur a rendre un code propre et formatté selon certaines règles. L'utilisateur a à sa disposition un morceau de code qu'il peut modifier, et à sa droite une liste de consignes qui se débloquent au fur et à mesure que l'utilisateur améliore le code. Si l'utilisateur modifie le fichier et rajoute une erreur de formattage qui avait été validée auparavant, il retombe à la consigne concernant ce point.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Plusieurs concepts sont introduits à l'utilisateur :
+* Nom sensé : Avoir des noms de variables clairs et en lien avec leur rôle.
+* PascalCase : MaSuperClasse (Majuscule partout).
+* camelCase : maSuperMethode (Minuscule au début).
+* Ne pas écrire des lignes trop longues : ne pas excéder 120 caractères par ligne.
+* Indentation : Garder un espacement de 4 colonnes partout pour les indentations.
+* Style Allman : L'accolade \{ doit être seule sur sa ligne, juste en dessous de la déclaration.
+* Commenter : Le code doit avoir au moins un commentaire.
 
-## Code scaffolding
+### Jeu du développeur
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Le but de ce mini-jeu est d'apprendre à l'utilisateur à corriger les erreurs de type sémantique. On lui fournit plusieurs petits bouts de code avec une erreur dedans, et il doit corriger l'erreur afin de débloquer le niveau suivant.
 
-```bash
-ng generate component component-name
-```
+Note : l'utilisateur dispose d'un fichier d'aide pour par exemple mieux comprendre la syntaxe '=' vs '==='.
+Il lui est aussi précisé le langage utilisé : Javascript.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Voilà les différentes erreurs (etb leur correction si l'utilisateur est bloqué) :
+* Erreur d'index (Out of Bounds)
+- Problème : Utilisation de i <= users.length dans une boucle for.
+- Conséquence : La boucle tente d'accéder à un élément après le dernier index du tableau (qui n'existe pas), ce qui renvoie undefined ou fait planter le programme.
+- Correction : Utiliser < au lieu de <=.
+* Erreur d'accès à la structure de données
+- Problème : Tentative d'accès à une propriété (users.id) directement sur un tableau.
+- Conséquence : Un tableau n'a pas de propriété id. L'erreur est d'oublier de préciser quel élément du tableau on cible.
+- Correction : Cibler le premier élément avec users[0].id.
+* Erreur d'assignation vs Comparaison
+- Problème : Utilisation d'un seul signe égal (=) dans une condition if.
+- Conséquence : Au lieu de vérifier si l'utilisateur est admin, le code force la valeur à true. La condition est donc toujours validée.
+- Correction : Utiliser l'opérateur de comparaison stricte ===.
+* Erreur de logique mathématique
+- Problème : Multiplication par 1 (score * 1) pour essayer d'incrémenter une valeur.
+- Conséquence : Le score reste identique, car n'importe quel nombre multiplié par 1 ne change pas.
+- Correction : Utiliser l'addition (+ 1).
+* Erreur de type de variable
+- Problème : Appel de la méthode .push() sur une variable initialisée comme un nombre (0).
+- Conséquence : La méthode .push() n'existe que sur les tableaux. Le code génère une erreur de type (TypeError).
+- Correction : Initialiser la variable comme un tableau vide [].
+* Erreur de portée (Scope) de boucle
+- Problème : Le console.log de fin est placé à l'intérieur des accolades {} de la boucle for.
+- Conséquence : Le message s'affiche à chaque répétition (5 fois) au lieu de s'afficher une seule fois à la fin du traitement.
+- Correction : Déplacer l'instruction après l'accolade de fermeture de la boucle.
+* Erreur de syntaxe (Variable vs Chaîne de caractères)
+- Problème : Retour de "result" (avec guillemets) au lieu de result.
+- Conséquence : La fonction renvoie le mot "result" littéralement au lieu de renvoyer la valeur contenue dans la variable (le chiffre 42).
+- Correction : Retirer les guillemets pour référencer la variable.
