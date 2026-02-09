@@ -1,0 +1,32 @@
+<div class="desktop">
+  <div class="icon-grid">
+    <div *ngFor="let file of differencesService.getIcons()" 
+         (click)="openFile(file)" 
+         class="file-icon"
+         [class.locked]="file.isLocked">
+      <span class="icon">📄</span>
+      <span class="label">{{ file.label }}</span>
+      <span *ngIf="file.isResolved">✅</span>
+    </div>
+  </div>
+
+  <div class="editor-window" *ngIf="selectedFile">
+    <div class="editor-header">
+      <span>{{ selectedFile.content?.title }}</span>
+      <button (click)="selectedFile = null">X</button>
+    </div>
+    
+    <div class="editor-body">
+      <div class="instructions">
+        <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
+      </div>
+      
+      <textarea [(ngModel)]="userCode" spellcheck="false"></textarea>
+      
+      <div class="footer">
+        <p class="feedback">{{ feedback }}</p>
+        <button (click)="checkCorrection()">Sauvegarder et Compiler</button>
+      </div>
+    </div>
+  </div>
+</div>
