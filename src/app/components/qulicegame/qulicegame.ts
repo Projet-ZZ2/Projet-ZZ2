@@ -1,6 +1,5 @@
 import { Component, OnInit, afterNextRender, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
@@ -23,7 +22,6 @@ export class Qulicegame implements OnInit {
   validationRules: Rule[] = VALIDATION_RULES;
 
   constructor(
-    private http: HttpClient, 
     private cdr: ChangeDetectorRef
   ) {
     afterNextRender(() => {
@@ -47,18 +45,19 @@ export class Qulicegame implements OnInit {
     return this.validationRules.every(rule => rule.status === 'success');
   }
 
-  loadCode() {
-    this.http.get('assets/qulicegame/code.txt', { responseType: 'text' })
-      .subscribe({
-        next: (data) => {
-          this.codeContent = data;
-          this.initialCode = data;
-          this.checkRules(); // Vérification initiale
+  async loadCode() {
+    try {
+      const response = await fetch('assets/qulicegame/code.txt');
+      const data = await response.text();
+      
+      this.codeContent = data;
+      this.initialCode = data;
+      this.checkRules(); // Vérification initiale
 
-          this.cdr.detectChanges();
-        },
-        error: (err) => console.error("Erreur de chargement du fichier code.txt", err)
-      });
+      this.cdr.detectChanges();
+    } catch (err) {
+      console.error("Erreur de chargement du fichier code.txt", err);
+    }
   }
 
   checkRules() {

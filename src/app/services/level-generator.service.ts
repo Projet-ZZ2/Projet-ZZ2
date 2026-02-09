@@ -24,7 +24,7 @@ export class LevelGeneratorService {
 
   // A mini-lexer regex to split code into tokens
   // Captures: Comments, Strings, Numbers, Words, Punctuation, Whitespace
-  private tokenRegex = /(\/\/.*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b\d+\b|[a-zA-Z_$][a-zA-Z0-9_$]*|[{}()\[\].,:;+\-*/%&|^!=<>?~]|\s+)/g;
+  private tokenRegex = /(\/\/.*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b\d+[a-zA-Z%]*\b|\b\d+\b|[a-zA-Z_$][a-zA-Z0-9_$]*|[{}()\[\].,:;+\-*/%&|^!=<>?~]|\s+)/g;
 
   private keywords = new Set([
     'const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while', 

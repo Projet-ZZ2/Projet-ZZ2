@@ -4,6 +4,7 @@ import { CtfGame } from './ctf-game/ctf-game';
 import { LevelGeneratorService } from '../../services/level-generator.service';
 import { GameLevel } from '../../services/level-generator.service';
 import { Computer } from "../computer/computer";
+import { LEVEL_CONFIGS } from '../../data/ctf-data';
 
 @Component({
   selector: 'app-ctf',
@@ -13,55 +14,33 @@ import { Computer } from "../computer/computer";
 })
 export class Ctf implements OnInit {
   currentLevel!: GameLevel;
+  currentLevelIndex = 0;
 
-  level1Code = `
-function calculateTotal(price, tax) {
-  const total = price + tax;
-  console.log("Calculated!");
-  return total;
-}`;
-
-  level2Code = `
-import { User } from './models';
-
-export class AuthService {
-  login(user: User) {
-    if (user.password === "admin123") {
-       return true;
-    }
-    return false;
-  }
-}`;
-
-  constructor(private levelGen: LevelGeneratorService) { }
+  constructor(private levelGen: LevelGeneratorService) {}
 
   ngOnInit() {
-    this.loadLevel1();
+    this.loadLevel(0);
   }
 
-  loadLevel1() {
-    // Arguments: ID, Filename, Hint, Raw Code, The Winning Snippet
-    this.currentLevel = this.levelGen.generateLevel(
-      1,
-      'cart.utils.js',
-      "Ce code n'est pas encore prêt pour la prod...",
-      this.level1Code,
-      'console' // User has to click the word "console"
-    );
-  }
+  loadLevel(index: number) {
 
-  loadLevel2() {
+    if (index >= LEVEL_CONFIGS.length) {
+      alert("Tu as trouvé tous les bugs !");
+      return;
+    }
+
+    const config = LEVEL_CONFIGS[index];
+
     this.currentLevel = this.levelGen.generateLevel(
-      2,
-      'auth.service.ts',
-      'Un F5 serait traumatisé en voyant ça...',
-      this.level2Code,
-      '"admin123"' // Note: includes quotes because the lexer keeps quotes on strings
+      config.id,
+      config.name,
+      config.description,
+      config.code,
+      config.target
     );
   }
 
   onLevelComplete() {
-    alert("Level Complete! Loading next...");
-    this.loadLevel2();
+    this.loadLevel(++this.currentLevelIndex);
   }
 }
