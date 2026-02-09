@@ -3,11 +3,9 @@ name: CI/CD Angular Heroku
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main] # Déclenche la vérification lors d'une tentative de fusion
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,17 +17,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
       - name: Install and Build
         run: |
           npm ci
-          npm run build -- --configuration production
+          npm run build
+      
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
 
-      # Cette étape et les suivantes ne s'exécuteront que si le build réussit.
-      # De plus, on ajoute une condition pour ne pas déployer lors d'un test de PR.
       - name: Deploy to Heroku
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: akhileshns/heroku-deploy@v3.12.14
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
