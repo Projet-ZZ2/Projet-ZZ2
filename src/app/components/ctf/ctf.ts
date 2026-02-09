@@ -18,7 +18,7 @@ export class Ctf implements OnInit {
 function calculateTotal(price, tax) {
   const total = price + tax;
   console.log("Calculated!");
-  return total; // TODO: Remove before prod
+  return total;
 }`;
 
   level2Code = `
@@ -44,7 +44,7 @@ export class AuthService {
     this.currentLevel = this.levelGen.generateLevel(
       1,
       'cart.utils.js',
-      'Someone left a console log in production code. Remove it.',
+      "Ce code n'est pas encore prêt pour la prod...",
       this.level1Code,
       'console' // User has to click the word "console"
     );
@@ -54,7 +54,7 @@ export class AuthService {
     this.currentLevel = this.levelGen.generateLevel(
       2,
       'auth.service.ts',
-      'Security Alert: Hardcoded credentials found.',
+      'Un F5 serait traumatisé en voyant ça...',
       this.level2Code,
       '"admin123"' // Note: includes quotes because the lexer keeps quotes on strings
     );
