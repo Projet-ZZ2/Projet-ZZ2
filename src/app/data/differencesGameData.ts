@@ -2,6 +2,19 @@ import { DifferencesGameModel } from "../model/differencesGameModel";
 
 export const DIFFERENCES: DifferencesGameModel[] = [
   {
+    id: 0, // ID spécial pour l'aide
+    label: 'Aide système',
+    type: 'file',
+    content: {
+      title: 'Aide - Bloc-notes',
+      instructions: 'Consultez les indications pour réussir les tests.',
+      buggyCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
+      correctCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
+      language: 'text',
+      errorsFound: []
+    }
+  },
+  {
     id: 1,
     label: 'Boucle Infinie',
     type: 'file',
@@ -20,7 +33,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 2 : L\'accès aux données',
-      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit.',
+      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès à l\'ID la première du tableau.',
       buggyCode: `function userId(users) {\n  const id = users.id;\n  return id;\n}`,
       correctCode: `function userId(users) {\n  const id = users[0].id;\n  return id;\n}`,
       language: 'javascript',

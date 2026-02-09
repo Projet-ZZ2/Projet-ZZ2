@@ -39,4 +39,22 @@ export class DifferencesGame {
       this.feedback = "Il reste encore une erreur sémantique...";
     }
   }
+
+  openHelp() {
+    const helpFile: DifferencesGameModel = {
+      id: -1,
+      label: 'Aide',
+      type: 'help' as any,
+      content: {
+        title: 'Aide - Bloc-notes',
+        instructions: 'Indications pour le développement.',
+        buggyCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nIndications :\n- === sert à comparer.\n- Tableau : let tab = [].`,
+        correctCode: '', 
+        language: 'text',
+        errorsFound: []
+      }
+    } as any;
+    this.selectedFile = helpFile;
+    this.userCode = helpFile.content?.buggyCode ?? '';
+  }
 }

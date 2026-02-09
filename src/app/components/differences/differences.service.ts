@@ -13,8 +13,9 @@ export class DifferencesService {
     isResolved: false
   }));
 
+// Dans ton differences.service.ts
   getIcons() {
-    return this.icons;
+    return this.icons.filter(icon => icon.id !== 0);
   }
 
   // Permet au composant de récupérer les détails du fichier cliqué
