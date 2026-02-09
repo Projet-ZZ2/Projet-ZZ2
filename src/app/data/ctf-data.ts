@@ -59,7 +59,7 @@ console.log("Terminé");`
   {
     id: 5,
     name: 'stripe.service.ts',
-    description: "ALERTE SÉCURITÉ : Un développeur a commis une clé secrète !",
+    description: "ALERTE SÉCURITÉ : Un développeur a commit une clé secrète !",
     target: '"sk_live_8347583745"',
     code: `import { Stripe } from 'stripe';
 
