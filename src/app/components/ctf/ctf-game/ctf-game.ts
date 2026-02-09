@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CodeToken, GameLevel } from '../../../services/level-generator.service';
 import { CommonModule } from '@angular/common';
 
@@ -8,13 +8,21 @@ import { CommonModule } from '@angular/common';
   templateUrl: './ctf-game.html',
   styleUrl: './ctf-game.css',
 })
-export class CtfGame {
+export class CtfGame implements OnChanges {
   @Input() level!: GameLevel;
   @Output() levelComplete = new EventEmitter<boolean>();
 
   // UI State
   foundTarget = false;
   clickedWrongId: string | null = null;
+
+  ngOnChanges(changes: SimpleChanges) {
+    // If the parent passed a new level, reset the game state
+    if (changes['level']) {
+      this.foundTarget = false;
+      this.clickedWrongId = null;
+    }
+  }
 
   handleTokenClick(token: CodeToken) {
     if (this.foundTarget) return; // Game over already
