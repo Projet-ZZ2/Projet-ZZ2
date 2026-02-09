@@ -1,27 +1,57 @@
-import { Component, viewChild, Inject, PLATFORM_ID } from "@angular/core";
-import { ClientGameplay } from "./client-gameplay";
-import { CommonModule, isPlatformBrowser } from '@angular/common'; // Ajoutez isPlatformBrowser
-import { EventBus } from "../../../assets/phaser_engine/EventBus";
+import { Component, signal, computed, ChangeDetectionStrategy } from "@angular/core";
+import { CommonModule } from '@angular/common';
+import { ClientGameService } from '../../services/client-game.service';
+import { InterviewComponent } from './components/interview/interview.component';
+import { InsightsComponent } from './components/insights/insights.component';
+import { PersonaComponent } from './components/persona/persona.component';
+import { MaquetteComponent } from './components/maquette/maquette.component';
+import { ResultsComponent } from './components/results/results.component';
 
 @Component({
   selector: 'client-game',
   standalone: true,
-  imports: [CommonModule, ClientGameplay],
-  templateUrl: './client-game.html'
+  imports: [
+    CommonModule,
+    InterviewComponent,
+    InsightsComponent,
+    PersonaComponent,
+    MaquetteComponent,
+    ResultsComponent
+  ],
+  templateUrl: './client-game.html',
+  styleUrls: ['./client-game.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientGame {
-  public spritePosition = { x: 0, y: 0 };
-  public canMoveSprite = false;
+  
+  // Signaux pour l'état du jeu
+  currentStep = this.gameService.currentStep;
+  score = this.gameService.score;
+  canProceed = this.gameService.canProceedToNextStep;
 
-  gameRef = viewChild.required(ClientGameplay);
+  constructor(private gameService: ClientGameService) {}
 
-  // Injectez PLATFORM_ID
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    // N'écoutez les événements QUE dans le navigateur
-    if (isPlatformBrowser(this.platformId)) {
-      EventBus.on('current-scene-ready', (scene: any) => {
-        this.canMoveSprite = scene.scene.key !== 'MainMenu';
-      });
-    }
+  startGame(): void {
+    this.gameService.startGame();
+  }
+
+  proceedToInsights(): void {
+    this.gameService.proceedToInsights();
+  }
+
+  proceedToPersona(): void {
+    this.gameService.proceedToPersona();
+  }
+
+  proceedToMaquette(): void {
+    this.gameService.proceedToMaquette();
+  }
+
+  finishGame(): void {
+    this.gameService.finishGame();
+  }
+
+  restartGame(): void {
+    this.gameService.startGame();
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-// On importe uniquement les types (ceci disparait au build et ne fait pas planter le SSR)
 import type Phaser from 'phaser';
 import { EventBus } from '../../../assets/phaser_engine/EventBus';
 
