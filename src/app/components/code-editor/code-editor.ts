@@ -7,8 +7,8 @@ import { DifferencesGameModel } from '../../model/differencesGameModel';
   selector: 'app-code-editor',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './code-editor.component.html',
-  styleUrls: ['./code-editor.component.css']
+  templateUrl: './code-editor.html',
+  styleUrls: ['./code-editor.css']
 })
 export class CodeEditorComponent {
   @Input() file: DifferencesGameModel | null = null;

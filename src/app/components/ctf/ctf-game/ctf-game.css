@@ -17,7 +17,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   font-family: 'Fira Code', 'Consolas', monospace;
   overflow: hidden;
-  max-width: 800px;
   margin: 0 auto;
   border: 1px solid #333;
 }

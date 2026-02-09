@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CodeEditor } from './code-editor';
+import { CodeEditorComponent } from './code-editor';
 
 describe('CodeEditor', () => {
-  let component: CodeEditor;
-  let fixture: ComponentFixture<CodeEditor>;
+  let component: CodeEditorComponent;
+  let fixture: ComponentFixture<CodeEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CodeEditor]
+      imports: [CodeEditorComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CodeEditor);
+    fixture = TestBed.createComponent(CodeEditorComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
