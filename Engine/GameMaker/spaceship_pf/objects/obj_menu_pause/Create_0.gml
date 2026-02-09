@@ -1,0 +1,1 @@
+menu_type = (room == R1_Menu) ? "menu" : "pause";
