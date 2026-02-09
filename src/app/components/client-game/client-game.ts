@@ -40,7 +40,7 @@ export class ClientGame {
   }
 
   proceedToPersona(): void {
-    this.gameService.proceedToPersona();
+    this.gameService.proceedToPersona(); 
   }
 
   proceedToMaquette(): void {
