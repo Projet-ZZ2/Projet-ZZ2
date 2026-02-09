@@ -1,140 +1,228 @@
-/* Conteneur principal */
+/* --- GLOBAL WINDOWS XP STYLE --- */
+
 .desktop {
-  background-color: #008080; /* Vert sarcelle rétro */
-  min-height: 500px;
-  padding: 20px;
+  background-color: #ece9d8; /* Fond beige clair XP */
+  border: 3px solid #0055e5;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  height: 600px;
+  width: 950px;
+  margin: 20px auto;
+  font-family: 'Tahoma', sans-serif;
+  color: black;
+  box-sizing: border-box;
   position: relative;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  user-select: none;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Grille d'icônes */
+/* --- SIDEBAR XP (Le fameux volet bleu à gauche) --- */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #748ef3 0%, #d3e5fa 100%);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 1px solid #748ef3;
+}
+
+.sidebar h3 {
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 10px;
+  background: linear-gradient(90deg, #2151e0, #748ef3);
+  color: white;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+}
+
+.sidebar-info {
+  background-color: #ffffff;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+  font-size: 11px;
+  color: #2151e0;
+  border: 1px solid #ffffff;
+  margin-top: -1px;
+}
+
+/* --- MAIN CONTENT AREA --- */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+/* Toolbar XP Style */
+.toolbar {
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.address-bar {
+  background: white;
+  border: 1px solid #7f9db9;
+  flex-grow: 1;
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* --- ICON GRID --- */
 .icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 20px;
+  gap: 15px;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .file-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
   padding: 10px;
+  cursor: pointer;
   border: 1px solid transparent;
-  transition: all 0.2s;
+  border-radius: 4px;
 }
 
 .file-icon:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px dotted #eee;
+  background-color: #e5f3ff;
+  border: 1px solid #7da2ce;
 }
 
 .file-icon .icon {
   font-size: 40px;
-  margin-bottom: 5px;
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
 }
 
 .file-icon .label {
-  color: white;
-  text-shadow: 1px 1px 2px black;
-  font-size: 14px;
+  font-size: 11px;
+  color: #000;
+  margin-top: 5px;
   text-align: center;
 }
 
-/* État verrouillé */
 .file-icon.locked {
-  opacity: 0.5;
+  opacity: 0.3;
   filter: grayscale(100%);
-  cursor: not-allowed;
 }
 
+/* --- THE EDITOR WINDOW (LUNA THEME) --- */
 .editor-window {
   position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  max-width: 700px;
-  background-color: #c0c0c0; /* Gris Windows 95 */
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff; /* Effet relief */
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-  z-index: 100;
+  top: 40px;
+  left: 240px;
+  width: 600px;
+  background-color: #ece9d8;
+  border: 3px solid #0055e5;
+  border-radius: 8px 8px 0 0;
+  z-index: 1000;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
 }
 
-/* Barre de titre bleue */
 .editor-header {
-  background: linear-gradient(90deg, #000080, #1084d0);
+  background: linear-gradient(180deg, #0058e6 0%, #3a89fb 10%, #0055e5 50%, #0046d5 100%);
   color: white;
-  padding: 4px 8px;
+  padding: 6px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
+  font-size: 13px;
+  border-radius: 5px 5px 0 0;
+  text-shadow: 1px 1px 1px #000;
 }
 
+/* Bouton fermer rouge XP */
 .editor-header button {
-  background: #c0c0c0;
-  border: 1px solid black;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(180deg, #e76c4a, #c13415);
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
 }
+
+/* --- CORRECTIF TEXTAREA --- */
 
 .editor-body {
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.instructions {
-  background: #ffffca; /* Post-it jaune */
-  border: 1px solid #e6db55;
-  padding: 10px;
-  color: #333;
-  font-size: 14px;
+  box-sizing: border-box; /* Assure que le padding ne fait pas grossir le conteneur */
 }
 
 textarea {
-  width: 100%;
-  height: 200px;
+  width: 100%;           /* Prend toute la largeur disponible... */
+  max-width: 100%;       /* ...mais pas un pixel de plus */
+  height: 280px;
   background-color: white;
-  color: #1e1e1e;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 15px;
+  border: 1px solid #7f9db9;
   padding: 10px;
-  border: 2px inset #eee;
-  box-sizing: border-box;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
   outline: none;
-  white-space: pre; /* Garde l'indentation du code */
+  
+  /* LA CLÉ DU BUG : */
+  box-sizing: border-box; /* Force le navigateur à inclure le padding/border dans les 100% */
+  
+  resize: none;          /* Optionnel : empêche l'utilisateur de casser ton layout XP */
+  white-space: pre;      /* Important pour garder l'indentation du code */
+  overflow-x: auto;      /* Ajoute une scrollbar horizontale si une ligne est trop longue */
 }
 
+.instructions {
+  width: 100%;
+  box-sizing: border-box; /* Même chose ici pour les consignes */
+  background-color: #fff;
+  border: 1px solid #7f9db9;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* --- BUTTONS & FEEDBACK --- */
 .footer {
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .feedback {
+  font-size: 13px;
+  color: #0018cc;
+}
+
+/* Bouton valider vert XP */
+button.check-btn {
+  background: linear-gradient(180deg, #94e364, #3a9121);
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 20px;
   font-weight: bold;
-  color: #d32f2f; /* Rouge erreur par défaut */
-}
-
-/* Bouton rétro */
-button {
-  padding: 6px 15px;
-  background: #c0c0c0;
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
   cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
-button:active {
-  border-color: #808080 #ffffff #ffffff #808080;
+button.check-btn:hover {
+  filter: brightness(1.1);
+}
+
+button.check-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
 }

@@ -1,38 +1,52 @@
-<p>Ce jeu fonctionne à l'aide de Javascript.</p>
-<p>Voici quelques indications :</p>
-<ul>
-  <li>=== sert à comparer deux variables.</li>
-  <li>Pour créer un tableau, on fait let tab = [].</li>
-</ul>
+<h1>Jeu du développeur</h1>
 
 <div class="desktop">
-  <div class="icon-grid">
-    <div *ngFor="let file of differencesService.getIcons()" 
-         (click)="openFile(file)" 
-         class="file-icon"
-         [class.locked]="file.isLocked">
-      <span class="icon">📄</span>
-      <span class="label">{{ file.label }}</span>
-      <span *ngIf="file.isResolved">✅</span>
+  <div class="sidebar">
+    <h3>Tâches système</h3>
+    <div class="sidebar-info">Sélectionnez un fichier pour corriger les erreurs.</div>
+  </div>
+
+  <div class="main-content">
+    <div class="toolbar">
+      <div class="address-bar">C:\WINDOWS\system32\drivers\code</div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="file-icon" (click)="openHelp()">
+        <span class="icon">❓</span>
+        <span class="label">Aide système</span>
+      </div>
+
+      <div *ngFor="let file of differencesService.getIcons()" 
+           (click)="openFile(file)" 
+           class="file-icon"
+           [class.locked]="file.isLocked">
+        <span class="icon">📄</span>
+        <span class="label">{{ file.label }}</span>
+        <span *ngIf="file.isResolved">✅</span>
+      </div>
     </div>
   </div>
 
   <div class="editor-window" *ngIf="selectedFile">
     <div class="editor-header">
-      <span>{{ selectedFile.content?.title }}</span>
+      <span>{{ selectedFile.content?.title }} - Bloc-notes</span>
       <button (click)="selectedFile = null">X</button>
     </div>
     
     <div class="editor-body">
-      <div class="instructions">
+      <div class="instructions" *ngIf="selectedFile.id !== -1">
         <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
       </div>
-      
-      <textarea [(ngModel)]="userCode" spellcheck="false"></textarea>
+
+      <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
       
       <div class="footer">
-        <p class="feedback">{{ feedback }}</p>
-        <button (click)="checkCorrection()">Sauvegarder et Compiler</button>
+        <p class="feedback" *ngIf="selectedFile.id !== -1">{{ feedback }}</p>
+        
+        <button *ngIf="selectedFile.id !== -1" class="check-btn" (click)="checkCorrection()">
+          Vérifier
+        </button>
       </div>
     </div>
   </div>

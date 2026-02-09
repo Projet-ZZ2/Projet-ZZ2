@@ -2,6 +2,19 @@ import { DifferencesGameModel } from "../model/differencesGameModel";
 
 export const DIFFERENCES: DifferencesGameModel[] = [
   {
+    id: 0, // ID spécial pour l'aide
+    label: 'Aide système',
+    type: 'file',
+    content: {
+      title: 'Aide - Bloc-notes',
+      instructions: 'Consultez les indications pour réussir les tests.',
+      buggyCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
+      correctCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
+      language: 'text',
+      errorsFound: []
+    }
+  },
+  {
     id: 1,
     label: 'Boucle Infinie',
     type: 'file',
@@ -33,7 +46,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 3 : L\'Assignation',
-      instructions: 'La condition de ce IF est toujours vraie. Trouve pourquoi (=== sert à comparer deux variables).',
+      instructions: 'La condition de ce IF est toujours vraie. Trouve pourquoi.',
       buggyCode: `if (user.isAdmin = true) {\n  grantAccess();\n}`,
       correctCode: `if (user.isAdmin === true) {\n  grantAccess();\n}`,
       language: 'javascript',
