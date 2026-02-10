@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache : 'npm'
 
       - name: Install and Build
         run: |
@@ -30,7 +31,6 @@ jobs:
           curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: akhileshns/heroku-deploy@v3.14.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
