@@ -1,0 +1,39 @@
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(299deg, rgba(63,94,251,1) 0%, rgba(242,80,112,1) 100%);
+}
+
+h1{
+    font-family: "Pixelify Sans", sans-serif;
+    text-align: center;
+    margin: 5% 20%;
+    font-size: 3em;
+    color: rgb(174, 224, 255);
+}
+
+p{
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    margin: 5% 15%;
+    font-size: 1.5em;
+    color: white;
+}
+
+button{
+    font-family: monospace, sans-serif;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin-top: 30px;
+    cursor: pointer;
+    background-color: rgb(218, 240, 253);
+    color: #525351;                  /* couleur du texte */
+    border: 2px solid #525351; 
+}
+
+.btn-wrap { text-align: center; }

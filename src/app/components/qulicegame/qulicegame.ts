@@ -1,6 +1,7 @@
 import { Component, OnInit, afterNextRender, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
+import { PLATFORM_ID, Inject } from '@angular/core';
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
 
@@ -22,7 +23,8 @@ export class Qulicegame implements OnInit {
   validationRules: Rule[] = VALIDATION_RULES;
 
   constructor(
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     afterNextRender(() => {
       this.loadCode();
@@ -30,7 +32,7 @@ export class Qulicegame implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadCode();
+    // loadCode is called in afterNextRender which only runs on the client
   }
 
   // Fonction appelée par le (click) du bouton dans le HTML
@@ -46,15 +48,32 @@ export class Qulicegame implements OnInit {
   }
 
   async loadCode() {
+    // Only load file on client-side (browser), not on server
+    if (!isPlatformBrowser(this.platformId)) {
+      console.log("Not in browser, skipping loadCode");
+      return;
+    }
+
     try {
-      const response = await fetch('assets/qulicegame/code.txt');
+      console.log("Fetching code.txt...");
+      const response = await fetch('/assets/qulicegame/code.txt');
+      console.log("Response status:", response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.text();
+      console.log("Code loaded successfully, length:", data.length);
+      console.log("Code content:", data);
       
       this.codeContent = data;
       this.initialCode = data;
       this.checkRules(); // Vérification initiale
 
+      this.cdr.markForCheck();
       this.cdr.detectChanges();
+      console.log("codeContent after load:", this.codeContent);
     } catch (err) {
       console.error("Erreur de chargement du fichier code.txt", err);
     }
