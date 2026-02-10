@@ -20,6 +20,22 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
         cmd_parametre = string_trim(string_delete(commande, 1, espace_pos));
     }
 	
+	//Verification pour le tuto si commande autorisée
+	if (instance_exists(objt_tuto)) {
+	    var commande_autorisee = false;
+	    for (var i = 0; i < array_length(objt_tuto.allowed_commands); i++) {
+	        if (cmd_principale == objt_tuto.allowed_commands[i]) {
+	            commande_autorisee = true;
+	            break;
+	        }
+	    }
+	    if (!commande_autorisee) {
+	        console_input = "";
+	        keyboard_string = "";
+	        return;
+	    }
+	}
+	
 	switch(cmd_principale) {
 		case "init":
 			com_init = true;

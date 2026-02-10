@@ -1,3 +1,7 @@
+if (room == R2_Tutoriel) {
+    exit; // Sortir sans spawner
+}
+
 if (!gagne && !perdu) {
 	
 	if (!instance_exists(obj_git)) exit;
