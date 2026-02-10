@@ -36,7 +36,7 @@ export class ClientGame {
   }
 
   proceedToInsights(): void {
-    this.gameService.proceedToInsights();
+    this.gameService.proceedToInsights(); 
   }
 
   proceedToPersona(): void {
