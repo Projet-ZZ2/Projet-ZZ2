@@ -9,15 +9,15 @@
 
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    border-radius: 12px;
-    padding: 10px;     
+    border-radius: 0.8vw;
+    padding: 0.6vw;     
     border: 2px solid transparent;
 }
 
 .icon-container:hover {
     background-color: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(4px);
-    transform: translateY(-5px) scale(1.05);    
+    transform: translateY(-0.3vw) scale(1.05);    
     border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -28,14 +28,15 @@
 }
 
 img {
-    width: 7em;
+    width: 4vw;
+    height: 4vw;
 }
 
 h4 {
     text-align: center;
     width: 7em;
     font-family: "Pixelify Sans", sans-serif;
-    font-size: 1.5em;
+    font-size: 1vw;
     color: whitesmoke;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
