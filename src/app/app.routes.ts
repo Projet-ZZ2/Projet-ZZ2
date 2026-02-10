@@ -29,7 +29,7 @@ export const routes: Routes = [
     path: 'game/2',
     component: Gitgame
   },
-    {
+  {
     path: 'game/3',
     component: Qulicegame
   },
