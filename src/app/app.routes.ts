@@ -38,7 +38,7 @@ export const routes: Routes = [
     component: Ctf
   },
   {
-    path: 'game/5',
+    path: 'game/7',
     component: DifferencesGame
   }
 ];
