@@ -1,14 +1,15 @@
-name: CI/CD Angular Heroku
+name: CI/CD Dev to Main
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [dev] # On travaille sur dev
 
 jobs:
-  build-and-deploy:
+  build-and-promote:
     runs-on: ubuntu-latest
+    permissions: # Nécessaire pour que l'action puisse pusher le merge vers main
+      contents: write
+    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,16 +20,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache : 'npm'
+          cache: 'npm'
 
-      - name: Install and Build
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular
+        run: npm run build -- --configuration production
+
+      - name: Merge dev into main
         run: |
-          npm ci
-          npm run build
-      
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout main
+          git merge dev --no-ff -m "Auto-merge dev to main: Build successful"
+          git push origin main
+
+  deploy-heroku:
+    needs: build-and-promote
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main 
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.14.15
@@ -36,4 +50,3 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: "louis.kostadinov@gmail.com"
-          usedocker: false
