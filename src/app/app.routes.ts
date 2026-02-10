@@ -29,7 +29,7 @@ export const routes: Routes = [
     path: 'game/2',
     component: Gitgame
   },
-    {
+  {
     path: 'game/3',
     component: Qulicegame
   },
@@ -38,7 +38,7 @@ export const routes: Routes = [
     component: Ctf
   },
   {
-    path: 'game/5',
+    path: 'game/7',
     component: DifferencesGame
   }
 ];

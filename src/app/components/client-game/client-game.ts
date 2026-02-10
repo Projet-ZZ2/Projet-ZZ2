@@ -44,11 +44,11 @@ export class ClientGame {
   }
 
   proceedToMaquette(): void {
-    this.gameService.proceedToMaquette();
+    this.gameService.proceedToMaquette();  
   }
 
   finishGame(): void {
-    this.gameService.finishGame();
+    this.gameService.finishGame();  
   }
 
   restartGame(): void {

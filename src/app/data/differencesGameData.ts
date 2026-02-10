@@ -16,7 +16,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
   },
   {
     id: 1,
-    label: 'Boucle Infinie',
+    label: 'Dépassement d\'indice',
     type: 'file',
     content: {
       title: 'Erreur 1 : L\'Index',
@@ -104,5 +104,18 @@ export const DIFFERENCES: DifferencesGameModel[] = [
       language: 'javascript',
       errorsFound: ["Les guillemets transforment la variable en simple texte."]
     }
+  },
+  {
+  id: 8,
+  label: 'Action Incomplète',
+  type: 'file',
+  content: {
+    title: 'Erreur 8 : L\'appel de fonction',
+    instructions: 'Le jeu ne démarre pas. On essaie d\'utiliser "startGame", mais on a oublié de dire au programme de l\'exécuter avec des parenthèses ().',
+    buggyCode: `function pressButton() {\n  startGame;\n}`,
+    correctCode: `function pressButton() {\n  startGame();\n}`,
+    language: 'javascript',
+    errorsFound: ["Écrire le nom d'une fonction sans () ne l'exécute pas, cela fait juste citer son nom."]
   }
+}
 ];
