@@ -48,7 +48,7 @@ export class ClientGame {
   }
 
   finishGame(): void {
-    this.gameService.finishGame(); 
+    this.gameService.finishGame();  
   }
 
   restartGame(): void {
