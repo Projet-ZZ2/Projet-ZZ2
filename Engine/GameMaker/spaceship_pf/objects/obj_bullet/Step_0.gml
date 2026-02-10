@@ -9,6 +9,7 @@ if (!munition_lancee) {
 	if (obj_console.com_commit) {
         munition_commit = true;
         obj_console.com_commit = false;
+		obj_console.com_push = false;
     }
     
     // Lancer avec la touche E
