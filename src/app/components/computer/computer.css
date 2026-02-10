@@ -8,3 +8,10 @@
     border: 1vh solid #3a3a3a;
     box-sizing: border-box;
 }
+
+.img {
+    display: block;
+    position:absolute;
+    height: 20vh;
+    width: 100vw;
+}
