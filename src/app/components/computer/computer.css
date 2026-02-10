@@ -1,17 +1,23 @@
 .screen-container {
-    display: block;
-    position: fixed;
     width: 100vw;
     height: 100vh;
-    overflow: auto;
-    /* Contour écran */
-    border: 1vh solid #3a3a3a;
+    border: 1vh solid #4a505b;
     box-sizing: border-box;
+    position: relative;
 }
 
-.img {
+:host {
     display: block;
-    position:absolute;
-    height: 20vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
+    height: 100vh;
+}
+
+img {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
