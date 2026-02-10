@@ -2,12 +2,12 @@ name: CI/CD Dev to Main
 
 on:
   push:
-    branches: [dev] # On travaille sur dev
+    branches: [dev] 
 
 jobs:
   build-and-promote:
     runs-on: ubuntu-latest
-    permissions: # Nécessaire pour que l'action puisse pusher le merge vers main
+    permissions:
       contents: write
     
     steps:
