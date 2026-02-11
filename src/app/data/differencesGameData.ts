@@ -73,8 +73,8 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     content: {
       title: 'Erreur 5 : Type de Variable',
       instructions: 'Le programme essaie d\'ajouter un élément dans une variable qui n\'est pas une liste.',
-      buggyCode: `let listOfValues = 0;\listOfValues.push("item");`,
-      correctCode: `let listOfValues = [];\listOfValues.push("item");`,
+      buggyCode: `let listOfValues = 0;\nlistOfValues.push("item");`,
+      correctCode: `let listOfValues = [];\nlistOfValues.push("item");`,
       language: 'javascript',
       errorsFound: ["On ne peut pas faire .push() sur un nombre, il faut un tableau []."]
     }

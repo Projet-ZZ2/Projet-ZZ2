@@ -59,3 +59,12 @@
     </div>
   </div>
 </div>
+
+<!-- Modale de victoire -->
+<div class="victory-overlay" *ngIf="isGameWon">
+  <div class="victory-modal">
+    <h2>🎉 Bravo ! 🎉</h2>
+    <p>Vous avez gagné ! Tous les fichiers ont été restaurés avec succès !</p>
+    <button class="continue-btn" (click)="continueToDesktop()">Retour au Bureau</button>
+  </div>
+</div>
