@@ -1,20 +1,17 @@
 step = 0;
-instruction = "";
-instruction_titre = ""; // Pour un titre optionnel
+titre_etape ="";
+explication_git = "";
+instruction_jeu = ""; // Pour un titre optionnel
+
 allowed_commands = [];
 
-// Références aux objets du tutoriel
+
 comete_tutorial = noone;
 bullet_tutorial = noone;
-
-// Flags de contrôle
-peut_push = false; // Contrôler quand on peut tirer
-attente_destruction = false;
-
-// Pour gérer les branches
-branche_initiale = 1; // Commencer avec 1 branche
+git = noone;
 
 
-//Commit
+peut_push = false;
 delai_commit = 0;
 commande_commit_faite = false;
+affiche_rectangle = false;
