@@ -14,7 +14,8 @@ if (room == R3_Jeu) {
     }
     
     // Recommencer si perdu
-    if (keyboard_check_pressed(ord("M")) && perdu) {
+    if (obj_console.com_reset && perdu) {
+		obj_console.com_reset = false;
         game_restart();
     }
 }

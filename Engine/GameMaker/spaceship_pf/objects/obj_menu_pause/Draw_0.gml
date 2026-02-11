@@ -19,6 +19,12 @@ if(menu_type == "menu") {
 	draw_text(centre_x, y_start + y_spacing * 4, "Eliminez vite les meteorites qui vont s'abattre sur la Terre");
 	draw_text(centre_x, y_start + y_spacing * 5, " a l'aide de votre ordinateur tout-puissant !");
 	
+	draw_set_color(#00F5FF);
+	draw_set_font(S_Titre);
+	draw_text(centre_x, 600, "Taper 'help' pour lancer le tutoriel");
+	draw_text(centre_x, 640, "Taper 'init' pour lancer le jeu");
+	
+	
 } else {
 	
 	draw_set_font(Titre);
@@ -28,7 +34,7 @@ if(menu_type == "menu") {
 	draw_text(centre_x, 170, "Pause");
 	
 	draw_set_font(Corps);
-	draw_set_color(c_teal);
+	draw_set_color(#00F5FF);
 	draw_text(centre_x, 300, "COMMANDES :");
 	//Colonne avec commandes git
 	draw_set_color(c_white);

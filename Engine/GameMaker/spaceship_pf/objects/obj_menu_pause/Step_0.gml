@@ -5,8 +5,9 @@ if (menu_type == "menu") {
 		obj_console.com_init = false;
     }
 	
-	if (keyboard_check_pressed(ord("H"))) {
+	if (obj_console.com_help) {
 	    room_goto(R2_Tutoriel);
+		obj_console.com_help = false;
 	}
 	
 } else {
@@ -17,6 +18,7 @@ if (menu_type == "menu") {
     }
     
     if (obj_console.com_init) {
+		obj_console.com_init = false;
         game_restart();
     }
 }
