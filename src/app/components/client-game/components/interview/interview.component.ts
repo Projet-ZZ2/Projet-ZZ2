@@ -32,7 +32,8 @@ export class InterviewComponent {
   );
 
   selectPerson(personId: string): void {
-    if (this.isPersonCompleted(personId)) return;
+    const id =this.selectedPersonId();
+    if (this.isPersonCompleted(personId) ||(this.selectedDialogues.size > 0)) return;
     this.selectedPersonId.set(personId);
     this.selectedDialogues.clear();
   }
