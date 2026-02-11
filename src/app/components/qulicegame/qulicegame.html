@@ -8,11 +8,6 @@
     
     <textarea [(ngModel)]="codeContent" (input)="checkRules()" spellcheck="false"></textarea>
     
-    <div class="action-bar">
-      <button (click)="submitGame()" [disabled]="!allRulesValid" class="submit-button">
-        Soumettre le code
-      </button>
-    </div>
   </section>
 
   <aside class="rules-container">
