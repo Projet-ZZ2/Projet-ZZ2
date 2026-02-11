@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
+import { playSound } from '../../model/audio-helper';
 
 @Component({
   selector: 'app-qulicegame',
@@ -83,11 +84,20 @@ export class Qulicegame implements OnInit {
     let allPreviousPassed = true;
 
     for (let rule of this.validationRules) {
+      const previousStatus = rule.status;
       if (allPreviousPassed) {
         // Sécurité au cas où validator n'est pas défini
         const isValid = rule.validator ? rule.validator(this.codeContent) : false;
         
         rule.status = isValid ? 'success' : 'failed';
+
+        if (isValid && previousStatus !== 'success') {
+          playSound('success.mp3', true); // On joue le son de réussite
+        }
+
+        if (!isValid && previousStatus === 'success') {
+          playSound('defeat.mp3', false); // Ou 'error.mp3'
+        }
         
         // Si cette règle échoue, on arrête de débloquer les suivantes
         if (!isValid) allPreviousPassed = false; 
