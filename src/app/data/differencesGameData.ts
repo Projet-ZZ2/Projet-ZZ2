@@ -33,7 +33,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 2 : L\'accès aux données',
-      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès à l\'ID la première du tableau.',
+      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès au premier ID du tableau.',
       buggyCode: `function userId(users) {\n  const id = users.id;\n  return id;\n}`,
       correctCode: `function userId(users) {\n  const id = users[0].id;\n  return id;\n}`,
       language: 'javascript',
@@ -60,8 +60,8 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     content: {
       title: 'Erreur 4 : Multiplication Inutile',
       instructions: 'Le score ne monte jamais, pourtant on traite bien les données. Corrige l\'opération.',
-      buggyCode: `function updateScore(score) {\n  return score = score * 1;\n}`,
-      correctCode: `function updateScore(score) {\n  return score = score + 1;\n}`,
+      buggyCode: `function incrementScore(score) {\n  return score = score * 1;\n}`,
+      correctCode: `function incrementScore(score) {\n  return score = score + 1;\n}`,
       language: 'javascript',
       errorsFound: ["Multiplier par 1 ne change pas la valeur du score."]
     }
@@ -73,8 +73,8 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     content: {
       title: 'Erreur 5 : Type de Variable',
       instructions: 'Le programme essaie d\'ajouter un élément dans une variable qui n\'est pas une liste.',
-      buggyCode: `let total = 0;\ntotal.push("item");`,
-      correctCode: `let total = [];\ntotal.push("item");`,
+      buggyCode: `let listOfValues = 0;\nlistOfValues.push("item");`,
+      correctCode: `let listOfValues = [];\nlistOfValues.push("item");`,
       language: 'javascript',
       errorsFound: ["On ne peut pas faire .push() sur un nombre, il faut un tableau []."]
     }

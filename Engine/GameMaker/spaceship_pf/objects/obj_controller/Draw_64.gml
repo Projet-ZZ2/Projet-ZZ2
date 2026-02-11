@@ -6,7 +6,7 @@ if (room == R3_Jeu) {
 	    draw_set_color(c_white); 
 	    draw_set_halign(fa_left); 
 	    draw_set_valign(fa_top); 
-	    draw_set_font(Corps);
+	    draw_set_font(S_Titre);
 	    draw_text(20, 20, "Score: " + string(score_total));
     
 	    // Vies (coeurs)
@@ -24,7 +24,7 @@ if (room == R3_Jeu) {
         draw_set_alpha(1);
         
         // Paramètres de l'encadré
-        var encadre_largeur = 400;
+        var encadre_largeur = 500;
         var encadre_hauteur = 200;
         var encadre_x = (gui_width - encadre_largeur) / 2;
         var encadre_y = (gui_height - encadre_hauteur) / 2;

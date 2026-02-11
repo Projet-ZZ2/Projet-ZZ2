@@ -16,6 +16,8 @@ export class DifferencesGame {
   selectedFile: DifferencesGameModel | null = null;
   userCode: string = '';
   feedback: string = '';
+  isGameWon: boolean = false;
+  isError: boolean = false;
 
   constructor(
   public differencesService: DifferencesService, 
@@ -38,19 +40,28 @@ export class DifferencesGame {
     const success = this.differencesService.verifyCode(this.selectedFile.id, this.userCode);
 
     if (success) {
+      this.isError = false; // C'est un succès
       this.feedback = "Bravo ! Erreur corrigée.";
 
       if (this.differencesService.isAllResolved()) {
-        this.feedback = "Système entièrement restauré ! Retour imminent...";
-        
-        setTimeout(() => {
-          this.router.navigate(['/desktop']); 
-        }, 2000);
+        // Affiche la page de victoire au lieu de naviguer immédiatement
+        this.isGameWon = true;
       } // Fin du bloc isAllResolved
 
     } else {
+      this.isError = true; // C'est une erreur
       this.feedback = "Il reste encore une erreur sémantique...";
     }
+  }
+
+  continueToDesktop() {
+    this.router.navigate(['/desktop']);
+  }
+
+  resetCode() {
+    if (!this.selectedFile) return;
+    this.userCode = this.selectedFile.content?.buggyCode ?? '';
+    this.feedback = '';
   }
 
   openHelp() {
