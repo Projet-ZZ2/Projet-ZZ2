@@ -7,6 +7,8 @@ import { Qulicegame } from './components/qulicegame/qulicegame';
 import { Desktop } from './components/desktop/desktop';
 import { Ctf } from './components/ctf/ctf';
 import { DifferencesGame } from './components/differences/differences';
+import { Fin } from './components/fin/fin';
+import { GameCompletionGuard } from './services/game-completion.guard';
 
 export const routes: Routes = [
   {
@@ -40,5 +42,10 @@ export const routes: Routes = [
   {
     path: 'game/7',
     component: DifferencesGame
+  },
+  {
+    path: "victory",
+    component: Fin,
+    canActivate: [GameCompletionGuard]
   }
 ];
