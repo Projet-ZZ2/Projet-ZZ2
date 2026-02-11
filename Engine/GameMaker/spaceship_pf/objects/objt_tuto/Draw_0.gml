@@ -7,7 +7,7 @@ draw_set_alpha(1);
 draw_set_halign(fa_center);
 
 if (titre_etape != "") {
-    draw_set_font(Titre);
+    draw_set_font(S_Titre);
     draw_set_color(c_yellow);
     draw_text(display_get_gui_width() / 2, 30, titre_etape);
 	
@@ -36,7 +36,7 @@ if(affiche_rectangle) {
         draw_rectangle(encadre_x, encadre_y, encadre_x + encadre_largeur, encadre_y + encadre_hauteur, false);
         draw_set_color(c_black);
         draw_rectangle(encadre_x + 5, encadre_y + 5, encadre_x + encadre_largeur - 5, encadre_y + encadre_hauteur - 5, false);
-        draw_set_font(Corps);
+        draw_set_font(Titre);
         draw_set_valign(fa_middle);
         draw_set_color(c_fuchsia);
         draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2, "PAUSE");
