@@ -1,5 +1,5 @@
 // Variables de jeu
-score_total = 0;
+score_total = 90;
 point_par_comete = 10;
 vie = 3;
 score_a_atteindre = 100;

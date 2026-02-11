@@ -24,6 +24,7 @@
   "name":"BLANK GAME",
   "resources":[
     {"id":{"name":"Corps","path":"fonts/Corps/Corps.yy",},},
+    {"id":{"name":"S_Titre","path":"fonts/S_Titre/S_Titre.yy",},},
     {"id":{"name":"Titre","path":"fonts/Titre/Titre.yy",},},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},},
     {"id":{"name":"obj_comete","path":"objects/obj_comete/obj_comete.yy",},},
