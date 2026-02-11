@@ -45,8 +45,11 @@
       <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
       
       <div class="footer">
-        <p class="feedback" *ngIf="selectedFile.id !== -1">{{ feedback }}</p>
-        
+        <p class="feedback" 
+            *ngIf="selectedFile.id !== -1" 
+            [class.error-text]="isError">
+            {{ feedback }}
+        </p>        
         <div class="button-group">
           <button *ngIf="selectedFile.id !== -1" class="reset-btn" (click)="resetCode()">
             Réinitialiser le code
