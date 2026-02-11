@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID, NgZone, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { playBackgroundMusic } from '../../model/audio-helper';
 
 @Component({
   selector: 'app-espace3d',
@@ -63,6 +64,7 @@ export class Espace3d implements OnInit, OnDestroy {
       // 4. IMPORTANT: Run inside NgZone to update the UI
       this.ngZone.run(() => {
         if (str == 'SwitchToComputer') {
+          playBackgroundMusic('main theme.mp3');
           this.router.navigate(['/desktop']);
         }
       });
