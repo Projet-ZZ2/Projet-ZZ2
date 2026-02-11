@@ -1,0 +1,202 @@
+<div class="maquette-container">
+      <div class="maquette-explanation">
+        <h3>🎨 Conception de la Maquette</h3>
+        <p>
+          Créez la maquette parfaite en personnalisant chaque élément selon les besoins 
+          identifiés lors des entretiens. Le thème détecté est : 
+          <strong>{{ currentTheme() || 'Non défini' }}</strong>
+        </p>
+      </div>
+
+      <div class="maquette-workspace">
+        <!-- Panel de contrôles -->
+        <div class="controls-panel">
+          <h4>🎛️ Personnalisation</h4>
+          
+          <!-- Thème général -->
+          <div class="control-section">
+            <h5>🌈 Thème général</h5>
+            <div class="theme-options">
+              @for (theme of themeOptions; track theme.value) {
+                <button 
+                  class="theme-button"
+                  [class.selected]="selectedTheme() === theme.value"
+                  [style.background]="theme.color"
+                  (click)="selectTheme(theme.value)"
+                >
+                  {{ theme.label }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Couleur de fond -->
+          <div class="control-section">
+            <h5>🎨 Couleur de fond</h5>
+            <div class="color-options">
+              @for (color of backgroundColors; track color.value) {
+                <button 
+                  class="color-button"
+                  [style.background]="color.value"
+                  [class.selected]="getDesignElementValue('background', 'color') === color.value"
+                  (click)="updateDesignElement('background', 'color', color.value)"
+                  [title]="color.label"
+                >
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Taille des boutons -->
+          <div class="control-section">
+            <h5>🔘 Taille des boutons</h5>
+            <div class="size-options">
+              @for (size of buttonSizes; track size.value) {
+                <button 
+                  class="size-button"
+                  [class.selected]="getDesignElementValue('button', 'size') === size.value"
+                  (click)="updateDesignElement('button', 'size', size.value)"
+                >
+                  {{ size.label }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Taille du titre -->
+          <div class="control-section">
+            <h5>📝 Taille du titre</h5>
+            <div class="size-options">
+              @for (size of titleSizes; track size.value) {
+                <button 
+                  class="size-button"
+                  [class.selected]="getDesignElementValue('title', 'size') === size.value"
+                  (click)="updateDesignElement('title', 'size', size.value)"
+                >
+                  {{ size.label }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Fonctionnalités -->
+          <div class="control-section">
+            <h5>⚙️ Fonctionnalités</h5>
+            <div class="features-list">
+              @for (feature of availableFeatures; track feature.value) {
+                <label class="feature-checkbox">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isFeatureEnabled(feature.value)"
+                    (change)="toggleFeature(feature.value, $event)"
+                  />
+                  <span>{{ feature.label }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <!-- Score en temps réel -->
+          <div class="score-section">
+            <div class="current-score">
+              <span class="score-label">Score design :</span>
+              <span class="score-value">{{ designScore() }} pts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prévisualisation de la maquette -->
+        <div class="preview-panel">
+          <h4>👁️ Prévisualisation</h4>
+          <div 
+            class="mockup-container"
+            [style.background]="getMockupBackground()"
+            [class]="selectedTheme()"
+          >
+            <!-- En-tête -->
+            <div class="mockup-header">
+              <h1 
+                class="mockup-title"
+                [style.font-size]="getTitleSize()"
+              >
+                Mon Application
+              </h1>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="mockup-content">
+              <div class="mockup-section">
+                <h2>Bienvenue sur notre plateforme</h2>
+                <p>Découvrez nos fonctionnalités incroyables...</p>
+                
+                <!-- Boutons -->
+                <div class="mockup-buttons">
+                  <button 
+                    class="mockup-button primary"
+                    [style.padding]="getButtonPadding()"
+                    [style.font-size]="getButtonFontSize()"
+                  >
+                    Commencer
+                  </button>
+                  <button 
+                    class="mockup-button secondary"
+                    [style.padding]="getButtonPadding()"
+                    [style.font-size]="getButtonFontSize()"
+                  >
+                    En savoir plus
+                  </button>
+                </div>
+              </div>
+
+              <!-- Fonctionnalités -->
+              <div class="mockup-features">
+                @if (isFeatureEnabled('chatbot')) {
+                  <div class="mockup-feature chatbot">
+                    💬 Chatbot
+                  </div>
+                }
+                @if (isFeatureEnabled('news')) {
+                  <div class="mockup-feature news">
+                    📰 Actualités
+                  </div>
+                }
+                @if (isFeatureEnabled('searchbar')) {
+                  <div class="mockup-feature searchbar">
+                    🔍 Recherche
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Pied de page -->
+            <div class="mockup-footer">
+              <p>&copy; 2024 Mon Application. Tous droits réservés.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback et conseils -->
+      <div class="feedback-section">
+        <div class="design-feedback">
+          <h4>📋 Feedback Design</h4>
+          <div class="feedback-items">
+            @for (feedback of getDesignFeedback(); track feedback.id) {
+              <div class="feedback-item" [class]="feedback.type">
+                <span class="feedback-icon">{{ feedback.icon }}</span>
+                <span class="feedback-text">{{ feedback.message }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="design-tips">
+          <h4>💡 Conseils basés sur vos entretiens</h4>
+          <ul>
+            @for (tip of getContextualTips(); track tip) {
+              <li>{{ tip }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>

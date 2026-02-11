@@ -1,0 +1,119 @@
+<div class="insights-container">
+      <div class="insights-explanation">
+        <h3>📊 Tableau d'analyse des insights</h3>
+        <p>
+          Placez chaque feature sur le graphique selon son <strong>importance</strong> (axe Y) et sa <strong>facilité de mise en place</strong> (axe X).
+          Plus vous placez précisément, plus vous gagnez de points !
+        </p>
+      </div>
+
+      <div class="insights-workspace">
+        <!-- Features à placer -->
+        <div class="features-panel">
+          <h4>Features à placer :</h4>
+          <div class="features-list">
+            @for (insight of unplacedInsights(); track insight.id) {
+              <div 
+                class="feature-card"
+                [class.dragging]="draggedInsight() === insight.id"
+                draggable="true"
+                (dragstart)="startDrag(insight.id, $event)"
+                (dragend)="endDrag()"
+              >
+                {{ insight.name }}
+              </div>
+            }
+          </div>
+
+          @if (placedInsights().length > 0) {
+            <div class="placed-features">
+              <h4>Features placées :</h4>
+              @for (insight of placedInsights(); track insight.id) {
+                <div class="placed-feature">
+                  <span>{{ insight.name }}</span>
+                  <button class="reset-button" (click)="resetInsight(insight.id)">
+                    ↺ Replacer
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Graphique -->
+        <div class="chart-container">
+          <div 
+            class="chart"
+            (dragover)="allowDrop($event)"
+            (drop)="dropInsight($event)"
+          >
+            <!-- Axes et labels -->
+            <div class="y-axis">
+              <div class="axis-label y-label">Importance</div>
+              <div class="y-scale">
+                @for (i of [10,9,8,7,6,5,4,3,2,1]; track i) {
+                  <div class="scale-mark">{{ i }}</div>
+                }
+              </div>
+            </div>
+            
+            <div class="x-axis">
+              <div class="x-scale">
+                @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
+                  <div class="scale-mark">{{ i }}</div>
+                }
+              </div>
+              <div class="axis-label x-label">Facilité de mise en place</div>
+            </div>
+
+            <!-- Zone de drop -->
+            <div class="drop-zone" #dropZone>
+              @for (insight of placedInsights(); track insight.id) {
+                <div 
+                  class="placed-insight"
+                  [style.left.%]="getInsightXPosition(insight)"
+                  [style.bottom.%]="getInsightYPosition(insight)"
+                >
+                  <div class="insight-dot">
+                    <span class="insight-name">{{ insight.name }}</span>
+                    @if (getInsightFeedback(insight); as feedback) {
+                      <div class="feedback" [class]="feedback.type">
+                        {{ feedback.message }}
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
+              <!-- Zones d'aide visuelle -->
+              <div class="quadrant top-right">
+                <div class="quadrant-label">🔥 Important & Facile</div>
+              </div>
+              <div class="quadrant top-left">
+                <div class="quadrant-label">⚡ Important & Difficile</div>
+              </div>
+              <div class="quadrant bottom-right">
+                <div class="quadrant-label">💡 Pas urgent & Facile</div>
+              </div>
+              <div class="quadrant bottom-left">
+                <div class="quadrant-label">❄️ Pas urgent & Difficile</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultats -->
+      <div class="results-panel">
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">Features placées :</span>
+            <span class="stat-value">{{ placedInsights().length }} / {{ insights().length }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Précision moyenne :</span>
+            <span class="stat-value">{{ getAverageAccuracy() }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
