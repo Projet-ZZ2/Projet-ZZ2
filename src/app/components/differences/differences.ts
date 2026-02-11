@@ -53,6 +53,12 @@ export class DifferencesGame {
     }
   }
 
+  resetCode() {
+    if (!this.selectedFile) return;
+    this.userCode = this.selectedFile.content?.buggyCode ?? '';
+    this.feedback = '';
+  }
+
   openHelp() {
     const helpFile: DifferencesGameModel = {
       id: -1,
