@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
+import { playSound } from '../../model/audio-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qulicegame',
@@ -18,12 +20,14 @@ import { VALIDATION_RULES } from '../../model/rulesQuLice';
 export class Qulicegame implements OnInit {
   codeContent: string = "";
   initialCode: string = "";
+  isGameWon: boolean = false;
   
   // Utilisation du nom EXACT utilisé dans ton HTML (*ngFor="let rule of validationRules")
   validationRules: Rule[] = VALIDATION_RULES;
 
   constructor(
     private cdr: ChangeDetectorRef,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     afterNextRender(() => {
@@ -83,17 +87,50 @@ export class Qulicegame implements OnInit {
     let allPreviousPassed = true;
 
     for (let rule of this.validationRules) {
+      const previousStatus = rule.status;
       if (allPreviousPassed) {
         // Sécurité au cas où validator n'est pas défini
         const isValid = rule.validator ? rule.validator(this.codeContent) : false;
         
         rule.status = isValid ? 'success' : 'failed';
+
+        if (isValid && previousStatus !== 'success') {
+          playSound('success.mp3', true); // On joue le son de réussite
+        }
+
+        if (!isValid && previousStatus === 'success') {
+          playSound('defeat.mp3', false); // Ou 'error.mp3'
+        }
         
         // Si cette règle échoue, on arrête de débloquer les suivantes
         if (!isValid) allPreviousPassed = false; 
       } else {
         rule.status = 'locked';
       }
+    }
+
+    if (this.allRulesValid) {
+      // Affiche la fenêtre de victoire au lieu de naviguer immédiatement
+      this.isGameWon = true;
+    }
+  }
+
+  continueGame() {
+    this.router.navigate(['/desktop']);
+  }
+
+  resetCode() {
+    if (confirm("Voulez-vous vraiment réinitialiser tout le code ?")) {
+      // 1. On remet le code tel qu'il était au chargement
+      this.codeContent = this.initialCode;
+      
+      // 2. On relance immédiatement la vérification pour mettre à jour les règles
+      this.checkRules();
+      
+      // 3. (Optionnel) Jouer un petit son
+      // playSound('reset.mp3', false);
+      
+      console.log("Code réinitialisé !");
     }
   }
 }

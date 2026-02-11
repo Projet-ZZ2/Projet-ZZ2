@@ -1,5 +1,5 @@
 if (en_pause) {
     speed = 0;
 } else {
-    speed = 1;
+    speed = 0.5;
 }

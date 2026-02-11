@@ -6,11 +6,10 @@ if (curseur_timer >= 40) {
 
 console_input = keyboard_string;
 
-// Valider la commande avec Entrée
 if (keyboard_check_pressed(vk_enter) && console_input != "") {
 	var commande = string_lower(console_input);
 	
-	// Séparer la commande et les paramètres
+	// Séparation de la commande checkout et x
     var espace_pos = string_pos(" ", commande);
     var cmd_principale = commande;
     var cmd_parametre = "";
@@ -58,26 +57,22 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 			break;
 		
 		case "branch":
-			com_branch = true;
+			if(obj_git.nb_branche_uti < 5) com_branch = true;
 			break;
 		
 		case "merge":
-			com_merge = true;
+			if(obj_git.nb_branche_uti > 1) com_merge = true;
 			break;
 		
 		case "checkout":
-            // Traiter le paramètre
-            if (cmd_parametre != "") {
-				com_checkout = true;
-                num_branche = real(cmd_parametre);
-            }
+            if (cmd_parametre == "") num_branche = 0;
+			else num_branche = real(cmd_parametre);
+			com_checkout = true;
             break;
 		
 		default:
 			break;
 	}
-	
-	// Réinitialiser l'input
 	console_input = "";
 	keyboard_string = "";
 }
@@ -86,12 +81,4 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 if (keyboard_check_pressed(vk_escape)) {
 	console_input = "";
 	keyboard_string = "";
-}
-
-
-// Curseur clignotant
-curseur_timer++;
-if (curseur_timer >= 30) {
-	curseur_timer = 0;
-    curseur_visible = !curseur_visible;
 }

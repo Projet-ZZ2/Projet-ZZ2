@@ -5,32 +5,39 @@
   border: 3px solid #0055e5;
   border-radius: 8px 8px 0 0;
   display: flex;
-  height: 600px;
-  width: 950px;
-  margin: 20px auto;
+  
+  /* Dimensions relatives : 80% de l'écran */
+  width: 80vw;           
+  height: 80vh;          
+  margin: 5vh auto;      /* Centrage vertical (5vh) et horizontal (auto) */
+  
+  /* Sécurité pour ne pas devenir trop petit sur mobile/petit écran */
+  min-width: 800px;      
+  min-height: 500px;
+  
   font-family: 'Tahoma', sans-serif;
   color: black;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
-/* --- SIDEBAR XP (Le fameux volet bleu à gauche) --- */
+/* --- SIDEBAR XP (Le volet bleu à gauche) --- */
 .sidebar {
-  width: 220px;
+  width: 260px; /* Légèrement élargi pour l'équilibre visuel */
   background: linear-gradient(180deg, #748ef3 0%, #d3e5fa 100%);
-  padding: 15px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   border-right: 1px solid #748ef3;
 }
 
 .sidebar h3 {
-  font-size: 12px;
+  font-size: 14px; /* Augmenté */
   margin: 0;
-  padding: 5px 10px;
+  padding: 8px 12px;
   background: linear-gradient(90deg, #2151e0, #748ef3);
   color: white;
   border-radius: 5px 5px 0 0;
@@ -40,11 +47,12 @@
 .sidebar-info {
   background-color: #ffffff;
   border-radius: 0 0 5px 5px;
-  padding: 10px;
-  font-size: 11px;
+  padding: 12px;
+  font-size: 12px; /* Augmenté */
   color: #2151e0;
   border: 1px solid #ffffff;
   margin-top: -1px;
+  line-height: 1.4;
 }
 
 /* --- MAIN CONTENT AREA --- */
@@ -58,29 +66,30 @@
 /* Toolbar XP Style */
 .toolbar {
   background-color: #f0f0f0;
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ccc;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
+  gap: 12px;
+  font-size: 13px;
 }
 
 .address-bar {
   background: white;
   border: 1px solid #7f9db9;
   flex-grow: 1;
-  padding: 3px 5px;
+  padding: 4px 8px;
   display: flex;
   align-items: center;
 }
 
-/* --- ICON GRID --- */
+/* --- ICON GRID (Agrandie) --- */
 .icon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  /* Passage à 140px pour des icônes plus imposantes */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+  gap: 25px;
+  padding: 30px;
   overflow-y: auto;
 }
 
@@ -88,10 +97,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   border: 1px solid transparent;
   border-radius: 4px;
+  transition: background 0.2s;
 }
 
 .file-icon:hover {
@@ -100,15 +110,16 @@
 }
 
 .file-icon .icon {
-  font-size: 40px;
-  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+  font-size: 60px; /* Augmenté de 40px à 60px */
+  filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.2));
 }
 
 .file-icon .label {
-  font-size: 11px;
+  font-size: 13px; /* Augmenté */
   color: #000;
-  margin-top: 5px;
+  margin-top: 8px;
   text-align: center;
+  font-weight: 500;
 }
 
 .file-icon.locked {
@@ -116,82 +127,82 @@
   filter: grayscale(100%);
 }
 
-/* --- THE EDITOR WINDOW (LUNA THEME) --- */
+/* --- THE EDITOR WINDOW (LUNA THEME - Responsive) --- */
 .editor-window {
   position: absolute;
-  top: 40px;
-  left: 240px;
-  width: 600px;
+  top: 5%;
+  left: 280px; /* Aligné après la sidebar */
+  right: 5%;   /* S'adapte à la largeur du desktop */
+  width: auto; 
+  max-height: 90%;
   background-color: #ece9d8;
   border: 3px solid #0055e5;
   border-radius: 8px 8px 0 0;
   z-index: 1000;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+  box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
 }
 
 .editor-header {
   background: linear-gradient(180deg, #0058e6 0%, #3a89fb 10%, #0055e5 50%, #0046d5 100%);
   color: white;
-  padding: 6px 10px;
+  padding: 8px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   border-radius: 5px 5px 0 0;
   text-shadow: 1px 1px 1px #000;
 }
 
-/* Bouton fermer rouge XP */
 .editor-header button {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   background: linear-gradient(180deg, #e76c4a, #c13415);
   border: 1px solid white;
   border-radius: 3px;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: inset 1px 1px 1px rgba(255,255,255,0.5);
 }
 
-/* --- CORRECTIF TEXTAREA --- */
-
+/* --- EDITOR BODY & TEXTAREA (Agrandis) --- */
 .editor-body {
-  padding: 15px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; /* Assure que le padding ne fait pas grossir le conteneur */
+  flex-grow: 1;
+  box-sizing: border-box;
 }
 
 textarea {
-  width: 100%;           /* Prend toute la largeur disponible... */
-  max-width: 100%;       /* ...mais pas un pixel de plus */
-  height: 280px;
+  width: 100%;
+  flex-grow: 1;
+  min-height: 300px;
   background-color: white;
   border: 1px solid #7f9db9;
-  padding: 10px;
+  padding: 15px;
   font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 14px;
+  font-size: 18px; /* Augmenté pour le confort de lecture du code */
   outline: none;
-  
-  /* LA CLÉ DU BUG : */
-  box-sizing: border-box; /* Force le navigateur à inclure le padding/border dans les 100% */
-  
-  resize: none;          /* Optionnel : empêche l'utilisateur de casser ton layout XP */
-  white-space: pre;      /* Important pour garder l'indentation du code */
-  overflow-x: auto;      /* Ajoute une scrollbar horizontale si une ligne est trop longue */
+  box-sizing: border-box;
+  resize: none;
+  white-space: pre;
+  overflow: auto;
 }
 
 .instructions {
   width: 100%;
-  box-sizing: border-box; /* Même chose ici pour les consignes */
-  background-color: #fff;
-  border: 1px solid #7f9db9;
-  padding: 10px;
+  box-sizing: border-box;
+  background-color: #ffffcc; /* Teinte jaune post-it très légère */
+  border: 1px solid #e6db55;
+  padding: 15px;
   margin-bottom: 15px;
-  font-size: 12px;
+  font-size: 14px; /* Augmenté */
   border-radius: 4px;
+  color: #333;
 }
 
 /* --- BUTTONS & FEEDBACK --- */
@@ -203,34 +214,47 @@ textarea {
 }
 
 .feedback {
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: bold;
   color: #0018cc;
 }
 
-/* Bouton valider vert XP */
 button.check-btn {
   background: linear-gradient(180deg, #94e364, #3a9121);
   border: 1px solid #ffffff;
   border-radius: 5px;
   color: white;
-  padding: 6px 20px;
+  padding: 10px 25px;
   font-weight: bold;
+  font-size: 15px;
   cursor: pointer;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
-button.check-btn:hover {
-  filter: brightness(1.1);
+button.check-btn:hover { filter: brightness(1.1); }
+
+button.reset-btn {
+  background: linear-gradient(180deg, #f0f0f0, #dcdcdc);
+  border: 1px solid #7f9db9;
+  border-radius: 5px;
+  color: #2151e0;
+  padding: 10px 25px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-button.check-btn:active {
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+.button-group {
+  display: flex;
+  gap: 15px;
 }
 
-p {
-  color: black;
-  font-size: 1.1rem;
+/* --- TEXTE EXTÉRIEUR --- */
+p.intro-text {
+  color: #333;
+  font-size: 1.2rem;
   margin: 20px auto;
-  width: 95%;
+  width: 80%;
   text-align: center;
+  font-family: 'Tahoma', sans-serif;
 }

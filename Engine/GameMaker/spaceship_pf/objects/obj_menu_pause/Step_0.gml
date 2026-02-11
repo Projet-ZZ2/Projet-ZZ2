@@ -16,7 +16,7 @@ if (menu_type == "menu") {
 		obj_console.com_pull = false;
     }
     
-    if (keyboard_check_pressed(ord("M"))) {
+    if (obj_console.com_init) {
         game_restart();
     }
 }

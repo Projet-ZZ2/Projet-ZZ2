@@ -12,11 +12,14 @@
 }
 
 .editor-container {
+  display:  flex;
+  flex-direction: column;
+  width: 100%;
   background-color: var(--bg-color);
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   font-family: 'Fira Code', 'Consolas', monospace;
-  font-size: 50px;
+  font-size: 2rem;
   overflow: hidden;
   margin: 0 auto;
   border: 1px solid #333;
@@ -56,7 +59,7 @@
   color: #fff;
   padding: 8px 15px;
   border-bottom: 1px solid #3e3e3e;
-  font-size: 0.9rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -65,6 +68,7 @@
 .code-body {
   display: flex;
   position: relative;
+  width: 100vw;
 }
 
 .gutter {
@@ -78,12 +82,16 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
   padding: 15px;
-  width: 100%;
-  overflow-x: auto;
+  width: 80vw;
+  height: fit-content;
 }
 
 .code-line {
+  display: flex;
+  flex-wrap: wrap;
   line-height: 1.5;
   white-space: pre;
 }
