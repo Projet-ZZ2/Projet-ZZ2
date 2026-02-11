@@ -1,13 +1,26 @@
 .client-game {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   padding: 0;
   margin: 0;
-  overflow-x: auto;
   overflow-y: auto;
+
 }
+
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 
 .game-header {
   background: rgba(0, 0, 0, 0.2);
@@ -56,6 +69,7 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  overflow: auto;
 }
 
 .menu-content {
@@ -137,6 +151,7 @@
 .persona-step,
 .maquette-step,
 .results-step {
+  height: 100vh;
   padding: 2rem;
 }
 

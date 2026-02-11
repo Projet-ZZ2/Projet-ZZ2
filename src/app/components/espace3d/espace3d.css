@@ -51,3 +51,12 @@ canvas {
   background: #00d2ff; /* Cyan color */
   transition: width 0.2s ease-out;
 }
+
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}

@@ -226,3 +226,11 @@ button.check-btn:hover {
 button.check-btn:active {
   box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
 }
+
+p {
+  color: black;
+  font-size: 1.1rem;
+  margin: 20px auto;
+  width: 95%;
+  text-align: center;
+}

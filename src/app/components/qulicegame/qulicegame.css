@@ -162,3 +162,11 @@ textarea {
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
+
+p {
+  color: black;
+  font-size: 1.1rem;
+  margin: 20px auto;
+  width: 95%;
+  text-align: center;
+}
