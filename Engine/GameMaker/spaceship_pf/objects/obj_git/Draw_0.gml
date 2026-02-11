@@ -8,6 +8,5 @@ for (var i = 0; i < nb_branche_uti; i++) {
 }
 
 draw_set_alpha(1);
-
-// Dessiner le sprite du joueur
+draw_set_color(c_white);
 draw_self();
