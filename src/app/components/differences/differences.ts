@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DifferencesService } from './differences.service';
 import { DifferencesGameModel } from '../../model/differencesGameModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-differences',
@@ -16,7 +17,10 @@ export class DifferencesGame {
   userCode: string = '';
   feedback: string = '';
 
-  constructor(public differencesService: DifferencesService) {}
+  constructor(
+  public differencesService: DifferencesService, 
+  private router: Router // On ajoute simplement le router ici
+  ) {}
 
   openFile(file: DifferencesGameModel) {
     if (file.isLocked) {
@@ -32,9 +36,18 @@ export class DifferencesGame {
     if (!this.selectedFile) return;
 
     const success = this.differencesService.verifyCode(this.selectedFile.id, this.userCode);
-    
+
     if (success) {
       this.feedback = "Bravo ! Erreur corrigée.";
+
+      if (this.differencesService.isAllResolved()) {
+        this.feedback = "Système entièrement restauré ! Retour imminent...";
+        
+        setTimeout(() => {
+          this.router.navigate(['/desktop']); 
+        }, 2000);
+      } // Fin du bloc isAllResolved
+
     } else {
       this.feedback = "Il reste encore une erreur sémantique...";
     }
