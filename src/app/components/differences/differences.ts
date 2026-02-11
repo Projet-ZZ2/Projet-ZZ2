@@ -17,6 +17,7 @@ export class DifferencesGame {
   userCode: string = '';
   feedback: string = '';
   isGameWon: boolean = false;
+  isError: boolean = false;
 
   constructor(
   public differencesService: DifferencesService, 
@@ -39,6 +40,7 @@ export class DifferencesGame {
     const success = this.differencesService.verifyCode(this.selectedFile.id, this.userCode);
 
     if (success) {
+      this.isError = false; // C'est un succès
       this.feedback = "Bravo ! Erreur corrigée.";
 
       if (this.differencesService.isAllResolved()) {
@@ -47,6 +49,7 @@ export class DifferencesGame {
       } // Fin du bloc isAllResolved
 
     } else {
+      this.isError = true; // C'est une erreur
       this.feedback = "Il reste encore une erreur sémantique...";
     }
   }

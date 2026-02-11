@@ -341,3 +341,7 @@ p.intro-text {
     opacity: 1;
   }
 }
+
+.feedback.error-text {
+  color: #d32f2f !important; /* Force le rouge Windows XP en cas d'erreur */
+}
