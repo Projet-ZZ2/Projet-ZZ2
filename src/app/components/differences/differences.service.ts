@@ -38,6 +38,11 @@ export class DifferencesService {
       
       level.isResolved = true;
       this.unlockNextLevel(id);
+
+      if (this.isAllResolved()) {
+        console.log("Tous les niveaux sont finis !");
+      }
+
       return true;
     } else {
       // Le code est différent : on joue le son d'erreur
@@ -51,5 +56,12 @@ export class DifferencesService {
     if (nextLevel) {
       nextLevel.isLocked = false;
     }
+  }
+
+  isAllResolved(): boolean {
+    // On vérifie les icônes de jeu (ceux qui ne sont pas l'id 0)
+    return this.icons
+      .filter(icon => icon.id !== 0)
+      .every(icon => icon.isResolved);
   }
 }

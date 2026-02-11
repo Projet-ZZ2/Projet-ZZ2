@@ -51,9 +51,25 @@ export const VALIDATION_RULES: Rule[] = [
     {
         id: 5,
         name: 'Indentations cohérentes',
-        description: 'Le style de code doit être cohérent avec les conventions de l\'équipe, comme l\'utilisation de l\'indentation et des espaces.',
+        description: 'Le style de code doit être cohérent : utilisez des paliers de 4 espaces (4, 8, 12...).',
         status: 'locked',
-        validator: (code) => !code.includes('\t') && /^\s*/m.test(code)
+        validator: (code) => {
+            if (code.includes('\t')) return false;
+
+            const lines = code.split('\n');
+            
+            return lines.every(line => {
+                const trimmed = line.trim();
+                if (trimmed.length === 0) return true; // On ignore les lignes vides
+
+                // On compte le nombre d'espaces avant le premier caractère
+                const spaceCount = line.search(/\S/); 
+
+                // La règle : le nombre d'espaces doit être un multiple de 4 (0, 4, 8, 12...)
+                // ET la ligne ne doit pas commencer par un espace si elle est au niveau 0 (sauf la classe)
+                return spaceCount % 4 === 0;
+            });
+        }
     },
     {
         id: 6,

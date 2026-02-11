@@ -5,6 +5,7 @@ import { PLATFORM_ID, Inject } from '@angular/core';
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
 import { playSound } from '../../model/audio-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qulicegame',
@@ -25,6 +26,7 @@ export class Qulicegame implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     afterNextRender(() => {
@@ -104,6 +106,13 @@ export class Qulicegame implements OnInit {
       } else {
         rule.status = 'locked';
       }
+    }
+
+    if (this.allRulesValid) {
+      // On attend un peu pour que l'utilisateur voie la dernière règle passer au vert
+      setTimeout(() => {
+        this.router.navigate(['/desktop']);
+      }, 2000);
     }
   }
 }
