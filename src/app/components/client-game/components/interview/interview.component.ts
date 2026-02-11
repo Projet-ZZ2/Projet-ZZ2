@@ -57,11 +57,11 @@ export class InterviewComponent {
   canCompleteInterview(): boolean {
     const personId = this.selectedPersonId();
     if (!personId) return false;
-    
-    // Au moins une information collectée pour cette personne
+
     const dialogues = this.currentDialogues();
-    return dialogues.some(d => 
-      this.selectedDialogues.has(d.id) && d.isImportant
+    const importantDialogues = dialogues.filter(d => d.isImportant);
+    return importantDialogues.length > 0 && importantDialogues.every(d => 
+      this.selectedDialogues.has(d.id)
     );
   }
 
