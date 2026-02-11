@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ComputerIconModel } from '../../model/computerIconModel';
 import { Router } from '@angular/router';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-computer-icon',
