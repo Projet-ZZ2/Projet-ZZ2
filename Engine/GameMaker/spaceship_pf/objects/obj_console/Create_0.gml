@@ -6,12 +6,6 @@ console_max_length = 20;
 curseur_timer = 0;
 curseur_visible = true;
 
-
-// Cache dimensions
-gui_width = display_get_gui_width();
-gui_height = display_get_gui_height();
-
-
 //Commandes
 com_checkout = false;
 com_add = false;

@@ -1,5 +1,7 @@
-var gui_w = display_get_gui_width();
-var gui_h = display_get_gui_height();
+var largeur_gui = display_get_gui_width();
+var centre_x = largeur_gui / 2;
+var y_start = 350;
+var y_spacing = 30;
 
 if(menu_type == "menu") {
 	
@@ -7,11 +9,15 @@ if(menu_type == "menu") {
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_middle);
 	draw_set_color(c_fuchsia);
-	draw_text(gui_w / 2, 170, "GIT SHOOTER");
+	draw_text(centre_x, 170, "GIT SHOOTER");
 	
 	draw_set_font(Corps);
 	draw_set_color(c_white);
-	draw_text(gui_w / 2, 300, "texte a ajouter");
+	draw_text(centre_x, y_start, "Bucs decolle !")
+	draw_text(centre_x, y_start + y_spacing * 1.5, " Il a une mission dans l'espace");
+	draw_text(centre_x, y_start + y_spacing * 2.5, " et vous devez le guider.");
+	draw_text(centre_x, y_start + y_spacing * 4, "Eliminez vite les meteorites qui vont s'abattre sur la Terre");
+	draw_text(centre_x, y_start + y_spacing * 5, " a l'aide de votre ordinateur tout-puissant !");
 	
 } else {
 	
@@ -19,21 +25,33 @@ if(menu_type == "menu") {
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_middle);
 	draw_set_color(c_fuchsia);
-	draw_text(gui_w / 2, 170, "Pause");
+	draw_text(centre_x, 170, "Pause");
 	
 	draw_set_font(Corps);
+	draw_set_color(c_teal);
+	draw_text(centre_x, 300, "COMMANDES :");
+	//Colonne avec commandes git
 	draw_set_color(c_white);
-	draw_text(gui_w / 2, 300, "COMMANDES :");
-	draw_text(gui_w / 2, 330, "git checkout x : Basculer la branche x");
-	draw_text(gui_w / 2, 360, "git add : Recuperer une munition");
-	draw_text(gui_w / 2, 390, "git commit : Preparer la munition");
-	draw_text(gui_w / 2, 420, "git push: Envoyer la munition");
-	draw_text(gui_w / 2, 450, "git branch: Creer une nouvelle branche");
-	draw_text(gui_w / 2, 480, "git merge : Fusionner deux branches");
-	draw_text(gui_w / 2, 510, "git pull : Reprendre la partie");
-	
-	draw_text(gui_w / 2, 570, "M : Recommencer");
-	
+	draw_set_halign(fa_right);
+	draw_text(centre_x, y_start, "git init :");
+	draw_text(centre_x, y_start + y_spacing, "git checkout x :");
+	draw_text(centre_x, y_start + y_spacing * 2, "git add :");
+	draw_text(centre_x, y_start + y_spacing * 3, "git commit :");
+	draw_text(centre_x, y_start + y_spacing * 4, "git push :");
+	draw_text(centre_x, y_start + y_spacing * 5, "git branch :");
+	draw_text(centre_x, y_start + y_spacing * 6, "git merge :");
+	draw_text(centre_x, y_start + y_spacing * 7, "git pull :");
+
+	// Colonne avec description
+	draw_set_halign(fa_left);
+	draw_text(centre_x + 10, y_start, "Initialiser le jeu");
+	draw_text(centre_x + 10, y_start + y_spacing, "Basculer la branche x");
+	draw_text(centre_x + 10, y_start + y_spacing * 2 , "Recuperer une munition");
+	draw_text(centre_x + 10, y_start + y_spacing * 3, "Preparer la munition");
+	draw_text(centre_x + 10, y_start + y_spacing * 4, "Envoyer la munition");
+	draw_text(centre_x + 10, y_start + y_spacing * 5, "Creer une nouvelle branche");
+	draw_text(centre_x + 10, y_start + y_spacing * 6, "Fusionner deux branches");
+	draw_text(centre_x + 10, y_start + y_spacing * 7, "Reprendre la partie");
 }
 
 // Réinitialiser l'alignement

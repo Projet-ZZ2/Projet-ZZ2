@@ -24,6 +24,8 @@ if (obj_console.com_branch) {
 // Supprimer une branche
 if (obj_console.com_merge) {
     nb_branche_uti -= 1;
+	//Eviter de sortir de la room
+	if (position_actuelle >= nb_branche_uti) position_actuelle = nb_branche_uti - 1;
     espacement = room_width / nb_branche_uti;
     x = espacement * position_actuelle + espacement / 2;
 	obj_console.com_merge = false;

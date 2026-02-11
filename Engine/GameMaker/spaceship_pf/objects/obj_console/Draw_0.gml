@@ -1,3 +1,6 @@
+var gui_width = display_get_gui_width();
+var gui_height = display_get_gui_height();
+
 //Taille console
 var console_hauteur = 60;
 var console_y = gui_height - console_hauteur;
