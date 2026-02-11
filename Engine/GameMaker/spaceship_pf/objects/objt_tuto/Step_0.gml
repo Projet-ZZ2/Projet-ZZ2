@@ -7,7 +7,7 @@ switch(step) {
 	
 	// ========== ÉTAPE 0 : ACCUEIL ==========
 	case 0:
-		titre_etape = "TUTORIEL GIT";
+		titre_etape = "";
 		explication_git = "Bienvenue dans le tutoriel"
 		instruction_jeu = "Vous allez decouvrir les commandes git necessaire au jeu";
 		alarm[0] = 180;
@@ -210,7 +210,7 @@ switch(step) {
     
     // ========== ÉTAPE 15 : ATTENDRE FIN ==========
     case 15:
-		titre_etape = "FIN";
+		titre_etape = "";
 		explication_git = "Vous avez fini le tutoriel ! Maintenant c'est a vous de jouer";
 		instruction_jeu = "Chargement du jeu ...";
         allowed_commands = [];
