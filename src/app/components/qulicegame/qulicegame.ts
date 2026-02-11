@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 export class Qulicegame implements OnInit {
   codeContent: string = "";
   initialCode: string = "";
+  isGameWon: boolean = false;
   
   // Utilisation du nom EXACT utilisé dans ton HTML (*ngFor="let rule of validationRules")
   validationRules: Rule[] = VALIDATION_RULES;
@@ -109,10 +110,27 @@ export class Qulicegame implements OnInit {
     }
 
     if (this.allRulesValid) {
-      // On attend un peu pour que l'utilisateur voie la dernière règle passer au vert
-      setTimeout(() => {
-        this.router.navigate(['/desktop']);
-      }, 2000);
+      // Affiche la fenêtre de victoire au lieu de naviguer immédiatement
+      this.isGameWon = true;
+    }
+  }
+
+  continueGame() {
+    this.router.navigate(['/desktop']);
+  }
+
+  resetCode() {
+    if (confirm("Voulez-vous vraiment réinitialiser tout le code ?")) {
+      // 1. On remet le code tel qu'il était au chargement
+      this.codeContent = this.initialCode;
+      
+      // 2. On relance immédiatement la vérification pour mettre à jour les règles
+      this.checkRules();
+      
+      // 3. (Optionnel) Jouer un petit son
+      // playSound('reset.mp3', false);
+      
+      console.log("Code réinitialisé !");
     }
   }
 }

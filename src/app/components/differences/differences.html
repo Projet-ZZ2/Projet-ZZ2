@@ -1,6 +1,6 @@
 <h1>Jeu du développeur</h1>
 
-<p>Bucs a besoin de votre aide pour corriger les erreurs dans son code. Ouvrez les fichiers et suivez les instructions pour résoudre les problèmes. 
+<p class="intro-text">Bucs a besoin de votre aide pour corriger les erreurs dans son code. Ouvrez les fichiers et suivez les instructions pour résoudre les problèmes. 
   Chaque fichier contient une énigme différente, alors soyez attentif aux détails !</p>
 
 <div class="desktop">
@@ -47,9 +47,14 @@
       <div class="footer">
         <p class="feedback" *ngIf="selectedFile.id !== -1">{{ feedback }}</p>
         
-        <button *ngIf="selectedFile.id !== -1" class="check-btn" (click)="checkCorrection()">
-          Vérifier
-        </button>
+        <div class="button-group">
+          <button *ngIf="selectedFile.id !== -1" class="reset-btn" (click)="resetCode()">
+            Réinitialiser le code
+          </button>
+          <button *ngIf="selectedFile.id !== -1" class="check-btn" (click)="checkCorrection()">
+            Vérifier
+          </button>
+        </div>
       </div>
     </div>
   </div>
