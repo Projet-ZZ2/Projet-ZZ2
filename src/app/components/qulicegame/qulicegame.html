@@ -1,6 +1,6 @@
 <h1 class="game-title">Jeu du formattage</h1>
 
-<p>Bucs est décidément ronchon. Son code n'a pas l'apparence qu'il imaginait. Aidez-le à rendre tout ça plus joli.</p>
+<p class="maintext">Bucs est décidément ronchon. Son code n'a pas l'apparence qu'il imaginait. Aidez-le à rendre tout ça plus joli.</p>
 
 <div class="game-wrapper">
   <section class="editor-container">
@@ -18,5 +18,17 @@
         <p *ngIf="rule.status !== 'locked'">{{ rule.description }}</p>
       </div>
     </div>
+    <div class="editor-actions">
+      <button class="reset-btn" (click)="resetCode()">Réinitialiser le code</button>
+    </div>
   </aside>
+</div>
+
+<!-- Fenêtre de victoire -->
+<div class="victory-overlay" *ngIf="isGameWon">
+  <div class="victory-modal">
+    <h2>🎉 Félicitations ! 🎉</h2>
+    <p>Vous avez réussi à formater le code correctement !</p>
+    <button class="continue-btn" (click)="continueGame()">Continuer</button>
+  </div>
 </div>
