@@ -21,3 +21,27 @@ export const playSound = (fileName: string, status: boolean) => {
         console.warn("L'audio n'a pas pu être lancé :", err);
     });
 };
+
+// model/audio-helper.ts
+
+let backgroundMusic: HTMLAudioElement | null = null;
+
+export const playBackgroundMusic = (fileName: string) => {
+  // On évite de lancer la musique plusieurs fois
+  if (backgroundMusic) return; 
+
+  backgroundMusic = new Audio(`/assets/audio/${fileName}`);
+  backgroundMusic.loop = true; // Active la répétition automatique
+  backgroundMusic.volume = 0.2; // Musique plus douce que les bruitages
+  
+  backgroundMusic.play().catch(err => {
+    console.warn("La musique n'a pas pu démarrer (interaction requise) :", err);
+  });
+};
+
+export const stopBackgroundMusic = () => {
+  if (backgroundMusic) {
+    backgroundMusic.pause();
+    backgroundMusic = null;
+  }
+};
