@@ -95,8 +95,7 @@ export class ClientGameService {
 
   canProceedFromInterview(): boolean {
     const state = this.gameState();
-    return state.completedInterviews.length >= 3 && // Au moins 3 entretiens
-           state.collectedInfos.filter(i => i.type === 'ui' || i.type === 'ux').length >= 4; // Au moins 4 infos UI/UX
+    return state.completedInterviews.length ==4;
   }
 
   proceedToInsights(): void {
