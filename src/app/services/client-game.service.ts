@@ -9,6 +9,8 @@ import {
   DesignElement,
   PersonaCharacteristic 
 } from '../model/client-game.model';
+import { dialogueDatabase } from '../data/client-game/dialogues';
+import { persons } from '../data/client-game/persons';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class ClientGameService {
   
   // État principal du jeu
   private gameState = signal<GameState>({
-    currentStep: 'menu',
+    currentStep: 'entretien',
     score: 0,
     maxScore: 1000,
     completedInterviews: [],
@@ -34,144 +36,8 @@ export class ClientGameService {
   readonly score = computed(() => this.gameState().score);
   readonly canProceedToNextStep = computed(() => this.validateCurrentStep());
 
-  // Données statiques du jeu
-  readonly persons: Person[] = [
-    {
-      id: 'p1',
-      name: 'Sophie',
-      age: 8,
-      profession: 'Élève',
-      theme: 'enfants',
-      avatar: '👧'
-    },
-    {
-      id: 'p2',
-      name: 'Jean',
-      age: 35,
-      profession: 'Designer',
-      theme: 'épuré',
-      avatar: '👨‍🎨'
-    },
-    {
-      id: 'p3',
-      name: 'Alex',
-      age: 22,
-      profession: 'Développeur',
-      theme: 'geek',
-      avatar: '👨‍💻'
-    },
-    {
-      id: 'p4',
-      name: 'Marie',
-      age: 65,
-      profession: 'Retraitée',
-      theme: 'vieux',
-      avatar: '👵'
-    }
-  ];
-
   // Dialogues générés aléatoirement
-  private dialogueDatabase: DialogueLine[] = [
-    // Sophie (enfants)
-    {
-      id: 'd1',
-      personId: 'p1',
-      text: "J'aime quand c'est coloré et rigolo !",
-      isImportant: true,
-      infoType: 'theme',
-      info: { id: 'i1', type: 'theme', content: 'Interface colorée', importance: 8, difficulty: 3, value: 'enfants' }
-    },
-    {
-      id: 'd2',
-      personId: 'p1',
-      text: "Les gros boutons c'est mieux, mes doigts sont petits.",
-      isImportant: true,
-      infoType: 'ui',
-      info: { id: 'i2', type: 'ui', content: 'Gros boutons', importance: 9, difficulty: 2, value: 'large' }
-    },
-    {
-      id: 'd3',
-      personId: 'p1',
-      text: "Mon chat s'appelle Minou.",
-      isImportant: false,
-      infoType: 'inutile'
-    },
-    
-    // Jean (épuré)
-    {
-      id: 'd4',
-      personId: 'p2',
-      text: "Je préfère les interfaces minimalistes, sans fioritures.",
-      isImportant: true,
-      infoType: 'theme',
-      info: { id: 'i3', type: 'theme', content: 'Interface minimaliste', importance: 7, difficulty: 5, value: 'épuré' }
-    },
-    {
-      id: 'd5',
-      personId: 'p2',
-      text: "L'espace blanc est important pour la lisibilité.",
-      isImportant: true,
-      infoType: 'ui',
-      info: { id: 'i4', type: 'ui', content: 'Espace blanc', importance: 6, difficulty: 4, value: 'spacing' }
-    },
-    {
-      id: 'd6',
-      personId: 'p2',
-      text: "J'ai pris un café ce matin.",
-      isImportant: false,
-      infoType: 'inutile'
-    },
-    
-    // Alex (geek)
-    {
-      id: 'd7',
-      personId: 'p3',
-      text: "J'adore les interfaces sombres, ça fatigue moins les yeux.",
-      isImportant: true,
-      infoType: 'theme',
-      info: { id: 'i5', type: 'theme', content: 'Mode sombre', importance: 8, difficulty: 3, value: 'geek' }
-    },
-    {
-      id: 'd8',
-      personId: 'p3',
-      text: "Il faut que ce soit rapide et efficace, pas de temps à perdre.",
-      isImportant: true,
-      infoType: 'ux',
-      info: { id: 'i6', type: 'ux', content: 'Performance', importance: 9, difficulty: 7, value: 'speed' }
-    },
-    {
-      id: 'd9',
-      personId: 'p3',
-      text: "Je joue beaucoup aux jeux vidéo.",
-      isImportant: false,
-      infoType: 'inutile'
-    },
-    
-    // Marie (vieux)
-    {
-      id: 'd10',
-      personId: 'p4',
-      text: "Les lettres doivent être grandes, j'ai du mal à lire.",
-      isImportant: true,
-      infoType: 'ui',
-      info: { id: 'i7', type: 'ui', content: 'Grande police', importance: 10, difficulty: 2, value: 'large-font' }
-    },
-    {
-      id: 'd11',
-      personId: 'p4',
-      text: "J'ai besoin d'aide pour naviguer, c'est compliqué.",
-      isImportant: true,
-      infoType: 'ux',
-      info: { id: 'i8', type: 'ux', content: 'Navigation simple', importance: 9, difficulty: 6, value: 'simple-nav' }
-    },
-    {
-      id: 'd12',
-      personId: 'p4',
-      text: "Mes petits-enfants viennent me voir dimanche.",
-      isImportant: false,
-      infoType: 'inutile'
-    }
-  ];
+  
 
   // Méthodes publiques
   
@@ -191,14 +57,14 @@ export class ClientGameService {
   }
 
   getDialoguesForPerson(personId: string): DialogueLine[] {
-    const personDialogues = this.dialogueDatabase.filter(d => d.personId === personId);
+    const personDialogues = dialogueDatabase.filter(d => d.personId === personId);
     // Mélanger les dialogues et en prendre 4-6 aléatoirement
     const shuffled = [...personDialogues].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, Math.min(6, shuffled.length));
   }
 
   selectDialogueLine(dialogueId: string): { correct: boolean; points: number } {
-    const dialogue = this.dialogueDatabase.find(d => d.id === dialogueId);
+    const dialogue = dialogueDatabase.find(d => d.id === dialogueId);
     if (!dialogue) return { correct: false, points: 0 };
 
     if (dialogue.isImportant && dialogue.info) {
@@ -424,7 +290,7 @@ export class ClientGameService {
   }
 
   getPerson(id: string): Person | undefined {
-    return this.persons.find(p => p.id === id);
+    return persons.find(p => p.id === id);
   }
 
   getCollectedInfos() {

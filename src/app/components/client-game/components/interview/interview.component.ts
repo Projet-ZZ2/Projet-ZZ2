@@ -2,6 +2,7 @@ import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { ClientGameService } from '../../../../services/client-game.service';
 import { Person, DialogueLine } from '../../../../model/client-game.model';
+import { persons } from '../../../../data/client-game/persons';
 
 @Component({
   selector: 'interview-component',
@@ -18,7 +19,7 @@ export class InterviewComponent {
   
   constructor(public gameService: ClientGameService) {}
 
-  availablePersons = computed(() => this.gameService.persons);
+  availablePersons = computed(() => persons);
   
   currentDialogues = computed(() => {
     const personId = this.selectedPersonId();
