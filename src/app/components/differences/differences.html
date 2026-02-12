@@ -34,43 +34,46 @@
     </div>
   </div>
 
-  <div class="editor-window" *ngIf="selectedFile">
-    <div class="editor-header">
-      <span>{{ selectedFile.content?.title }} - Bloc-notes</span>
-      <button (click)="selectedFile = null">X</button>
-    </div>
-    
-    <div class="editor-body">
-        @if(selectedFile.id !== -1){
-        <div class="instructions">
-          <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
-        </div>
-      }
-
-      <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
+  @if(selectedFile){
+    <div class="editor-window">
+      <div class="editor-header">
+        <span>{{ selectedFile.content?.title }} - Bloc-notes</span>
+        <button (click)="selectedFile = null">X</button>
+      </div>
       
-      <div class="footer">
-        @if(selectedFile.id !== -1){
-          <p class="feedback" 
-              [class.error-text]="isError">
-              {{ feedback }}
-          </p>
-        }    
-        <div class="button-group">
+      <div class="editor-body">
           @if(selectedFile.id !== -1){
-            <button class="reset-btn" (click)="resetCode()">
-              Réinitialiser le code
-            </button>
-          }
-          @if (selectedFile.id !== -1){
-            <button class="check-btn" (click)="checkCorrection()">
-              Vérifier
-            </button>
-          }
+          <div class="instructions">
+            <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
+          </div>
+        }
+
+        <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
+        
+        <div class="footer">
+          @if(selectedFile.id !== -1){
+            <p class="feedback" 
+                [class.error-text]="isError">
+                {{ feedback }}
+            </p>
+          }    
+          <div class="button-group">
+            @if(selectedFile.id !== -1){
+              <button class="reset-btn" (click)="resetCode()">
+                Réinitialiser le code
+              </button>
+            }
+            <button class="reset-btn" (click)="selectedFile = null">Retour</button>
+            @if (selectedFile.id !== -1){
+              <button class="check-btn" (click)="checkCorrection()">
+                Vérifier
+              </button>
+            }
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 </div>
 
 <!-- Modale de victoire -->

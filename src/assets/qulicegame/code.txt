@@ -6,9 +6,12 @@ class ordinateur
     public void Afficher(){
       console_affiche("Ceci est un texte plutôt long qui sera affiché à l'écran de l'ordinateur lorsque celui-ci sera allumé.");
     }
-
-    public connaitreMemoire()
+    public int connaitreMemoire()
     {
-        return espace_memoire;
+        if(m == null){
+            return espace_memoire;
+        } else {
+            return 0;
+        }
     }
 }
