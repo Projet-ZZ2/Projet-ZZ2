@@ -16,7 +16,8 @@ export class InterviewComponent {
   
   selectedPersonId = signal<string | null>(null);
   selectedDialogues = new Set<string>();
-  
+  interwiewEndedTooSoon=false;
+
   constructor(public gameService: ClientGameService) {}
 
   availablePersons = computed(() => persons);
@@ -43,8 +44,6 @@ export class InterviewComponent {
     
     this.selectedDialogues.add(dialogueId);
     const result = this.gameService.selectDialogueLine(dialogueId);
-    
-    // Feedback visuel déjà géré par les classes CSS
   }
 
   isDialogueRevealed(dialogueId: string): boolean {
@@ -61,18 +60,28 @@ export class InterviewComponent {
 
     const dialogues = this.currentDialogues();
     const importantDialogues = dialogues.filter(d => d.isImportant);
-    return importantDialogues.length > 0 && importantDialogues.every(d => 
-      this.selectedDialogues.has(d.id)
-    );
+    return importantDialogues.length > 0;
   }
 
   completeCurrentInterview(): void {
     const personId = this.selectedPersonId();
     if (!personId || !this.canCompleteInterview()) return;
     
-    this.gameService.completeInterview(personId);
-    this.selectedPersonId.set(null);
-    this.selectedDialogues.clear();
+
+    const dialogues = this.currentDialogues();
+    const importantDialogues = dialogues.filter(d => d.isImportant);
+    
+    if(importantDialogues.every(d => this.selectedDialogues.has(d.id))){
+      this.gameService.completeInterview(personId, true);
+      this.selectedPersonId.set(null);
+      this.selectedDialogues.clear();
+      this.interwiewEndedTooSoon=false;
+      return;
+    }
+    this.gameService.completeInterview(personId, false);
+    this.interwiewEndedTooSoon=true;
+
+
   }
 
   getSelectedPerson(): Person | undefined {

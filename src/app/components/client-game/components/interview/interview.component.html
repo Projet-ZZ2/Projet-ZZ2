@@ -34,6 +34,10 @@
             </div>
             <div class="interview-progress">
               <p>{{ collectedInfosCount() }} infos collectées</p>
+              @if (interwiewEndedTooSoon){
+                <p>Il reste des informations à collecter ! -10 pts</p>
+              }
+              
               @if (canCompleteInterview()) {
                 <button class="complete-interview-btn" (click)="completeCurrentInterview()">
                   Terminer l'entretien

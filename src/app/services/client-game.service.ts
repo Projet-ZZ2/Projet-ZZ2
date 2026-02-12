@@ -86,7 +86,15 @@ export class ClientGameService {
     }
   }
 
-  completeInterview(personId: string): void {
+  completeInterview(personId: string, foundEverything : boolean): void {
+    if (!foundEverything){
+      this.gameState.update(state => ({
+        ...state,
+        score: Math.max(0, state.score - 10),
+        errors: state.errors + 1
+      }));
+      return;
+    }
     this.gameState.update(state => ({
       ...state,
       completedInterviews: [...state.completedInterviews, personId]
