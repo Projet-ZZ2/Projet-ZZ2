@@ -27,6 +27,7 @@
 
 .screen {
     display: block;
+    box-sizing: border-box;
     position: absolute;
     bottom: 6vh;
     left: 2.5vh;
