@@ -1,28 +1,25 @@
 import { Component, OnInit, afterNextRender, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Indispensable pour ngModel
+import { FormsModule } from '@angular/forms';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { Rule } from '../../model/rulesQuLiceModel';
 import { VALIDATION_RULES } from '../../model/rulesQuLice';
 import { playSound } from '../../model/audio-helper';
 import { Router } from '@angular/router';
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'app-qulicegame',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Vérifie bien que FormsModule est ici
+  imports: [CommonModule, FormsModule, Computer],
   templateUrl: './qulicegame.html',
   styleUrl: './qulicegame.css',
-  // host: {
-  //   'ngSkipHydration': 'true'
-  // }
 })
 export class Qulicegame implements OnInit {
   codeContent: string = "";
   initialCode: string = "";
   isGameWon: boolean = false;
   
-  // Utilisation du nom EXACT utilisé dans ton HTML (*ngFor="let rule of validationRules")
   validationRules: Rule[] = VALIDATION_RULES;
 
   constructor(
@@ -36,7 +33,6 @@ export class Qulicegame implements OnInit {
   }
 
   ngOnInit(): void {
-    // loadCode is called in afterNextRender which only runs on the client
   }
 
   // Fonction appelée par le (click) du bouton dans le HTML

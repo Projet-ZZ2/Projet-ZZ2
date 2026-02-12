@@ -10,12 +10,13 @@
 
 .game-wrapper {
   display: flex;
-  height: 85vh;
+  justify-self: center;
+  height: 70vh;
   width: 95%;
-  margin: 20px auto;
+  margin: 1vw;
   background-color: var(--panel-bg);
   box-shadow: var(--outset-shadow); /* Effet bouton relief */
-  padding: 4px;
+  padding: 0.2vw;
   font-family: "Fixedsys", "Consolas", monospace;
 }
 
