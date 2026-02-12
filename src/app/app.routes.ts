@@ -9,6 +9,7 @@ import { Ctf } from './components/ctf/ctf';
 import { DifferencesGame } from './components/differences/differences';
 import { Fin } from './components/fin/fin';
 import { GameCompletionGuard } from './services/game-completion.guard';
+import { gameResolver } from './services/game-resolver';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
   {
     path: 'desktop',
     component: Desktop,
+    resolve: { game: gameResolver }
   },
   {
     path: 'jeu',
@@ -25,23 +27,27 @@ export const routes: Routes = [
   },
   {
     path: 'game/1',
-    component: ClientGame
+    component: ClientGame,
   },
   {
     path: 'game/2',
-    component: Gitgame
+    component: Gitgame,
+    resolve: { game: gameResolver }
   },
   {
     path: 'game/3',
-    component: Qulicegame
+    component: Qulicegame,
+    resolve: { game: gameResolver }
   },
   {
     path: 'game/4',
-    component: Ctf
+    component: Ctf,
+    resolve: { game: gameResolver }
   },
   {
     path: 'game/7',
-    component: DifferencesGame
+    component: DifferencesGame,
+    resolve: { game: gameResolver }
   },
   {
     path: "victory",
