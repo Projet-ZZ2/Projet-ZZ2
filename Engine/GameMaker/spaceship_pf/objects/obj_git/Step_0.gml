@@ -31,9 +31,6 @@ if (obj_console.com_merge) {
 	obj_console.com_merge = false;
 }
 
-// Augmentation automatique des branches selon le score
-var val = obj_controller.score_total;
-var seuil = obj_controller.tmp;
 
 if (a_augmente) {
     nb_branche_tot += 1;
