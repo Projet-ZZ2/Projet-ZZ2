@@ -19,3 +19,10 @@ if (room == R3_Jeu) {
         game_restart();
     }
 }
+
+
+if (room == R2_Tutoriel) {
+	if (keyboard_check_pressed(vk_escape)) {
+        room_goto(R1_Menu);
+    }
+}
