@@ -18,11 +18,11 @@ export class GameCompletionGuard implements CanActivate {
     }
 
     // Si non, rediriger vers l'accueil
-    console.warn('⚠️ Accès à la page victory refusé - tous les mini-jeux ne sont pas complétés');
+    console.warn('Accès à la page victory refusé - tous les mini-jeux ne sont pas complétés');
     
     // Afficher l'alerte uniquement si elle existe (côté navigateur)
     if (typeof window !== 'undefined' && typeof window.alert === 'function') {
-      window.alert('❌ Vous devez d\'abord compléter tous les mini-jeux !');
+      window.alert('Vous devez d\'abord compléter tous les mini-jeux !');
     }
     
     this.router.navigate(['']);
