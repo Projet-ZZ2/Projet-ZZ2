@@ -3,7 +3,6 @@ import { COMPUTER_ICONS } from '../../data/computerIconsData';
 import { ComputerIcon } from '../computer-icon/computer-icon';
 import { ComputerIconModel } from '../../model/computerIconModel';
 import { Computer } from '../computer/computer';
-import { playBackgroundMusic, playSound } from '../../model/audio-helper';
 import { Taskbar } from '../taskbar/taskbar';
 
 
