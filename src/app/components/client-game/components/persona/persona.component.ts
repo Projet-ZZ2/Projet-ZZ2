@@ -73,8 +73,8 @@ export class PersonaComponent {
     
     const newCharacteristic: PersonaCharacteristic = {
       type,
-      value: label,
-      isCorrect: false // Will be determined when validating
+      value: value,
+      isCorrect: false 
     };
 
     if (existingIndex >= 0) {

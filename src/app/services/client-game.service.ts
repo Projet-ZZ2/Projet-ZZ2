@@ -19,7 +19,7 @@ export class ClientGameService {
   
   // État principal du jeu
   private gameState = signal<GameState>({
-    currentStep: 'entretien',
+    currentStep: 'persona',
     score: 0,
     maxScore: 1000,
     completedInterviews: [],
