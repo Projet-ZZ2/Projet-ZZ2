@@ -1,0 +1,334 @@
+.results-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .results-header {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+    }
+
+    .final-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid;
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .score-circle.excellent {
+      border-color: #4CAF50;
+      box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+    }
+
+    .score-circle.good {
+      border-color: #2196F3;
+      box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
+    }
+
+    .score-circle.average {
+      border-color: #FF9800;
+      box-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+    }
+
+    .score-circle.poor {
+      border-color: #F44336;
+      box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+    }
+
+    .score-number {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .score-total {
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    .results-header h2 {
+      font-size: 2.5rem;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .score-description {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .results-breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .step-results h3,
+    .detailed-analysis h3 {
+      font-size: 1.5rem;
+      margin: 0 0 1.5rem 0;
+      text-align: center;
+    }
+
+    .step-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-info h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .step-info p {
+      margin: 0.2rem 0;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .step-score {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4ECDC4;
+    }
+
+    .analysis-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .analysis-section h4 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+    }
+
+    .strengths {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .improvements {
+      border-left: 4px solid #FF9800;
+    }
+
+    .recommendations {
+      border-left: 4px solid #2196F3;
+    }
+
+    .analysis-section ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .analysis-section li {
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .achievements {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .achievements h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 0 0 2rem 0;
+    }
+
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 1rem;
+      border: 2px solid;
+    }
+
+    .badge.common {
+      border-color: #9E9E9E;
+    }
+
+    .badge.rare {
+      border-color: #2196F3;
+    }
+
+    .badge.epic {
+      border-color: #9C27B0;
+    }
+
+    .badge.legendary {
+      border-color: #FF9800;
+      background: linear-gradient(45deg, rgba(255, 152, 0, 0.2), rgba(255, 193, 7, 0.2));
+    }
+
+    .badge-icon {
+      font-size: 3rem;
+      width: 60px;
+      text-align: center;
+    }
+
+    .badge-info h5 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .badge-info p {
+      margin: 0;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .no-badges {
+      text-align: center;
+      opacity: 0.7;
+      padding: 2rem;
+    }
+
+    .player-stats {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .player-stats h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 0 0 2rem 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 2px solid rgba(78, 205, 196, 0.3);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #4ECDC4;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+
+    .replay-advice {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .replay-advice h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 0 0 2rem 0;
+    }
+
+    .advice-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .advice-card {
+      background: rgba(78, 205, 196, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      border-left: 4px solid #4ECDC4;
+    }
+
+    .advice-card h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: #4ECDC4;
+    }
+
+    .advice-card p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 968px) {
+      .results-breakdown {
+        grid-template-columns: 1fr;
+      }
+      
+      .score-circle {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .score-number {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .results-container {
+        padding: 1rem;
+      }
+      
+      .results-header {
+        padding: 2rem;
+      }
+      
+      .step-result {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .badges-grid,
+      .stats-grid,
+      .advice-cards {
+        grid-template-columns: 1fr;
+      }
+    }

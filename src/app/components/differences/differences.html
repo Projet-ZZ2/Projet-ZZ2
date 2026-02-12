@@ -1,88 +1,90 @@
-<h1>Jeu du développeur</h1>
+<app-computer>
+  <h1>Jeu du développeur</h1>
 
-<p class="intro-text">Bucs a besoin de votre aide pour corriger les erreurs dans son code. Ouvrez les fichiers et suivez les instructions pour résoudre les problèmes. 
-  Chaque fichier contient une énigme différente, alors soyez attentif aux détails !</p>
+  <p class="intro-text">Bucs a besoin de votre aide pour corriger les erreurs dans son code. Ouvrez les fichiers et suivez les instructions pour résoudre les problèmes. 
+    Chaque fichier contient une énigme différente, alors soyez attentif aux détails !</p>
 
-<div class="desktop">
-  <div class="sidebar">
-    <h3>Tâches système</h3>
-    <div class="sidebar-info">Sélectionnez un fichier pour corriger les erreurs.</div>
-  </div>
-
-  <div class="main-content">
-    <div class="toolbar">
-      <div class="address-bar">C:\WINDOWS\system32\drivers\code</div>
+  <div class="desktop">
+    <div class="sidebar">
+      <h3>Tâches système</h3>
+      <div class="sidebar-info">Sélectionnez un fichier pour corriger les erreurs.</div>
     </div>
 
-    <div class="icon-grid">
-      <div class="file-icon" (click)="openHelp()">
-        <span class="icon">❓</span>
-        <span class="label">Aide système</span>
+    <div class="main-content">
+      <div class="toolbar">
+        <div class="address-bar">C:\WINDOWS\system32\drivers\code</div>
       </div>
 
-      @for(file of differencesService.getIcons(); track file.id){
-        <div (click)="openFile(file)" 
-            class="file-icon"
-            [class.locked]="file.isLocked">
-          <span class="icon">📄</span>
-          <span class="label">{{ file.label }}</span>
-          @if(file.isResolved){
-            <span>✅</span>
-          }
+      <div class="icon-grid">
+        <div class="file-icon" (click)="openHelp()">
+          <span class="icon">❓</span>
+          <span class="label">Aide système</span>
         </div>
-      }
-    </div>
-  </div>
 
-  @if(selectedFile){
-    <div class="editor-window">
-      <div class="editor-header">
-        <span>{{ selectedFile.content?.title }} - Bloc-notes</span>
-        <button (click)="selectedFile = null">X</button>
-      </div>
-      
-      <div class="editor-body">
-          @if(selectedFile.id !== -1){
-          <div class="instructions">
-            <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
+        @for(file of differencesService.getIcons(); track file.id){
+          <div (click)="openFile(file)" 
+              class="file-icon"
+              [class.locked]="file.isLocked">
+            <span class="icon">📄</span>
+            <span class="label">{{ file.label }}</span>
+            @if(file.isResolved){
+              <span>✅</span>
+            }
           </div>
         }
+      </div>
+    </div>
 
-        <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
+    @if(selectedFile){
+      <div class="editor-window">
+        <div class="editor-header">
+          <span>{{ selectedFile.content?.title }} - Bloc-notes</span>
+          <button (click)="selectedFile = null">X</button>
+        </div>
         
-        <div class="footer">
-          @if(selectedFile.id !== -1){
-            <p class="feedback" 
-                [class.error-text]="isError">
-                {{ feedback }}
-            </p>
-          }    
-          <div class="button-group">
+        <div class="editor-body">
             @if(selectedFile.id !== -1){
-              <button class="reset-btn" (click)="resetCode()">
-                Réinitialiser le code
-              </button>
-            }
-            <button class="reset-btn" (click)="selectedFile = null">Retour</button>
-            @if (selectedFile.id !== -1){
-              <button class="check-btn" (click)="checkCorrection()">
-                Vérifier
-              </button>
-            }
+            <div class="instructions">
+              <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
+            </div>
+          }
+
+          <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
+          
+          <div class="footer">
+            @if(selectedFile.id !== -1){
+              <p class="feedback" 
+                  [class.error-text]="isError">
+                  {{ feedback }}
+              </p>
+            }    
+            <div class="button-group">
+              @if(selectedFile.id !== -1){
+                <button class="reset-btn" (click)="resetCode()">
+                  Réinitialiser le code
+                </button>
+              }
+              <button class="reset-btn" (click)="selectedFile = null">Retour</button>
+              @if (selectedFile.id !== -1){
+                <button class="check-btn" (click)="checkCorrection()">
+                  Vérifier
+                </button>
+              }
+            </div>
           </div>
         </div>
+      </div>
+    }
+  </div>
+
+  <!-- Modale de victoire -->
+  @if(isGameWon){
+    <div class="victory-overlay">
+      <div class="victory-modal">
+        <h2>Bravo !</h2>
+        <p>Vous avez gagné ! Tous les fichiers ont été restaurés avec succès !</p>
+        <button class="continue-btn" (click)="continueToDesktop()">Retour au Bureau</button>
       </div>
     </div>
   }
-</div>
-
-<!-- Modale de victoire -->
-@if(isGameWon){
-  <div class="victory-overlay">
-    <div class="victory-modal">
-      <h2>Bravo !</h2>
-      <p>Vous avez gagné ! Tous les fichiers ont été restaurés avec succès !</p>
-      <button class="continue-btn" (click)="continueToDesktop()">Retour au Bureau</button>
-    </div>
-  </div>
-}
+</app-computer>

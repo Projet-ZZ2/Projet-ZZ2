@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { DifferencesService } from './differences.service';
 import { DifferencesGameModel } from '../../model/differencesGameModel';
 import { Router } from '@angular/router';
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'app-differences',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Indispensable pour ngModel et *ngIf
+  imports: [CommonModule, FormsModule, Computer],
   templateUrl: './differences.html',
   styleUrls: ['./differences.css']
 })
@@ -21,7 +22,7 @@ export class DifferencesGame {
 
   constructor(
   public differencesService: DifferencesService, 
-  private router: Router // On ajoute simplement le router ici
+  private router: Router
   ) {}
 
   openFile(file: DifferencesGameModel) {

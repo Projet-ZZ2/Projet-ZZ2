@@ -4,10 +4,12 @@ import { ComputerIcon } from '../computer-icon/computer-icon';
 import { ComputerIconModel } from '../../model/computerIconModel';
 import { Computer } from '../computer/computer';
 import { playBackgroundMusic, playSound } from '../../model/audio-helper';
+import { Taskbar } from '../taskbar/taskbar';
+
 
 @Component({
   selector: 'app-desktop',
-  imports: [ComputerIcon, Computer],
+  imports: [ComputerIcon, Taskbar],
   templateUrl: './desktop.html',
   styleUrl: './desktop.css',
 })
