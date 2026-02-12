@@ -34,12 +34,18 @@
             </div>
             <div class="interview-progress">
               <p>{{ collectedInfosCount() }} infos collectées</p>
-              @if (interwiewEndedTooSoon){
-                <p>Il reste des informations à collecter ! -10 pts</p>
-              }
+
+              <div class="interview-too-soon">
+                @if (interwiewEndedTooSoon()){
+                  <p [class.shake]="triggerShake()">Il reste des informations à collecter ! -10 pts</p>
+                }
+              </div>
               
               @if (canCompleteInterview()) {
-                <button class="complete-interview-btn" (click)="completeCurrentInterview()">
+                <button 
+                  class="complete-interview-btn" 
+                  [class.wrong]="interwiewEndedTooSoon()"
+                  (click)="completeCurrentInterview()">
                   Terminer l'entretien
                 </button>
               }

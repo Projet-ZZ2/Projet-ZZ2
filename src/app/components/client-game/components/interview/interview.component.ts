@@ -16,7 +16,8 @@ export class InterviewComponent {
   
   selectedPersonId = signal<string | null>(null);
   selectedDialogues = new Set<string>();
-  interwiewEndedTooSoon=false;
+  interwiewEndedTooSoon=signal(false);
+  triggerShake = signal(false);
 
   constructor(public gameService: ClientGameService) {}
 
@@ -43,6 +44,7 @@ export class InterviewComponent {
     if (this.selectedDialogues.has(dialogueId)) return;
     
     this.selectedDialogues.add(dialogueId);
+    this.interwiewEndedTooSoon.set(false);
     const result = this.gameService.selectDialogueLine(dialogueId);
   }
 
@@ -75,11 +77,15 @@ export class InterviewComponent {
       this.gameService.completeInterview(personId, true);
       this.selectedPersonId.set(null);
       this.selectedDialogues.clear();
-      this.interwiewEndedTooSoon=false;
+      this.interwiewEndedTooSoon.set(false);
       return;
     }
     this.gameService.completeInterview(personId, false);
-    this.interwiewEndedTooSoon=true;
+    this.interwiewEndedTooSoon.set(true);
+    this.triggerShake.set(true);
+    setTimeout(() => {
+      this.triggerShake.set(false);
+    }, 1000);
 
 
   }

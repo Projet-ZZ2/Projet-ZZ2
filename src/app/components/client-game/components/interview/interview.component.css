@@ -282,4 +282,30 @@
       .interview-progress {
         text-align: center;
       }
+
+      
     }
+
+.interview-too-soon p {
+  color: #d32f2f; /* Un rouge d'erreur */
+  font-weight: bold;
+  display: inline-block;
+}
+
+@keyframes fretille {
+  0% { transform: translate(0,0); }
+  10% { transform: translate(-3px, -1px); }
+  30% { transform: translate(3px, 1px); }
+  50% { transform: translate(-3px, 1px); }
+  70% { transform: translate(3px, -1px); }
+  100% { transform: translate(0,0); }
+}
+
+.shake {
+  display: inline-block;
+  animation: fretille 0.2s ease-in-out 5;
+}
+
+.wrong{
+  background: linear-gradient(45deg, #ee2106, #720707);
+}
