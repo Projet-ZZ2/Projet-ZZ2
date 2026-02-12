@@ -34,20 +34,24 @@
   </div>
 
   <!-- Fenêtre de victoire -->
-  <div class="victory-overlay" *ngIf="isGameWon">
-    <div class="victory-modal">
-      <h2>Félicitations !</h2>
-      <p>Vous avez réussi à formater le code correctement !</p>
-      <button class="continue-btn" (click)="continueGame()">Continuer</button>
+   @if (isGameWon){
+    <div class="victory-overlay">
+      <div class="victory-modal">
+        <h2>Félicitations !</h2>
+        <p>Vous avez réussi à formater le code correctement !</p>
+        <button class="continue-btn" (click)="continueGame()">Continuer</button>
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Fenêtre d'indice -->
-  <div class="victory-overlay" *ngIf="showHintModal">
-    <div class="victory-modal">
-      <h2>Indice</h2>
-      <p>{{ currentHint || 'Aucun indice disponible' }}</p>
-      <button class="continue-btn" (click)="closeHintModal()">Fermer</button>
+  @if (showHintModal) {
+    <div class="victory-overlay">
+      <div class="victory-modal">
+        <h2>Indice</h2>
+        <p>{{ currentHint || 'Aucun indice disponible' }}</p>
+        <button class="continue-btn" (click)="closeHintModal()">Fermer</button>
+      </div>
     </div>
-  </div>
+  }
 </app-computer>
