@@ -1,8 +1,6 @@
 <div class="task-back"></div>
 <div class="task-container">
-    @for (icon of computerIcons; track icon.id) {
-        <app-task [icon]="icon"></app-task>
+    @if (openGame$ | async; as openGame) {
+        <app-task [icon]="openGame"></app-task>
     }
 </div>
-
-

@@ -1,34 +1,57 @@
-<h1 class="game-title">Jeu du formattage</h1>
+<app-computer>
+  <h1 class="game-title">Jeu du formattage</h1>
 
-<p class="maintext">Bucs est décidément ronchon. Son code n'a pas l'apparence qu'il imaginait. Aidez-le à rendre tout ça plus joli.</p>
+  <p class="maintext">Bucs est décidément ronchon. Son code n'a pas l'apparence qu'il imaginait. Aidez-le à rendre tout ça plus joli.</p>
 
-<div class="game-wrapper">
-  <section class="editor-container">
-    <div class="header"><span class="file-icon"></span> code.txt</div>
-    
-    <textarea [(ngModel)]="codeContent" (input)="checkRules()" spellcheck="false"></textarea>
-    
-  </section>
+  <div class="game-wrapper">
+    <section class="editor-container">
+      <div class="header"><span class="file-icon"></span> code.txt</div>
+      
+      <textarea [(ngModel)]="codeContent" (input)="checkRules()" spellcheck="false"></textarea>
+      
+    </section>
 
-  <aside class="rules-container">
-    <h3>Règles de validation</h3>
-    <div *ngFor="let rule of validationRules" class="rule-card" [ngClass]="rule.status">
-      <div class="rule-content">
-        <h4>{{ rule.name }}</h4>
-        <p *ngIf="rule.status !== 'locked'">{{ rule.description }}</p>
+    <aside class="rules-container">
+      <h3>Règles de validation</h3>
+      @for (rule of validationRules; track rule.id) {
+        <div class="rule-card" [ngClass]="rule.status">
+          <div class="rule-content">
+            <h4>{{ rule.name }}</h4>
+            @if (rule.status !== 'locked') {
+              <p>{{ rule.description }}</p>
+            }
+          </div>
+        </div>
+      }
+      
+      <!-- Inline hint removed: hints are shown only in the modal -->
+
+      <div class="editor-actions">
+        <button class="reset-btn" (click)="showHint(true)">Afficher l'indice</button>
+        <button class="reset-btn" (click)="resetCode()">Réinitialiser le code</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Fenêtre de victoire -->
+   @if (isGameWon){
+    <div class="victory-overlay">
+      <div class="victory-modal">
+        <h2>Félicitations !</h2>
+        <p>Vous avez réussi à formater le code correctement !</p>
+        <button class="continue-btn" (click)="continueGame()">Continuer</button>
       </div>
     </div>
-    <div class="editor-actions">
-      <button class="reset-btn" (click)="resetCode()">Réinitialiser le code</button>
-    </div>
-  </aside>
-</div>
+  }
 
-<!-- Fenêtre de victoire -->
-<div class="victory-overlay" *ngIf="isGameWon">
-  <div class="victory-modal">
-    <h2>🎉 Félicitations ! 🎉</h2>
-    <p>Vous avez réussi à formater le code correctement !</p>
-    <button class="continue-btn" (click)="continueGame()">Continuer</button>
-  </div>
-</div>
+  <!-- Fenêtre d'indice -->
+  @if (showHintModal) {
+    <div class="victory-overlay">
+      <div class="victory-modal">
+        <h2>Indice</h2>
+        <p>{{ currentHint || 'Aucun indice disponible' }}</p>
+        <button class="continue-btn" (click)="closeHintModal()">Fermer</button>
+      </div>
+    </div>
+  }
+</app-computer>

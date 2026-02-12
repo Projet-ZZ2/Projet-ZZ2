@@ -1,2 +1,2 @@
-room_goto(R3_Jeu);
+room_goto(R1_Menu);
 step = 15.5;

@@ -1,282 +1,264 @@
 :host {
-  --bg-dark: #121212;
-  --panel-bg: #1e1e1e;
-  --accent-blue: #007acc;
-  --success-green: #2ecc71;
-  --error-red: #e74c3c;
-  --pending-blue: #3498db;
-  --text-main: #d4d4d4;
-  --border-color: #333333;
+  /* Palette Gris Industriel / Beige */
+  --bg-dark: #353535;
+  --panel-bg: #c0c0c0; /* Gris Windows 95 / Amiga */
+  --inset-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  --outset-shadow: inset 1px 1px #ffffff, inset -1px -1px #0a0a0a, inset 2px 2px #dfdfdf, inset -2px -2px #808080;
+  --text-main: #000000;
+  --accent-old-blue: #000080; /* Bleu barre de titre classique */
 }
 
 .game-wrapper {
   display: flex;
-  height: 85vh;
+  justify-self: center;
+  height: 70vh;
   width: 95%;
-  margin: 20px auto;
-  background-color: var(--bg-dark);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--border-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 1vw;
+  background-color: var(--panel-bg);
+  box-shadow: var(--outset-shadow); /* Effet bouton relief */
+  padding: 0.2vw;
+  font-family: "Fixedsys", "Consolas", monospace;
 }
 
-/* ÉDITEUR (GAUCHE) */
+/* ÉDITEUR (STYLE ÉCRAN CATHODIQUE ÉTEINT) */
+/* ÉDITEUR (L'ÉCRAN CRT DANS SON CADRE) */
 .editor-container {
   flex: 2.5;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border-color);
+  background-color: #d8d8d8; /* Plastique beige/gris */
+  padding: 15px;
+  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.8), inset -2px -2px 5px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+/* LA BARRE DE TITRE "LOGICIELLE" */
+.header {
+  background: linear-gradient(90deg, #000080, #1084d0); /* Dégradé Windows classique */
+  padding: 4px 10px;
+  color: white;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ffffff;
+  margin-bottom: 2px;
+}
+
+/* L'ÉCRAN PHYSIQUE */
+textarea {
+  flex: 1;
+  background-color: #1a1a1a;
+  color: #33ff33;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 1.1rem;
+  padding: 20px;
+  border: 10px solid #2a2a2a; /* Bordure épaisse pour simuler le cadre interne du moniteur */
+  resize: none;
+  outline: none;
+  line-height: 1.5;
+  
+  /* Effet de lueur et de courbure */
+  box-shadow: 
+    inset 0 0 50px rgba(0,0,0,0.9),
+    0 0 10px rgba(51, 255, 51, 0.2);
+  
+  /* Simulation de la texture de l'écran */
+  background-image: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.1) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.03), 
+    rgba(0, 255, 0, 0.01), 
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* PETIT EFFET DE REFLET SUR L'ÉCRAN */
+.editor-container::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 30px;
+  right: 30px;
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+  border-radius: 30px 30px 0 0;
+}
+
+/* AJUSTEMENT DU TEXTE DANS LE TEXTAREA */
+textarea::selection {
+  background: white;
+  color: #000;
+}
+
+/* SCROLLBAR RÉTRO POUR L'ÉDITEUR */
+textarea::-webkit-scrollbar {
+  width: 12px;
+  background-color: #2a2a2a;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border: 2px solid #2a2a2a;
 }
 
 .header {
-  background-color: #252526;
-  padding: 12px 20px;
-  color: #969696;
-  font-size: 0.9rem;
+  background-color: var(--accent-old-blue);
+  padding: 6px 10px;
+  color: white;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--border-color);
+  font-weight: bold;
 }
 
 textarea {
   flex: 1;
-  background-color: #1e1e1e;
-  color: #9cdcfe; /* Couleur bleutée style code */
-  font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 16px;
-  padding: 25px;
-  border: none;
+  background-color: #000000;
+  color: white; /* Texte vert sur noir pour l'écran de saisie uniquement */
+  font-family: 'Consolas', monospace;
+  font-size: 18px;
+  padding: 15px;
+  border: 4px solid #808080;
   resize: none;
   outline: none;
-  line-height: 1.6;
 }
 
-/* LISTE DES RÈGLES (DROITE) */
+/* PANNEAU DE DROITE (STYLE DOS / WINDOWS 3.1) */
 .rules-container {
   flex: 1;
-  background-color: #252526;
-  padding: 20px;
+  background-color: var(--panel-bg);
+  padding: 15px;
   overflow-y: auto;
+  color: var(--text-main);
 }
 
 .rules-container h3 {
+  background: #808080;
   color: white;
-  margin-bottom: 20px;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.85rem;
-  opacity: 0.7;
+  padding: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 15px;
+  box-shadow: var(--outset-shadow);
 }
 
 .rule-card {
   display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  margin-bottom: 12px;
-  background-color: #2d2d2d;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #dfdfdf;
+  box-shadow: var(--outset-shadow);
+  border: 1px solid #808080;
 }
 
 /* ÉTATS DES RÈGLES */
 .rule-card.success {
-  border-left: 4px solid var(--success-green);
-  background: rgba(46, 204, 113, 0.05);
+  background-color: #c0dec0;
 }
+.rule-card.success h4::before { content: "✔ "; color: green; }
 
 .rule-card.failed {
-  border-left: 4px solid var(--error-red);
-  background: rgba(231, 76, 60, 0.05);
-  animation: shake 0.4s ease-in-out;
+  background-color: #ffc0c0;
 }
+.rule-card.failed h4::before { content: "✘ "; color: red; }
 
 .rule-card.pending {
-  border-left: 4px solid var(--pending-blue);
-  background: rgba(52, 152, 219, 0.1);
-  box-shadow: 0 0 15px rgba(52, 152, 219, 0.1);
+  background-color: #ffffc0;
 }
 
 .rule-card.locked {
-  opacity: 0.4;
-  filter: grayscale(1);
-}
-
-.status-icon {
-  font-size: 1.4rem;
-  min-width: 30px;
-  text-align: center;
+  opacity: 0.5;
+  background-color: #999;
 }
 
 .rule-content h4 {
   margin: 0;
-  color: #eee;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .rule-content p {
   margin: 5px 0 0 0;
-  color: #888;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-/* BOUTON SOUMETTRE */
-.action-bar {
-  padding: 15px 25px;
-  background-color: #252526;
-  border-top: 1px solid var(--border-color);
-}
-
-.submit-button {
+  color: #333;
+  font-size: 0.8rem;
   width: 100%;
-  background-color: var(--accent-blue);
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.1s, background 0.2s;
 }
 
-.submit-button:hover:not(:disabled) {
-  background-color: #1a8ad4;
-  transform: translateY(-1px);
+/* BOUTONS (STYLE WIN95) */
+.editor-actions {
+  margin-top: 15px;
 }
 
-.submit-button:disabled {
-  background-color: #3e3e3e;
-  color: #777;
-  cursor: not-allowed;
-}
-
-/* ANIMATION SI ERREUR */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
-p {
-  color: black;
-  font-size: 1.1rem;
-  margin: 20px auto;
-  width: 95%;
-  text-align: left;
-}
-
-p.maintext {
-  text-align: center;
-}
-
-/* BOUTON RESET */
 .reset-btn {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-  color: white;
+  width: 100%;
+  background-color: var(--panel-bg);
   border: none;
-  padding: 12px 30px;
-  border-radius: 6px;
+  box-shadow: var(--outset-shadow);
+  padding: 8px;
   font-weight: bold;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-}
-
-.reset-btn:hover {
-  background: linear-gradient(135deg, #ff5252, #dd4d5e);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 107, 107, 0.5);
+  margin-bottom: 8px;
 }
 
 .reset-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  box-shadow: var(--inset-shadow);
+  padding-top: 10px;
 }
 
-/* FENÊTRE DE VICTOIRE */
+/* VICTOIRE (BOITE DE DIALOGUE) */
 .victory-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
 .victory-modal {
-  background-color: #1e1e1e;
-  border: 2px solid var(--success-green);
-  border-radius: 12px;
-  padding: 40px;
+  background-color: var(--panel-bg);
+  border: 2px solid #ffffff;
+  box-shadow: 5px 5px 0px #000000;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 10px 50px rgba(46, 204, 113, 0.3);
-  animation: slideUp 0.4s ease-out;
-  min-width: 350px;
+  width: 300px;
 }
 
 .victory-modal h2 {
-  color: var(--success-green);
-  font-size: 2rem;
-  margin: 0 0 20px 0;
-}
-
-.victory-modal p {
-  color: var(--text-main);
-  font-size: 1.1rem;
-  margin: 0 0 30px 0;
-  width: 100%;
+  background: var(--accent-old-blue);
+  color: white;
+  margin: -20px -20px 20px -20px;
+  padding: 5px;
+  font-size: 1.2rem;
 }
 
 .continue-btn {
-  background-color: var(--success-green);
-  color: white;
+  background-color: var(--panel-bg);
+  box-shadow: var(--outset-shadow);
   border: none;
-  padding: 12px 40px;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 1rem;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.continue-btn:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+/* TEXTE HORS JEU */
+p {
+  color: white;
+  font-family: 'Courier New', monospace;
+  margin: 10px auto;
+  width: 95%;
 }
 
-.continue-btn:active {
-  transform: scale(0.98);
+p.maintext {
+  padding: 10px;
+  color: black;
+  text-align: center;
+  font-family: 'Consolas', monospace;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}

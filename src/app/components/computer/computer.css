@@ -1,9 +1,9 @@
 .screen-container {
     width: 100vw;
     height: 100vh;
-    border: 1vh solid #4a505b;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
 }
 
 :host {
@@ -13,4 +13,34 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+}
+
+.window {
+    background-image: url("../../../assets/window-border.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-sizing: content-box;
+    width: 100vw;
+    height: 96vh;
+    overflow: hidden;
+}
+
+.screen {
+    display: block;
+    position: absolute;
+    bottom: 6vh;
+    left: 2.5vh;
+    width: 97.1vw;
+    height: 90.8vh;
+    overflow: hidden;
+}
+
+.screen > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }

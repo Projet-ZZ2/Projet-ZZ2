@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { Task } from "./task/task";
 import { ComputerIconModel } from '../../model/computerIconModel';
-import { COMPUTER_ICONS } from '../../data/computerIconsData';
+import { GameStateService } from '../../services/game-state.service';
+import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-taskbar',
-  imports: [Task],
+  imports: [Task, AsyncPipe],
   templateUrl: './taskbar.html',
   styleUrl: './taskbar.css',
 })
 export class Taskbar {
-  computerIcons: ComputerIconModel[] = COMPUTER_ICONS;
+  openGame$: Observable<ComputerIconModel | null>;
+
+  constructor(private gameStateService: GameStateService) {
+    this.openGame$ = this.gameStateService.openGame$;
+  }
 }

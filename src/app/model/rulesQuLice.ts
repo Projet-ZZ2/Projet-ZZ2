@@ -30,7 +30,7 @@ export const VALIDATION_RULES: Rule[] = [
     },
     {
         id: 3,
-        name: 'CamleCase pour les méthodes',
+        name: 'CamelCase pour les méthodes',
         description: 'Les noms de méthodes doivent être en camelCase, c\'est à dire en minuscule au début puis avec des majuscules en début de chaque mot du texte concaténé.',
         status: 'locked',
         validator: (code) => {
@@ -110,6 +110,57 @@ export const VALIDATION_RULES: Rule[] = [
         status: 'locked',
         validator: (code) => code.includes('//') && code.split('//')[1].trim().length > 5,
         indice: 'Indice : Ajoute des commentaires avec // pour expliquer les parties complexes de ton code. Assure-toi que tes commentaires sont clairs et contiennent plus de 5 caractères.'
+    },
+    {
+        id: 8,
+        name: 'Espace après les structures de contrôle',
+        description: 'Il doit y avoir un espace après le mot-clé "if" pour une meilleure lisibilité.',
+        status: 'locked',
+        validator: (code: string) => {
+            // 1. On vérifie d'abord s'il y a des "if" dans le code
+            const hasIf = /\bif\b/.test(code);
+            if (!hasIf) return true; // S'il n'y a pas de if, la règle est considérée valide
+
+            // 2. On cherche des "if" suivis directement d'une parenthèse sans espace
+            // Exemple : if(condition) est invalide
+            const invalidIf = /\bif\(/.test(code);
+
+            return !invalidIf;
+        },
+        indice: 'Indice : Vérifie tes structures "if". Il manque un petit espace entre le mot "if" et la parenthèse ouvrante "(".'
+    },
+    {
+        id: 9,
+        name: 'Blocs logiques aérés',
+        description: 'Séparez vos méthodes et vos déclarations de champs par au moins une ligne vide.',
+        status: 'locked',
+        validator: (code: string) => {
+            const lines = code.split('\n');
+            
+            for (let i = 0; i < lines.length - 1; i++) {
+                const current = lines[i].trim();
+                const next = lines[i + 1].trim();
+
+                // Détection d'une accolade fermante de bloc (méthode ou classe)
+                // Si la ligne actuelle finit une méthode "}" et que la suivante n'est pas vide
+                // et n'est pas une autre accolade fermante (fin de classe).
+                if (current === '}' && next !== '' && next !== '}') {
+                    return false; 
+                }
+
+                // Détection entre les champs (ex: string m;) et le début d'une méthode
+                // Si la ligne actuelle est une instruction (finit par ;) 
+                // et que la suivante commence une méthode ou une classe sans espace.
+                if (current.endsWith(';') && (next.includes('public') || next.includes('private') || next.includes('void')) && next !== '') {
+                    // On vérifie si la ligne suivante contient une déclaration de bloc
+                    if (next.includes('{') || lines[i+2]?.includes('{')) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        },
+        indice: 'Indice : Ton code est trop compact. Ajoute une ligne vide après chaque fermeture d\'accolade "}" et entre tes variables et tes méthodes.'
     }
 ];
 
