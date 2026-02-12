@@ -1,0 +1,113 @@
+<div class="interview-container">
+      <!-- Sélection de la personne -->
+      <div class="person-selection">
+        <h3>Choisissez une personne à interviewer :</h3>
+        <div class="persons-grid">
+          @for (person of availablePersons(); track person.id) {
+            <button 
+              class="person-card"
+              [class.completed]="isPersonCompleted(person.id)"
+              [class.active]="selectedPersonId() === person.id"
+              (click)="selectPerson(person.id)"
+            >
+              <div class="avatar">{{ person.avatar }}</div>
+              <div class="person-info">
+                <h4>{{ person.name }}</h4>
+                <p>{{ person.age }} ans - {{ person.profession }}</p>
+                @if (isPersonCompleted(person.id)) {
+                  <span class="completed-badge">✓ Complété</span>
+                }
+              </div>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Interface d'entretien -->
+      @if (selectedPersonId(); as personId) {
+        <div class="interview-interface">
+          <div class="current-person">
+            <div class="person-avatar">{{ getSelectedPerson()?.avatar }}</div>
+            <div class="person-details">
+              <h3>{{ getSelectedPerson()?.name }}</h3>
+              <p>{{ getSelectedPerson()?.age }} ans - {{ getSelectedPerson()?.profession }}</p>
+            </div>
+            <div class="interview-progress">
+              <p>{{ collectedInfosCount() }} infos collectées</p>
+
+              <div class="interview-too-soon">
+                @if (interwiewEndedTooSoon()){
+                  <p [class.shake]="triggerShake()">Il reste des informations à collecter ! -10 pts</p>
+                }
+              </div>
+              
+              @if (canCompleteInterview()) {
+                <button 
+                  class="complete-interview-btn" 
+                  [class.wrong]="interwiewEndedTooSoon()"
+                  (click)="completeCurrentInterview()">
+                  Terminer l'entretien
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="dialogue-section">
+            <h4>Lisez attentivement et cliquez sur les informations importantes :</h4>
+            <div class="dialogues-list">
+              @for (dialogue of currentDialogues(); track dialogue.id) {
+                <div 
+                  class="dialogue-line"
+                  [class.selected]="selectedDialogues.has(dialogue.id)"
+                  [class.important]="isDialogueRevealed(dialogue.id) && dialogue.isImportant"
+                  [class.not-important]="isDialogueRevealed(dialogue.id) && !dialogue.isImportant"
+                  (click)="selectDialogue(dialogue.id)"
+                >
+                  <div class="dialogue-content">
+                    <span class="dialogue-text">{{ dialogue.text }}</span>
+                    @if (selectedDialogues.has(dialogue.id)) {
+                      <div class="feedback">
+                        @if (dialogue.isImportant) {
+                          <span class="good-feedback">✓ Bonne information ! +20 pts</span>
+                        } @else {
+                          <span class="bad-feedback">✗ Information inutile... -10 pts</span>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Résumé des informations collectées -->
+      <div class="collected-infos">
+        <h4>Informations collectées :</h4>
+        @if (gameService.getCollectedInfos().length === 0) {
+          <p class="no-infos">Aucune information collectée pour le moment...</p>
+        } @else {
+          <div class="infos-grid">
+            @for (info of gameService.getCollectedInfos(); track info.id) {
+              <div class="info-card" [class]="info.type">
+                <div class="info-type">{{ getInfoTypeLabel(info.type) }}</div>
+                <div class="info-content">{{ info.content }}</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions">
+        <div class="instruction-card">
+          <h4>🎯 Objectif</h4>
+          <p>Collectez au minimum 4 informations importantes sur l'UI/UX en interviewant au moins 3 personnes.</p>
+        </div>
+        <div class="instruction-card">
+          <h4>⚠️ Attention</h4>
+          <p>Cliquer sur une information inutile vous fait perdre des points et mécontente le client !</p>
+        </div>
+      </div>
+    </div>

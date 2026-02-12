@@ -1,0 +1,167 @@
+<div class="results-container">
+      <div class="results-header">
+        <div class="final-score">
+          <div class="score-circle" [class]="getScoreClass()">
+            <span class="score-number">{{ finalScore() }}</span>
+            <span class="score-total">/ 1000</span>
+          </div>
+          <h2>{{ getScoreTitle() }}</h2>
+          <p class="score-description">{{ getScoreDescription() }}</p>
+        </div>
+      </div>
+
+      <div class="results-breakdown">
+        <!-- Détail par étape -->
+        <div class="step-results">
+          <h3>📊 Détail des performances</h3>
+          
+          <div class="step-result">
+            <div class="step-info">
+              <h4>🎤 Entretiens</h4>
+              <p>{{ completedInterviews() }} personnes interviewées</p>
+              <p>{{ collectedInfos().length }} informations collectées</p>
+            </div>
+            <div class="step-score">
+              {{ getInterviewScore() }} pts
+            </div>
+          </div>
+
+          <div class="step-result">
+            <div class="step-info">
+              <h4>📊 Analyse des Insights</h4>
+              <p>{{ placedInsights().length }} features placées</p>
+              <p>Précision moyenne : {{ getAverageInsightAccuracy() }}%</p>
+            </div>
+            <div class="step-score">
+              {{ getInsightScore() }} pts
+            </div>
+          </div>
+
+          <div class="step-result">
+            <div class="step-info">
+              <h4>👤 Création du Persona</h4>
+              @if (persona(); as persona) {
+                <p>{{ persona.name }}</p>
+                <p>{{ getCorrectCharacteristics() }}/5 caractéristiques correctes</p>
+              } @else {
+                <p>Persona non créé</p>
+              }
+            </div>
+            <div class="step-score">
+              {{ getPersonaScore() }} pts
+            </div>
+          </div>
+
+          <div class="step-result">
+            <div class="step-info">
+              <h4>🎨 Conception de la Maquette</h4>
+              <p>{{ designElements().length }} éléments personnalisés</p>
+              <p>Thème détecté : {{ detectedTheme() || 'Aucun' }}</p>
+            </div>
+            <div class="step-score">
+              {{ getDesignScore() }} pts
+            </div>
+          </div>
+        </div>
+
+        <!-- Analyse détaillée -->
+        <div class="detailed-analysis">
+          <h3>🔍 Analyse détaillée</h3>
+          
+          <!-- Points forts -->
+          <div class="analysis-section strengths">
+            <h4>💪 Points forts</h4>
+            <ul>
+              @for (strength of getStrengths(); track strength) {
+                <li>{{ strength }}</li>
+              }
+            </ul>
+          </div>
+
+          <!-- Points d'amélioration -->
+          <div class="analysis-section improvements">
+            <h4>📈 Points d'amélioration</h4>
+            <ul>
+              @for (improvement of getImprovements(); track improvement) {
+                <li>{{ improvement }}</li>
+              }
+            </ul>
+          </div>
+
+          <!-- Recommandations -->
+          <div class="analysis-section recommendations">
+            <h4>💡 Recommandations</h4>
+            <ul>
+              @for (recommendation of getRecommendations(); track recommendation) {
+                <li>{{ recommendation }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges et récompenses -->
+      <div class="achievements">
+        <h3>🏆 Badges obtenus</h3>
+        <div class="badges-grid">
+          @for (badge of getEarnedBadges(); track badge.id) {
+            <div class="badge" [class]="badge.rarity">
+              <div class="badge-icon">{{ badge.icon }}</div>
+              <div class="badge-info">
+                <h5>{{ badge.title }}</h5>
+                <p>{{ badge.description }}</p>
+              </div>
+            </div>
+          }
+        </div>
+        
+        @if (getEarnedBadges().length === 0) {
+          <div class="no-badges">
+            <p>Aucun badge obtenu cette fois...</p>
+            <p>Essayez de faire mieux la prochaine fois !</p>
+          </div>
+        }
+      </div>
+
+      <!-- Statistiques du joueur -->
+      <div class="player-stats">
+        <h3>📈 Statistiques de performance</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">{{ completedInterviews() }}</div>
+            <div class="stat-label">Entretiens menés</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ collectedInfos().length }}</div>
+            <div class="stat-label">Infos collectées</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ gameState().errors }}</div>
+            <div class="stat-label">Erreurs commises</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ getCompletionRate() }}%</div>
+            <div class="stat-label">Taux de réussite</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conseils pour rejouer -->
+      <div class="replay-advice">
+        <h3>🎮 Pour votre prochain essai</h3>
+        <div class="advice-cards">
+          <div class="advice-card">
+            <h4>🎯 Stratégie</h4>
+            <p>Concentrez-vous sur les infos importantes lors des entretiens et évitez les détails inutiles.</p>
+          </div>
+          <div class="advice-card">
+            <h4>📊 Précision</h4>
+            <p>Prenez votre temps pour placer précisément les features dans le graphique insights.</p>
+          </div>
+          <div class="advice-card">
+            <h4>🎨 Cohérence</h4>
+            <p>Assurez-vous que votre maquette correspond aux besoins identifiés lors des entretiens.</p>
+          </div>
+        </div>
+      </div>
+    </div>
