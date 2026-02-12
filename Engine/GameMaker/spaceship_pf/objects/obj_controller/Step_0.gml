@@ -6,6 +6,7 @@ if (room == R3_Jeu) {
         instance_deactivate_object(obj_comete);
         instance_deactivate_object(obj_bullet);
         instance_deactivate_object(obj_git);
+		alarm[2] = 180;
     }
     
     // Pause
