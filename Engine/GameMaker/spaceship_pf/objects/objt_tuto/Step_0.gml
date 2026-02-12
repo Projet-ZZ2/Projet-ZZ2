@@ -54,7 +54,7 @@ switch(step) {
     case 3:
 		titre_etape = "";
 		explication_git = "Attention !!";
-        instruction_jeu = "Une comète approche ...";
+        instruction_jeu = "Une comete approche ...";
         allowed_commands = [];
         
         // Créer comète qui descend
@@ -129,7 +129,7 @@ switch(step) {
 	case 8:
 		titre_etape = "";
 		explication_git = "Attention !!";
-	    instruction_jeu = "Une nouvelle comète arrive sur une autre trajectoire.";
+	    instruction_jeu = "Une nouvelle comète arrive mais sur une autre trajectoire.";
 	    allowed_commands = [];
     
 	    if (instance_exists(obj_git) && !instance_exists(comete_tutorial)) {
@@ -172,7 +172,7 @@ switch(step) {
     case 12:
 		titre_etape = "";
 		explication_git = "Vous avez compris le principe";
-        instruction_jeu = "Maintenant, détruisez cette comète !";
+        instruction_jeu = "Maintenant, detruisez cette comète !";
         allowed_commands = ["add", "commit", "push"];
         peut_push = true;
         
@@ -201,7 +201,6 @@ switch(step) {
 		
 		affiche_rectangle = true;
 		if (console.com_pull) {
-			show_debug_message("PASSAGE À L'ÉTAPE 15 !!!");
             console.com_pull = false;
 			affiche_rectangle = false;
             step = 15;
@@ -211,8 +210,8 @@ switch(step) {
     // ========== ÉTAPE 15 : ATTENDRE FIN ==========
     case 15:
 		titre_etape = "";
-		explication_git = "Vous avez fini le tutoriel ! Maintenant c'est a vous de jouer";
-		instruction_jeu = "Chargement du jeu ...";
+		explication_git = "Vous avez fini le tutoriel !";
+		instruction_jeu = "Maintenant c'est a vous de jouer";
         allowed_commands = [];
 		
         alarm[1] = 180;

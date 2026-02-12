@@ -21,8 +21,14 @@ if(menu_type == "menu") {
 	
 	draw_set_color(#00F5FF);
 	draw_set_font(S_Titre);
-	draw_text(centre_x, 600, "Taper 'help' pour lancer le tutoriel");
-	draw_text(centre_x, 640, "Taper 'init' pour lancer le jeu");
+	draw_text(centre_x, 620, "Taper 'help' pour lancer le tutoriel");
+	draw_text(centre_x, 700, "Taper 'init' pour lancer le jeu");
+	
+	draw_set_color(c_silver);
+	draw_set_font(Corps);
+	draw_text(centre_x, 650, "Appuyer sur 'Echap' pour quitter le tutoriel");
+	draw_text(centre_x, 730, "Appuyer sur 'Echap' pour mettre en pause");
+	
 	
 	
 } else {
