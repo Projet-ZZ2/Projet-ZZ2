@@ -73,12 +73,10 @@ export class InsightsComponent {
   }
 
   resetInsight(insightId: string): void {
-    // Réinitialiser l'insight pour le replacer
     const insights = this.gameService.getInsights();
     const insight = insights.find(i => i.id === insightId);
     if (insight) {
-      insight.placed = false;
-      insight.playerPosition = undefined;
+      this.gameService.resetInsight(insightId);
       this.placementResults.delete(insightId);
     }
   }

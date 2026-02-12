@@ -307,4 +307,17 @@ export class ClientGameService {
   getInsights() {
     return this.gameState().insights;
   }
+
+  resetInsight(insightId: string): void {
+    this.gameState.update(currentState => {
+      const insights = currentState.insights.map(insight => {
+        if (insight.id === insightId) {
+          return { ...insight, placed: false, playerPosition: undefined };
+        }
+        return insight; 
+      });
+
+      return { ...currentState, insights };
+    });
+  }
 }
