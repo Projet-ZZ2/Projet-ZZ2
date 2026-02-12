@@ -20,7 +20,7 @@ if (room == R3_Jeu) {
         // Fond semi-transparent
         draw_set_alpha(0.7);
         draw_set_color(c_black);
-        draw_rectangle(0, 0, gui_width, gui_height, false);
+        draw_rectangle(0, 0, gui_width, gui_height - 60, false);
         draw_set_alpha(1);
         
         // Paramètres de l'encadré
@@ -54,7 +54,7 @@ if (room == R3_Jeu) {
         if (perdu) {
             draw_set_font(Corps);
             draw_set_color(c_white);
-            draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 + 30, "Appuyez sur M pour rejouer");
+            draw_text(encadre_x + encadre_largeur / 2, encadre_y + encadre_hauteur / 2 + 30, "Taper 'reset' pour rejouer");
         }
     }
     

@@ -70,6 +70,14 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 			com_checkout = true;
             break;
 		
+		case "help":
+			com_help = true;
+			break;
+		
+		case "reset":
+			com_reset = true;
+			break;
+		
 		default:
 			break;
 	}
