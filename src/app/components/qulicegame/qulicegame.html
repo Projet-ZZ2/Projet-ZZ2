@@ -18,7 +18,11 @@
         <p *ngIf="rule.status !== 'locked'">{{ rule.description }}</p>
       </div>
     </div>
+
+    <!-- Inline hint removed: hints are shown only in the modal -->
+
     <div class="editor-actions">
+      <button class="reset-btn" (click)="showHint(true)">Afficher l'indice</button>
       <button class="reset-btn" (click)="resetCode()">Réinitialiser le code</button>
     </div>
   </aside>
@@ -30,5 +34,14 @@
     <h2>🎉 Félicitations ! 🎉</h2>
     <p>Vous avez réussi à formater le code correctement !</p>
     <button class="continue-btn" (click)="continueGame()">Continuer</button>
+  </div>
+</div>
+
+<!-- Fenêtre d'indice -->
+<div class="victory-overlay" *ngIf="showHintModal">
+  <div class="victory-modal">
+    <h2>Indice</h2>
+    <p>{{ currentHint || 'Aucun indice disponible' }}</p>
+    <button class="continue-btn" (click)="closeHintModal()">Fermer</button>
   </div>
 </div>
