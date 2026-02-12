@@ -15,4 +15,8 @@ gui_height = display_get_gui_height();
 // Spawn des comètes
 spawn_interval = game_get_speed(gamespeed_fps) * 8.5;
 alarm[1] = spawn_interval;
+
+chgt_nb_branche = game_get_speed(gamespeed_fps) * 25;
+alarm[0] = chgt_nb_branche;
+
 randomize();
