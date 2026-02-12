@@ -59,10 +59,7 @@ export class InterviewComponent {
   canCompleteInterview(): boolean {
     const personId = this.selectedPersonId();
     if (!personId) return false;
-
-    const dialogues = this.currentDialogues();
-    const importantDialogues = dialogues.filter(d => d.isImportant);
-    return importantDialogues.length > 0;
+    return this.selectedDialogues.size > 0;
   }
 
   completeCurrentInterview(): void {

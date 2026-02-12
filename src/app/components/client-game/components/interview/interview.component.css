@@ -287,7 +287,7 @@
     }
 
 .interview-too-soon p {
-  color: #d32f2f; /* Un rouge d'erreur */
+  color: #5c0707; /* Un rouge d'erreur */
   font-weight: bold;
   display: inline-block;
 }
