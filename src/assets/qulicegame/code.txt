@@ -7,7 +7,7 @@ class ordinateur
       console_affiche("Ceci est un texte plutôt long qui sera affiché à l'écran de l'ordinateur lorsque celui-ci sera allumé.");
     }
 
-    public connaitrememoire()
+    public connaitreMemoire()
     {
         return espace_memoire;
     }

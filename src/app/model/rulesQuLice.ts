@@ -30,7 +30,7 @@ export const VALIDATION_RULES: Rule[] = [
     },
     {
         id: 3,
-        name: 'CamleCase pour les méthodes',
+        name: 'CamelCase pour les méthodes',
         description: 'Les noms de méthodes doivent être en camelCase, c\'est à dire en minuscule au début puis avec des majuscules en début de chaque mot du texte concaténé.',
         status: 'locked',
         validator: (code) => {
