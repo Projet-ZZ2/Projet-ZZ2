@@ -19,3 +19,8 @@ com_help = false;
 com_reset = false;
 
 num_branche = 0;
+
+//Historique commande
+historique = [];
+index = -1;
+temp_input = "";
