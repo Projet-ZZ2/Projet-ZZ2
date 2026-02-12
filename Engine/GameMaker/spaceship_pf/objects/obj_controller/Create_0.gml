@@ -5,7 +5,7 @@ vie = 3;
 score_a_atteindre = 100;
 gagne = false;
 perdu = false;
-tmp = round(score_a_atteindre / 3);
+signal_envoye = false;
 
 // Cache GUI dimensions
 gui_width = display_get_gui_width();

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Computer } from '../computer/computer';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-gitgame',
@@ -14,6 +16,7 @@ export class Gitgame implements OnInit, OnDestroy {
 
   constructor(
     private renderer: Renderer2,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private document: Document
   ) {}
@@ -25,6 +28,14 @@ export class Gitgame implements OnInit, OnDestroy {
             base_url: "assets/gamemaker/html5game"
         };
     };
+
+    window.addEventListener("message", (event: MessageEvent) => { 
+      const data = event.data; 
+      // Comme on envoie juste "gameFinished" 
+      if (data === "gameFinished") { 
+        console.log("Signal 'gameFinished' reçu depuis GameMaker"); 
+        this.onGameFinished(); } 
+      });
 
     this.loadGame();
   }
@@ -56,5 +67,15 @@ export class Gitgame implements OnInit, OnDestroy {
     if (this.scriptElement) {
       this.renderer.removeChild(this.document.body, this.scriptElement);
     }
+  }
+
+  onGameFinished() { 
+    console.log("Changement de page..."); 
+    
+    if ((window as any).GameMaker_Quit) { 
+      (window as any).GameMaker_Quit(); 
+    }
+
+    this.router.navigate(['/desktop']); 
   }
 }
