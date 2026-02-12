@@ -20,14 +20,17 @@
         <span class="label">Aide système</span>
       </div>
 
-      <div *ngFor="let file of differencesService.getIcons()" 
-           (click)="openFile(file)" 
-           class="file-icon"
-           [class.locked]="file.isLocked">
-        <span class="icon">📄</span>
-        <span class="label">{{ file.label }}</span>
-        <span *ngIf="file.isResolved">✅</span>
-      </div>
+      @for(file of differencesService.getIcons(); track file.id){
+        <div (click)="openFile(file)" 
+            class="file-icon"
+            [class.locked]="file.isLocked">
+          <span class="icon">📄</span>
+          <span class="label">{{ file.label }}</span>
+          @if(file.isResolved){
+            <span>✅</span>
+          }
+        </div>
+      }
     </div>
   </div>
 
@@ -38,25 +41,32 @@
     </div>
     
     <div class="editor-body">
-      <div class="instructions" *ngIf="selectedFile.id !== -1">
-        <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
-      </div>
+        @if(selectedFile.id !== -1){
+        <div class="instructions">
+          <strong>Consigne :</strong> {{ selectedFile.content?.instructions }}
+        </div>
+      }
 
       <textarea [(ngModel)]="userCode" [readonly]="selectedFile.id === -1" spellcheck="false"></textarea>
       
       <div class="footer">
-        <p class="feedback" 
-            *ngIf="selectedFile.id !== -1" 
-            [class.error-text]="isError">
-            {{ feedback }}
-        </p>        
+        @if(selectedFile.id !== -1){
+          <p class="feedback" 
+              [class.error-text]="isError">
+              {{ feedback }}
+          </p>
+        }    
         <div class="button-group">
-          <button *ngIf="selectedFile.id !== -1" class="reset-btn" (click)="resetCode()">
-            Réinitialiser le code
-          </button>
-          <button *ngIf="selectedFile.id !== -1" class="check-btn" (click)="checkCorrection()">
-            Vérifier
-          </button>
+          @if(selectedFile.id !== -1){
+            <button class="reset-btn" (click)="resetCode()">
+              Réinitialiser le code
+            </button>
+          }
+          @if (selectedFile.id !== -1){
+            <button class="check-btn" (click)="checkCorrection()">
+              Vérifier
+            </button>
+          }
         </div>
       </div>
     </div>
@@ -64,10 +74,12 @@
 </div>
 
 <!-- Modale de victoire -->
-<div class="victory-overlay" *ngIf="isGameWon">
-  <div class="victory-modal">
-    <h2>🎉 Bravo ! 🎉</h2>
-    <p>Vous avez gagné ! Tous les fichiers ont été restaurés avec succès !</p>
-    <button class="continue-btn" (click)="continueToDesktop()">Retour au Bureau</button>
+@if(isGameWon){
+  <div class="victory-overlay">
+    <div class="victory-modal">
+      <h2>Bravo !</h2>
+      <p>Vous avez gagné ! Tous les fichiers ont été restaurés avec succès !</p>
+      <button class="continue-btn" (click)="continueToDesktop()">Retour au Bureau</button>
+    </div>
   </div>
-</div>
+}

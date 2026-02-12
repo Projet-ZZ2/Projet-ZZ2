@@ -6,6 +6,7 @@ import { InsightsComponent } from './components/insights/insights.component';
 import { PersonaComponent } from './components/persona/persona.component';
 import { MaquetteComponent } from './components/maquette/maquette.component';
 import { ResultsComponent } from './components/results/results.component';
+import { Computer } from "../computer/computer";
 
 @Component({
   selector: 'client-game',
@@ -16,7 +17,8 @@ import { ResultsComponent } from './components/results/results.component';
     InsightsComponent,
     PersonaComponent,
     MaquetteComponent,
-    ResultsComponent
+    ResultsComponent,
+    Computer,
   ],
   templateUrl: './client-game.html',
   styleUrls: ['./client-game.css'],

@@ -28,6 +28,7 @@ export const routes: Routes = [
   {
     path: 'game/1',
     component: ClientGame,
+    resolve: { game: gameResolver }
   },
   {
     path: 'game/2',
