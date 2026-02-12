@@ -4,10 +4,44 @@ if (curseur_timer >= 40) {
     curseur_visible = !curseur_visible;
 }
 
+
+//Parcours de l'historique des commandes
+if (keyboard_check_pressed(vk_up)) {
+	if (array_length(historique) > 0) {
+		if (index == -1) temp_input = keyboard_string;
+			
+		if (index < array_length(historique)-1) {
+			index++;
+			keyboard_string = historique[array_length(historique) - 1 - index];
+			console_input = keyboard_string;
+		}
+	}
+}
+	
+if (keyboard_check_pressed(vk_down)){
+	if (index > -1) {
+		index--;
+		
+		if(index == -1) {
+			keyboard_string = temp_input;
+			console_input = keyboard_string;
+		} else {
+			keyboard_string = historique[array_length(historique) - 1 - index];
+			console_input = keyboard_string;
+		}
+	}
+}
+
 console_input = keyboard_string;
 
 if (keyboard_check_pressed(vk_enter) && console_input != "") {
 	var commande = string_lower(console_input);
+	
+	// Ajouter la commande à l'historique
+    array_push(historique, commande);
+	index = -1;
+    temp_input = "";
+	
 	
 	// Séparation de la commande checkout et x
     var espace_pos = string_pos(" ", commande);
@@ -86,7 +120,9 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 }
 
 // Effacer avec Échap
-if (keyboard_check_pressed(vk_escape)) {
+if (keyboard_check_pressed(vk_delete)) {
 	console_input = "";
 	keyboard_string = "";
+	index = -1;
+	temp_input = "";
 }
