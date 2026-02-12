@@ -4,6 +4,7 @@
     border: 1vh solid #4a505b;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
 }
 
 :host {
