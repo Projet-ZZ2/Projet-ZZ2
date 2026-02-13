@@ -6,7 +6,7 @@ if (!gagne && !perdu) {
 	
 	if (!instance_exists(obj_git)) exit;
 	
-	if(obj_git.nb_branche_tot == 1) obj_git.a_augmente = true;
+	if(obj_git.nb_branche_tot == 2) obj_git.a_augmente = true;
 	else if (obj_git.nb_branche_tot == 5) obj_git.a_diminuer = true;
 	else {
 		var nb_alea = irandom(1);
