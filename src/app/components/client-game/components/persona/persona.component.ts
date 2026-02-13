@@ -9,7 +9,7 @@ import { PersonaCharacteristic } from '../../../../model/client-game.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './persona.component.html',
-  styleUrl: './persona.component.css',
+  styleUrls: ['../steps.css', './persona.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonaComponent {

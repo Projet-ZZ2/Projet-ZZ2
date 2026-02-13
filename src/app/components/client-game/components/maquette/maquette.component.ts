@@ -9,7 +9,7 @@ import { DesignElement } from '../../../../model/client-game.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './maquette.component.html',
-  styleUrl: './maquette.component.css',
+  styleUrls: ['../steps.css', './maquette.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MaquetteComponent {
@@ -72,7 +72,6 @@ export class MaquetteComponent {
 
   selectTheme(theme: string): void {
     this.selectedTheme.set(theme);
-    this.updateDesignElement('background', 'color', this.getThemeBackground(theme));
   }
 
   updateDesignElement(

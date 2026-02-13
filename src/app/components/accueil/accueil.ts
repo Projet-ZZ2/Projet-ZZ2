@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FullscreenService } from '../../services/fullscreen/fullscreen';
 
 @Component({
   selector: 'app-accueil',
@@ -9,6 +10,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./accueil.css'],
 })
 export class Accueil {
+  constructor(public fullscreenService: FullscreenService) {}
 
+  onFullscreenClick() {
+    this.fullscreenService.toggleFullscreen();
+  }
 }
-

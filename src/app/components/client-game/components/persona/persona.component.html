@@ -14,7 +14,7 @@
     <div class="infos-overview">
       @for (info of gameService.getCollectedInfos(); track info.id) {
         <div class="info-pill" [class]="info.type">
-          {{ info.content }}
+          <p>{{ info.content }}</p>
         </div>
       }
     </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="form-section">
-      <label for="persona-name">Nom du persona :</label>
+      <label for="persona-name"><p>Nom du persona :</p></label>
       <input
         id="persona-name"
         type="text"
@@ -156,8 +156,12 @@
           @for (char of personaCharacteristics(); track char.type) {
             <div class="result-item" [class.correct]="char.isCorrect">
               <span class="result-icon">{{ char.isCorrect ? '✅' : '❌' }}</span>
-              <span class="result-text">{{ getCharacteristicLabel(char.type) }}</span>
-              <span class="result-value">{{ char.value }}</span>
+              <span class="result-text"
+                ><p>{{ getCharacteristicLabel(char.type) }}</p></span
+              >
+              <span class="result-value"
+                ><p>{{ char.value }}</p></span
+              >
             </div>
           }
         </div>

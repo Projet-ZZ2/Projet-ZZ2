@@ -1,34 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
+*{
+  font-family: "Jersey 10", sans-serif;
+}
+
 .client-game {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 100%;
-  background: #3A6EA5; /* Classic Windows XP blue */
-  font-family: "Jersey 10", sans-serif;
+  background: #3A6EA5;
   color: black;
-  padding: 0;
-  margin: 0;
-  overflow-y: auto;
+  overflow-y: hidden;
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  font-smooth: never;
-  border: 2px solid #004E98;
-  border-radius: 8px;
-  box-shadow: inset -1px -1px #00138C, inset 1px 1px #A6C8FF, inset -2px -2px #00138C, inset 2px 2px #A6C8FF;
 }
-
-:host {
-    display: block;
-    height: 100%;
-    overflow: hidden;
-}
-
 
 .game-header {
   background: linear-gradient(to right, #005CFD, #A6C8FF); /* XP Title bar gradient */
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,7 +27,7 @@
 
 .game-header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
@@ -53,7 +42,7 @@
 }
 
 .score {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -72,133 +61,10 @@
   transition: width 0.3s ease;
 }
 
-/* Menu de démarrage */
-.menu-step {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  overflow: auto;
-}
-
-.menu-content {
-  text-align: center;
-  max-width: 700px;
-  background: #ECE9D8; /* XP window background */
-  padding: 1rem;
-  border: 1px solid #004E98;
-  border-radius: 8px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-.menu-content h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #01182e;
-  background: #ECE9D8;
-  padding: 0.5rem;
-  border-bottom: 1px solid #ACA899;
-}
-
-.menu-content p {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  color: #000;
-}
-
-.game-steps {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.step {
-  background: #F5F5F5;
-  padding: 1rem;
-  border: 1px solid #ACA899;
-  border-radius: 4px;
-  text-align: center;
-  box-shadow: inset -1px -1px #FFFFFF, inset 1px 1px #808080;
-}
-
-.step h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem; 
-  color: #1b3044;
-}
-
-.step p {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin: 0;
-}
-
-.start-button {
-  background: #ECE9D8;
-  border: 1px solid #004E98;
-  color: black;
-  font-family: "Jersey 10", sans-serif;
-  font-size: 1.8rem;
-  font-weight: bold;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 1px 1px #fff, -1px -1px #666;
-  transition: all 0.1s ease;
-}
-
-.start-button p {
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-}
-
-.start-button:hover {
-  background: #E0DED1;
-}
-
-.start-button:active {
-  box-shadow: inset 1px 1px #fff, inset -1px -1px #666;
-}
-
-/* Étapes du jeu */
-.interview-step,
-.insights-step,
-.persona-step,
-.maquette-step,
-.results-step {
+.steps {
+  overflow-y: auto;
+  flex: 1;
   height: 100%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.step-header {
-  background: #ECE9D8;
-  color: black;
-  padding: 1rem 1.5rem;
-  border: 1px solid #ACA899;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.step-header h2 {
-  font-size: 1.5rem;
-  margin: 0;
-  color: #004E98;
-}
-
-.step-header p {
-  margin: 0.25rem 0 0 0;
-  opacity: 0.9;
-  font-size: 1rem;
 }
 
 .navigation {
@@ -206,84 +72,3 @@
   gap: 0.5rem;
 }
 
-.next-button,
-.restart-button {
-  background: #ECE9D8;
-  border: 1px solid #004E98;
-  color: black;
-  font-size: 1rem;
-  font-weight: normal;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 1px 1px #fff, -1px -1px #666;
-}
-
-.next-button:hover:not(:disabled),
-.restart-button:hover {
-  background: #E0DED1;
-}
-
-.next-button:disabled {
-  background: #D3D3D3;
-  color: #808080;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.restart-button {
-  background: #ECE9D8;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .game-header {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  .game-header h1 {
-    font-size: 1.2rem;
-  }
-
-  .menu-content {
-    padding: 1rem;
-    margin: 0.5rem;
-  }
-
-  .menu-content h2 {
-    font-size: 1.5rem;
-  }
-
-  .game-steps {
-    grid-template-columns: 1fr;
-  }
-
-  .step-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .step-header h2 {
-    font-size: 1.2rem;
-  }
-
-  .interview-step,
-  .insights-step,
-  .persona-step,
-  .maquette-step,
-  .results-step {
-    padding: 0.5rem;
-  }
-
-  .client-game {
-    padding-bottom: 1rem;
-  }
-}
-
-.menu-content,
-.step-header,
-.step {
-  animation: none;
-}
