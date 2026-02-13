@@ -8,7 +8,7 @@ class ordinateur
     }
     public int connaitreMemoire()
     {
-        if(m == null){
+        if(motDePasse != null){
             return espace_memoire;
         } else {
             return 0;

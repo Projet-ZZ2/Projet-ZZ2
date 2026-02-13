@@ -1,0 +1,23 @@
+class Ordinateur
+{
+    private int espace_memoire;
+    private string motDePasse;
+
+    // commentaire
+    public void afficher()
+    {
+        console_affiche("Ceci est un texte plutôt long qui sera affiché
+        à l'écran de l'ordinateur lorsque celui-ci sera allumé.");
+    }
+
+    public int connaitreMemoire()
+    {
+        if (motDePasse != null)
+        {
+            return espace_memoire;
+        } else
+        {
+            return 0;
+        }
+    }
+}
