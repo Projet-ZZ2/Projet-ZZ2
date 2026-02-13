@@ -2,8 +2,9 @@
   <div class="persona-explanation">
     <h3>👤 Création du Persona</h3>
     <p>
-      Créez un persona représentatif de vos utilisateurs en vous basant sur les informations collectées
-      lors des entretiens. Plus votre persona correspond aux besoins identifiés, plus vous gagnez de points !
+      Créez un persona représentatif de vos utilisateurs en vous basant sur les informations
+      collectées lors des entretiens. Plus votre persona correspond aux besoins identifiés, plus
+      vous gagnez de points !
     </p>
   </div>
 
@@ -12,9 +13,9 @@
     <h4>📋 Rappel des informations collectées :</h4>
     <div class="infos-overview">
       @for (info of gameService.getCollectedInfos(); track info.id) {
-      <div class="info-pill" [class]="info.type">
-        {{ info.content }}
-      </div>
+        <div class="info-pill" [class]="info.type">
+          {{ info.content }}
+        </div>
       }
     </div>
   </div>
@@ -32,8 +33,14 @@
 
     <div class="form-section">
       <label for="persona-name">Nom du persona :</label>
-      <input id="persona-name" type="text" [value]="personaName()" (input)="updatePersonaName($event)"
-        placeholder="Ex: Marie Dupont" class="persona-input" />
+      <input
+        id="persona-name"
+        type="text"
+        [value]="personaName()"
+        (input)="updatePersonaName($event)"
+        placeholder="Ex: Marie Dupont"
+        class="persona-input"
+      />
     </div>
 
     <div class="characteristics-grid">
@@ -42,10 +49,13 @@
         <h5>🎂 Âge</h5>
         <div class="options-grid">
           @for (option of ageOptions; track option.value) {
-          <button class="option-button" [class.selected]="getSelectedCharacteristic('age') === option.value"
-            (click)="selectCharacteristic('age', option.value, option.label)">
-            {{ option.label }}
-          </button>
+            <button
+              class="option-button"
+              [class.selected]="getSelectedCharacteristic('age') === option.value"
+              (click)="selectCharacteristic('age', option.value, option.label)"
+            >
+              {{ option.label }}
+            </button>
           }
         </div>
       </div>
@@ -55,10 +65,13 @@
         <h5>💼 Profession</h5>
         <div class="options-grid">
           @for (option of professionOptions; track option.value) {
-          <button class="option-button" [class.selected]="getSelectedCharacteristic('profession') === option.value"
-            (click)="selectCharacteristic('profession', option.value, option.label)">
-            {{ option.label }}
-          </button>
+            <button
+              class="option-button"
+              [class.selected]="getSelectedCharacteristic('profession') === option.value"
+              (click)="selectCharacteristic('profession', option.value, option.label)"
+            >
+              {{ option.label }}
+            </button>
           }
         </div>
       </div>
@@ -68,10 +81,13 @@
         <h5>⭐ Besoins principaux</h5>
         <div class="options-grid">
           @for (option of needsOptions; track option.value) {
-          <button class="option-button" [class.selected]="getSelectedCharacteristic('needs') === option.value"
-            (click)="selectCharacteristic('needs', option.value, option.label)">
-            {{ option.label }}
-          </button>
+            <button
+              class="option-button"
+              [class.selected]="getSelectedCharacteristic('needs') === option.value"
+              (click)="selectCharacteristic('needs', option.value, option.label)"
+            >
+              {{ option.label }}
+            </button>
           }
         </div>
       </div>
@@ -81,10 +97,13 @@
         <h5>😤 Frustrations</h5>
         <div class="options-grid">
           @for (option of frustrationOptions; track option.value) {
-          <button class="option-button" [class.selected]="getSelectedCharacteristic('frustrations') === option.value"
-            (click)="selectCharacteristic('frustrations', option.value, option.label)">
-            {{ option.label }}
-          </button>
+            <button
+              class="option-button"
+              [class.selected]="getSelectedCharacteristic('frustrations') === option.value"
+              (click)="selectCharacteristic('frustrations', option.value, option.label)"
+            >
+              {{ option.label }}
+            </button>
           }
         </div>
       </div>
@@ -94,10 +113,13 @@
         <h5>🎯 Objectifs</h5>
         <div class="options-grid">
           @for (option of goalsOptions; track option.value) {
-          <button class="option-button" [class.selected]="getSelectedCharacteristic('goals') === option.value"
-            (click)="selectCharacteristic('goals', option.value, option.label)">
-            {{ option.label }}
-          </button>
+            <button
+              class="option-button"
+              [class.selected]="getSelectedCharacteristic('goals') === option.value"
+              (click)="selectCharacteristic('goals', option.value, option.label)"
+            >
+              {{ option.label }}
+            </button>
           }
         </div>
       </div>
@@ -105,40 +127,41 @@
 
     <!-- Validation -->
     <div class="validation-section">
-      <button class="validate-persona-button" [disabled]="!canValidatePersona()" (click)="validatePersona()">
+      <button
+        class="validate-persona-button"
+        [disabled]="!canValidatePersona()"
+        (click)="validatePersona()"
+      >
         @if (isPersonaSubmitted()) {
-        ✅ Persona validé ({{ lastScore() }} pts)
+          ✅ Persona validé ({{ lastScore() }} pts)
         } @else {
-        Valider le persona
+          Valider le persona
         }
       </button>
 
       @if (canValidatePersona() && !isPersonaSubmitted()) {
-      <p class="validation-hint">
-        Toutes les caractéristiques sont sélectionnées !
-        Cliquez pour valider et voir votre score.
-      </p>
+        <p class="validation-hint">
+          Toutes les caractéristiques sont sélectionnées ! Cliquez pour valider et voir votre score.
+        </p>
       } @else if (!canValidatePersona()) {
-      <p class="validation-hint">
-        Sélectionnez une option pour chaque caractéristique.
-      </p>
+        <p class="validation-hint">Sélectionnez une option pour chaque caractéristique.</p>
       }
     </div>
 
     <!-- Résultats après validation -->
     @if (isPersonaSubmitted()) {
-    <div class="persona-results">
-      <h4>📊 Évaluation de votre persona :</h4>
-      <div class="results-grid">
-        @for (char of personaCharacteristics(); track char.type) {
-        <div class="result-item" [class.correct]="char.isCorrect">
-          <span class="result-icon">{{ char.isCorrect ? '✅' : '❌' }}</span>
-          <span class="result-text">{{ getCharacteristicLabel(char.type) }}</span>
-          <span class="result-value">{{ char.value }}</span>
+      <div class="persona-results">
+        <h4>📊 Évaluation de votre persona :</h4>
+        <div class="results-grid">
+          @for (char of personaCharacteristics(); track char.type) {
+            <div class="result-item" [class.correct]="char.isCorrect">
+              <span class="result-icon">{{ char.isCorrect ? '✅' : '❌' }}</span>
+              <span class="result-text">{{ getCharacteristicLabel(char.type) }}</span>
+              <span class="result-value">{{ char.value }}</span>
+            </div>
+          }
         </div>
-        }
       </div>
-    </div>
     }
   </div>
 

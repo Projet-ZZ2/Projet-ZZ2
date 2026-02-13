@@ -1,19 +1,31 @@
-import { Rule } from './rulesQuLiceModel';
+import { Rule,RuleCategory } from './rulesQuLiceModel';
+import { globalExpectedCode } from './rulesQuLiceModel';
+
+export let expectedCodeReference: string = "";
+
+export const setExpectedCode = (content: string) => {
+    expectedCodeReference = content;
+};
 
 export const VALIDATION_RULES: Rule[] = [
     {
         id: 1,
         name: 'Champ à clarifier',
-        description: 'Un champ doit être clarifié pour éviter les ambiguïtés.',
+        description: 'Le champ "m" doit être renommé en "motDePasse" pour être plus explicite.',
         status: 'pending',
         validator: (code) => {
-            // Vérifie que "string m;" n'existe plus
-            const hasM = /string\s+m\s*;/.test(code);
-            // Vérifie qu'il y a bien une string déclarée (pour éviter qu'il l'efface juste)
-            const hasString = /private\s+string\s+[a-zA-Z]{2,}\s*;/.test(code);
-            return !hasM && hasString;
+            // 1. On vérifie que l'ancien champ "string m;" a bien disparu
+            // La regex \bm\b assure qu'on ne cible pas le "m" au milieu d'un autre mot
+            const hasOldM = /string\s+\bm\b\s*;/.test(code);
+
+            // 2. On vérifie que le nouveau champ "private string motDePasse;" est présent
+            // On autorise un nombre d'espaces variable mais on impose le nom exact
+            const hasMotDePasse = /private\s+string\s+motDePasse\s*;/.test(code);
+
+            // La règle est valide si "m" est parti ET "motDePasse" est arrivé
+            return !hasOldM && hasMotDePasse;
         },
-        indice: 'Indice : Le champ "m" est trop vague. Trouve un nom plus explicite pour ce champ de type string.'
+        indice: 'Indice : Le champ "m" est trop vague. Remplace-le par "private string motDePasse;" pour respecter les consignes.'
     },
     {
         id: 2,
@@ -47,37 +59,34 @@ export const VALIDATION_RULES: Rule[] = [
     {
         id: 4,
         name: 'Longueur maximale de ligne',
-        description: 'Les lignes de code ne doivent pas dépasser 120 caractères pour améliorer la lisibilité.',
+        description: 'Les lignes de code ne doivent pas dépasser 120 caractères. Coupez la ligne précisément après le mot "affiché".',
         status: 'locked',
-        validator: (code) => code.split('\n').every(line => line.length <= 120),
-        indice: 'Indice : Si une ligne de code est trop longue, essaie de la diviser en plusieurs lignes plus courtes pour améliorer la lisibilité.'
+        validator: (code: string) => {
+            const lines = code.split('\n');
+
+            // 1. Vérifie la longueur maximale
+            const lengthOk = lines.every(line => line.length <= 120);
+
+            // 2. Vérifie la coupure
+            const hasCorrectSplit = lines.some((line, index) => {
+                const trimmedLine = line.trim();
+                
+                // On cherche si "affiché" est le dernier mot de la ligne (avant d'éventuels guillemets)
+                const endsWithAffiche = /affiché\s*"?\s*$/.test(trimmedLine);
+                
+                // On vérifie si la ligne suivante commence par "à l'écran"
+                const nextLineStartsCorrectly = lines[index + 1] && 
+                                                lines[index + 1].trim().replace(/^"/, '').trim().startsWith("à l'écran");
+
+                return endsWithAffiche && nextLineStartsCorrectly;
+            });
+
+            return lengthOk && hasCorrectSplit;
+        },
+        indice: 'Indice : Coupe ta ligne de texte juste après le mot "affiché" pour qu\'elle ne soit pas trop longue.'
     },
     {
         id: 5,
-        name: 'Indentations cohérentes',
-        description: 'Le style de code doit être cohérent : utilisez des paliers de 4 espaces (4, 8, 12...).',
-        status: 'locked',
-        validator: (code) => {
-            if (code.includes('\t')) return false;
-
-            const lines = code.split('\n');
-            
-            return lines.every(line => {
-                const trimmed = line.trim();
-                if (trimmed.length === 0) return true; // On ignore les lignes vides
-
-                // On compte le nombre d'espaces avant le premier caractère
-                const spaceCount = line.search(/\S/); 
-
-                // La règle : le nombre d'espaces doit être un multiple de 4 (0, 4, 8, 12...)
-                // ET la ligne ne doit pas commencer par un espace si elle est au niveau 0 (sauf la classe)
-                return spaceCount % 4 === 0;
-            });
-        },
-        indice: 'Indice : Assure-toi que chaque niveau d\'indentation utilise un nombre d\'espaces qui est un multiple de 4, et évite les tabulations.'
-    },
-    {
-        id: 6,
         name: 'Style AllMan',
         description: 'Le style de code doit suivre le style AllMan pour les accolades, c\'est-à-dire que les accolades ouvrantes doivent être sur une nouvelle ligne.',
         status: 'locked',
@@ -104,15 +113,15 @@ export const VALIDATION_RULES: Rule[] = [
         indice: 'Indice : Assure-toi que les accolades ouvrantes sont seules sur leur ligne, sans autre code ou texte avant elles.'
     },
     {
-        id: 7,
+        id: 6,
         name: 'Commentaires clairs',
-        description: 'Il doit y avoir des commentaires clairs et concis pour expliquer les parties complexes du code. On peut écrire un commentaire avec //.',
+        description: 'Il doit y avoir des commentaires clairs et concis pour expliquer les parties complexes du code. On demande d\'écrire \"// commentaire\" avant le bloc afficher.',
         status: 'locked',
         validator: (code) => code.includes('//') && code.split('//')[1].trim().length > 5,
         indice: 'Indice : Ajoute des commentaires avec // pour expliquer les parties complexes de ton code. Assure-toi que tes commentaires sont clairs et contiennent plus de 5 caractères.'
     },
     {
-        id: 8,
+        id: 7,
         name: 'Espace après les structures de contrôle',
         description: 'Il doit y avoir un espace après le mot-clé "if" pour une meilleure lisibilité.',
         status: 'locked',
@@ -130,9 +139,9 @@ export const VALIDATION_RULES: Rule[] = [
         indice: 'Indice : Vérifie tes structures "if". Il manque un petit espace entre le mot "if" et la parenthèse ouvrante "(".'
     },
     {
-        id: 9,
+        id: 8,
         name: 'Blocs logiques aérés',
-        description: 'Séparez vos méthodes et vos déclarations de champs par au moins une ligne vide.',
+        description: 'Séparez vos méthodes et vos déclarations de champs par exactement une ligne vide.',
         status: 'locked',
         validator: (code: string) => {
             const lines = code.split('\n');
@@ -161,6 +170,49 @@ export const VALIDATION_RULES: Rule[] = [
             return true;
         },
         indice: 'Indice : Ton code est trop compact. Ajoute une ligne vide après chaque fermeture d\'accolade "}" et entre tes variables et tes méthodes.'
+    },
+    {
+        id: 9,
+        name: 'Structure attendue',
+        description: 'Le code doit respecter exactement la structure de la classe Ordinateur définie.',
+        status: 'locked',
+        validator: (code: string): boolean => {
+            const reference = globalExpectedCode || "";
+            const userCode = code || "";
+
+            if (!userCode || !reference) return false;
+
+            // Fonction pour normaliser SANS supprimer l'indentation de début
+            const normalizeWithIndentation = (str: string) => {
+                return str
+                    .replace(/\r\n/g, '\n')      // Harmonise les retours à la ligne (Windows/Linux)
+                    .split('\n')                 // Découpe par ligne
+                    .map(line => line.trimEnd()) // Garde l'espace au début, enlève celui à la fin
+                    .filter(line => line.length > 0) // Enlève les lignes totalement vides
+                    .join('\n');
+            };
+
+            const userClean = normalizeWithIndentation(userCode);
+            const refClean = normalizeWithIndentation(reference);
+
+            if (userClean !== refClean) {
+                // --- DEBUG POUR TROUVER LA LIGNE FAUSSE ---
+                const userLines = userClean.split('\n');
+                const refLines = refClean.split('\n');
+
+                for (let i = 0; i < Math.max(userLines.length, refLines.length); i++) {
+                    if (userLines[i] !== refLines[i]) {
+                        
+                        break; // On s'arrête à la première erreur trouvée
+                    }
+                }
+                return false;
+            }
+
+            return true;
+        },
+        indice: 'Indice : Ton code doit correspondre exactement au fichier de référence. Vérifie les noms de variables et la ponctuation.'
     }
 ];
 
+export const ruleCategoryInstance = new RuleCategory("Programmation", VALIDATION_RULES);

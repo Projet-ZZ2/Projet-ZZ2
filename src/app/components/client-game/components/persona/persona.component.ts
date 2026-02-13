@@ -10,10 +10,9 @@ import { PersonaCharacteristic } from '../../../../model/client-game.model';
   imports: [CommonModule, FormsModule],
   templateUrl: './persona.component.html',
   styleUrl: './persona.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonaComponent {
-  
   personaName = signal<string>('');
   personaCharacteristics = signal<PersonaCharacteristic[]>([]);
   isPersonaSubmitted = signal<boolean>(false);
@@ -24,7 +23,7 @@ export class PersonaComponent {
     { value: 'young', label: 'Jeune (18-30)' },
     { value: 'adult', label: 'Adulte (30-50)' },
     { value: 'senior', label: 'Senior (50+)' },
-    { value: 'child', label: 'Enfant (8-17)' }
+    { value: 'child', label: 'Enfant (8-17)' },
   ];
 
   professionOptions = [
@@ -33,7 +32,7 @@ export class PersonaComponent {
     { value: 'designer', label: 'Designer' },
     { value: 'manager', label: 'Manager' },
     { value: 'retiree', label: 'Retraité' },
-    { value: 'other', label: 'Autre' }
+    { value: 'other', label: 'Autre' },
   ];
 
   needsOptions = [
@@ -41,7 +40,7 @@ export class PersonaComponent {
     { value: 'performance', label: 'Performance' },
     { value: 'accessibility', label: 'Accessibilité' },
     { value: 'fun', label: 'Amusement' },
-    { value: 'efficiency', label: 'Efficacité' }
+    { value: 'efficiency', label: 'Efficacité' },
   ];
 
   frustrationOptions = [
@@ -49,7 +48,7 @@ export class PersonaComponent {
     { value: 'slowness', label: 'Lenteur' },
     { value: 'small-text', label: 'Texte trop petit' },
     { value: 'confusion', label: 'Interface confuse' },
-    { value: 'technical', label: 'Trop technique' }
+    { value: 'technical', label: 'Trop technique' },
   ];
 
   goalsOptions = [
@@ -57,7 +56,7 @@ export class PersonaComponent {
     { value: 'learning', label: 'Apprendre' },
     { value: 'entertainment', label: 'Se divertir' },
     { value: 'productivity', label: 'Être productif' },
-    { value: 'social', label: 'Se connecter' }
+    { value: 'social', label: 'Se connecter' },
   ];
 
   constructor(public gameService: ClientGameService) {}
@@ -69,12 +68,12 @@ export class PersonaComponent {
 
   selectCharacteristic(type: PersonaCharacteristic['type'], value: string, label: string): void {
     const characteristics = this.personaCharacteristics();
-    const existingIndex = characteristics.findIndex(c => c.type === type);
-    
+    const existingIndex = characteristics.findIndex((c) => c.type === type);
+
     const newCharacteristic: PersonaCharacteristic = {
       type,
       value: value,
-      isCorrect: false 
+      isCorrect: false,
     };
 
     if (existingIndex >= 0) {
@@ -89,17 +88,24 @@ export class PersonaComponent {
   }
 
   getSelectedCharacteristic(type: PersonaCharacteristic['type']): string | null {
-    const characteristic = this.personaCharacteristics().find(c => c.type === type);
+    const characteristic = this.personaCharacteristics().find((c) => c.type === type);
     return characteristic ? characteristic.value : null;
   }
 
   canValidatePersona(): boolean {
-    const requiredTypes: PersonaCharacteristic['type'][] = ['age', 'profession', 'needs', 'frustrations', 'goals'];
+    const requiredTypes: PersonaCharacteristic['type'][] = [
+      'age',
+      'profession',
+      'needs',
+      'frustrations',
+      'goals',
+    ];
     const characteristics = this.personaCharacteristics();
-    
-    return requiredTypes.every(type => 
-      characteristics.some(c => c.type === type)
-    ) && this.personaName().trim().length > 0;
+
+    return (
+      requiredTypes.every((type) => characteristics.some((c) => c.type === type)) &&
+      this.personaName().trim().length > 0
+    );
   }
 
   validatePersona(): void {
@@ -113,7 +119,7 @@ export class PersonaComponent {
   getPersonaInitials(): string {
     const name = this.personaName();
     if (!name) return '?';
-    
+
     const words = name.trim().split(' ');
     if (words.length === 1) {
       return words[0][0]?.toUpperCase() || '?';
@@ -128,7 +134,7 @@ export class PersonaComponent {
       profession: 'Profession',
       needs: 'Besoins',
       frustrations: 'Frustrations',
-      goals: 'Objectifs'
+      goals: 'Objectifs',
     };
     return labels[type];
   }

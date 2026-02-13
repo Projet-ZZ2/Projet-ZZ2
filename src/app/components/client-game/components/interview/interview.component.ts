@@ -10,39 +10,36 @@ import { persons } from '../../../../data/client-game/persons';
   imports: [CommonModule],
   templateUrl: './interview.component.html',
   styleUrl: './interview.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InterviewComponent {
-  
   selectedPersonId = signal<string | null>(null);
   selectedDialogues = new Set<string>();
-  interwiewEndedTooSoon=signal(false);
+  interwiewEndedTooSoon = signal(false);
   triggerShake = signal(false);
 
   constructor(public gameService: ClientGameService) {}
 
   availablePersons = computed(() => persons);
-  
+
   currentDialogues = computed(() => {
     const personId = this.selectedPersonId();
     if (!personId) return [];
     return this.gameService.getDialoguesForPerson(personId);
   });
 
-  collectedInfosCount = computed(() => 
-    this.gameService.getCollectedInfos().length
-  );
+  collectedInfosCount = computed(() => this.gameService.getCollectedInfos().length);
 
   selectPerson(personId: string): void {
-    const id =this.selectedPersonId();
-    if (this.isPersonCompleted(personId) ||(this.selectedDialogues.size > 0)) return;
+    const id = this.selectedPersonId();
+    if (this.isPersonCompleted(personId) || this.selectedDialogues.size > 0) return;
     this.selectedPersonId.set(personId);
     this.selectedDialogues.clear();
   }
 
   selectDialogue(dialogueId: string): void {
     if (this.selectedDialogues.has(dialogueId)) return;
-    
+
     this.selectedDialogues.add(dialogueId);
     this.interwiewEndedTooSoon.set(false);
     const result = this.gameService.selectDialogueLine(dialogueId);
@@ -65,12 +62,11 @@ export class InterviewComponent {
   completeCurrentInterview(): void {
     const personId = this.selectedPersonId();
     if (!personId || !this.canCompleteInterview()) return;
-    
 
     const dialogues = this.currentDialogues();
-    const importantDialogues = dialogues.filter(d => d.isImportant);
-    
-    if(importantDialogues.every(d => this.selectedDialogues.has(d.id))){
+    const importantDialogues = dialogues.filter((d) => d.isImportant);
+
+    if (importantDialogues.every((d) => this.selectedDialogues.has(d.id))) {
       this.gameService.completeInterview(personId, true);
       this.selectedPersonId.set(null);
       this.selectedDialogues.clear();
@@ -83,8 +79,6 @@ export class InterviewComponent {
     setTimeout(() => {
       this.triggerShake.set(false);
     }, 1000);
-
-
   }
 
   getSelectedPerson(): Person | undefined {
@@ -95,10 +89,10 @@ export class InterviewComponent {
 
   getInfoTypeLabel(type: string): string {
     const labels: Record<string, string> = {
-      'ui': 'Interface',
-      'ux': 'Expérience',
-      'theme': 'Thème',
-      'persona': 'Persona'
+      ui: 'Interface',
+      ux: 'Expérience',
+      theme: 'Thème',
+      persona: 'Persona',
     };
     return labels[type] || type;
   }
