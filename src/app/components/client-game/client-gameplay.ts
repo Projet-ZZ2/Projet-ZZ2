@@ -6,7 +6,7 @@ import { EventBus } from '../../../assets/phaser_engine/EventBus';
 @Component({
   selector: 'client-gameplay',
   template: '<div id="game-container"></div>',
-  standalone: true
+  standalone: true,
 })
 export class ClientGameplay implements OnInit, OnDestroy {
   // On utilise les types de Phaser pour garder l'intelligence de l'IDE
@@ -19,7 +19,6 @@ export class ClientGameplay implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     // BLOCAGE SSR : On n'exécute le moteur de jeu QUE sur le navigateur
     if (isPlatformBrowser(this.platformId)) {
-      
       // Import dynamique de la fonction StartGame
       // Cela évite que le serveur ne lise le fichier 'main.ts' de Phaser
       const { default: StartGame } = await import('../../../assets/phaser_engine/main');

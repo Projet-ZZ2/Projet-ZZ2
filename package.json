@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node dist/zz2Project/server/server.mjs",
     "build": "ng build --configuration production",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "prepare": "husky"
   },
   "prettier": {
     "printWidth": 100,
@@ -16,6 +17,11 @@
           "parser": "angular"
         }
       }
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{ts,html,scss,json}": [
+      "prettier --write"
     ]
   },
   "private": true,
@@ -30,20 +36,25 @@
     "@angular/router": "^21.1.0",
     "@angular/ssr": "^21.1.2",
     "express": "^5.1.0",
+    "phaser": "^3.90.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "phaser": "^3.90.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.1.2",
     "@angular/cli": "^21.1.2",
     "@angular/compiler-cli": "^21.1.0",
+    "@prettier/plugin-php": "^0.24.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
     "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "~5.9.2",
-    "vitest": "^4.0.8",
-    "http-server": "^14.1.1"
+    "vitest": "^4.0.8"
   },
   "engines": {
     "node": ">=22.x",
