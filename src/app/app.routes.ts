@@ -10,6 +10,7 @@ import { DifferencesGame } from './components/differences/differences';
 import { Fin } from './components/fin/fin';
 import { GameCompletionGuard } from './services/game-completion.guard';
 import { gameResolver } from './services/game-resolver';
+import { ClickerGame } from './components/clicker-game/clicker-game';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,11 @@ export const routes: Routes = [
   {
     path: 'game/7',
     component: DifferencesGame,
+    resolve: { game: gameResolver }
+  },
+  {
+    path: 'game/8',
+    component: ClickerGame,
     resolve: { game: gameResolver }
   },
   {
