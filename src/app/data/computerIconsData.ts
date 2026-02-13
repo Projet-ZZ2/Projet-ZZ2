@@ -42,5 +42,11 @@ export const COMPUTER_ICONS: ComputerIconModel[] = [
         name: "Jeu du dev : corriger erreur",
         picture: "assets/images/fix_error.png",
         unlocked: false
+    },
+    {
+        id: 8,
+        name: "Clicker Game",
+        picture: "assets/images/click.png",
+        unlocked: false
     }
 ];
