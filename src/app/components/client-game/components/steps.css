@@ -26,3 +26,16 @@ h4{
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+h5{
+  font-size: 1.3rem;
+  color: #004E98;
+}
+
+li {
+  font-size:1.3rem;
+}
+
+.form-section p{
+  margin:0;
+}
