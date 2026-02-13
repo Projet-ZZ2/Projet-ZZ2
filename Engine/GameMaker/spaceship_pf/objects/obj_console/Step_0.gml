@@ -112,6 +112,10 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 			com_reset = true;
 			break;
 		
+		case "exit":
+			com_exit = true;
+			break;
+		
 		default:
 			break;
 	}

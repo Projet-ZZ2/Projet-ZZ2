@@ -17,6 +17,7 @@ com_branch = false;
 com_merge = false;
 com_help = false;
 com_reset = false;
+com_exit = false;
 
 num_branche = 0;
 
