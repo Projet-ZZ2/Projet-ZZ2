@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
 .client-game {
   display: flex;
@@ -6,7 +6,7 @@
   position: relative;
   height: 100%;
   background: #3A6EA5; /* Classic Windows XP blue */
-  font-family: "Pixelify Sans", Tahoma, sans-serif;
+  font-family: "Jersey 10", sans-serif;
   color: black;
   padding: 0;
   margin: 0;
@@ -102,14 +102,14 @@
 }
 
 .menu-content p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
   color: #000;
 }
 
 .game-steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin: 1.5rem 0;
 }
@@ -130,7 +130,7 @@
 }
 
 .step p {
-  font-size: 0.8rem;
+  font-size: 1rem;
   opacity: 0.9;
   margin: 0;
 }
@@ -139,13 +139,20 @@
   background: #ECE9D8;
   border: 1px solid #004E98;
   color: black;
-  font-size: 1.2rem;
+  font-family: "Jersey 10", sans-serif;
+  font-size: 1.8rem;
   font-weight: bold;
   padding: 0.75rem 2rem;
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 1px 1px #fff, -1px -1px #666;
   transition: all 0.1s ease;
+}
+
+.start-button p {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .start-button:hover {
