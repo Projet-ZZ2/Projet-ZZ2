@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2, Inject, PLATFORM_ID } from '@a
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Computer } from '../computer/computer';
 import { Router } from '@angular/router';
+import { stopBackgroundMusic, playBackgroundMusic } from '../../model/audio-helper';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class Gitgame implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      stopBackgroundMusic();
     (window as any).gmCallback_Script_OnInit = function() {
         return {
             base_url: "assets/gamemaker/html5game"
@@ -75,6 +77,8 @@ export class Gitgame implements OnInit, OnDestroy {
     if ((window as any).GameMaker_Quit) { 
       (window as any).GameMaker_Quit(); 
     }
+
+    playBackgroundMusic('main theme.mp3');
 
     this.router.navigate(['/desktop']); 
   }
