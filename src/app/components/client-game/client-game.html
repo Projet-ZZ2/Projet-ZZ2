@@ -13,116 +13,114 @@
     <div class="step">
       <!-- Menu de démarrage -->
       @if (currentStep() === 'menu') {
-      <div class="menu-step">
-        <div class="menu-content">
-          <h2>Bienvenue dans le jeu du Game Designer Client !</h2>
-          <p>
-            Votre mission : comprendre vos clients à travers des entretiens,
-            analyser leurs besoins, créer des personas et concevoir la maquette parfaite.<br>
-            Ce sont toutes les étapes nécessaires pour l'IHM (Interface Homme-Machine)
-          </p>
-          <div class="game-steps">
-            <div class="step">
-              <h3>🎤 Entretiens</h3>
-              <p>Interrogez vos clients et collectez les bonnes informations</p>
+        <div class="menu-step">
+          <div class="menu-content">
+            <h2>Bienvenue dans le jeu du Game Designer Client !</h2>
+            <p>
+              Votre mission : comprendre vos clients à travers des entretiens, analyser leurs
+              besoins, créer des personas et concevoir la maquette parfaite.<br />
+              Ce sont toutes les étapes nécessaires pour l'IHM (Interface Homme-Machine)
+            </p>
+            <div class="game-steps">
+              <div class="step">
+                <h3>🎤 Entretiens</h3>
+                <p>Interrogez vos clients et collectez les bonnes informations</p>
+              </div>
+              <div class="step">
+                <h3>📊 Insights</h3>
+                <p>Classez les features par importance et facilité</p>
+              </div>
+              <div class="step">
+                <h3>👤 Persona</h3>
+                <p>Créez le persona type de vos utilisateurs</p>
+              </div>
+              <div class="step">
+                <h3>🎨 Maquette</h3>
+                <p>Concevez l'interface parfaite selon les besoins</p>
+              </div>
             </div>
-            <div class="step">
-              <h3>📊 Insights</h3>
-              <p>Classez les features par importance et facilité</p>
-            </div>
-            <div class="step">
-              <h3>👤 Persona</h3>
-              <p>Créez le persona type de vos utilisateurs</p>
-            </div>
-            <div class="step">
-              <h3>🎨 Maquette</h3>
-              <p>Concevez l'interface parfaite selon les besoins</p>
-            </div>
+            <button class="start-button" (click)="startGame()">
+              <p>Commencer le jeu</p>
+            </button>
           </div>
-          <button class="start-button" (click)="startGame()">
-            <p>Commencer le jeu</p>
-          </button>
         </div>
-      </div>
       }
 
       <!-- Étape Entretien -->
       @if (currentStep() === 'entretien') {
-      <div class="interview-step">
-        <div class="step-header">
-          <h2>🎤 Phase d'Entretien</h2>
-          <p>Interrogez vos clients et cliquez sur les informations importantes !</p>
-          <div class="navigation">
-            <button class="next-button" [disabled]="!canProceed()" (click)="proceedToInsights()">
-              Analyser les insights →
-            </button>
+        <div class="interview-step">
+          <div class="step-header">
+            <h2>🎤 Phase d'Entretien</h2>
+            <p>Interrogez vos clients et cliquez sur les informations importantes !</p>
+            <div class="navigation">
+              <button class="next-button" [disabled]="!canProceed()" (click)="proceedToInsights()">
+                Analyser les insights →
+              </button>
+            </div>
           </div>
+          <interview-component />
         </div>
-        <interview-component />
-      </div>
       }
 
       <!-- Étape Insights -->
       @if (currentStep() === 'insights') {
-      <div class="insights-step">
-        <div class="step-header">
-          <h2>📊 Phase d'Analyse des Insights</h2>
-          <p>Placez les features sur le graphique importance/facilité</p>
-          <div class="navigation">
-            <button class="next-button" [disabled]="!canProceed()" (click)="proceedToPersona()">
-              Créer le persona →
-            </button>
+        <div class="insights-step">
+          <div class="step-header">
+            <h2>📊 Phase d'Analyse des Insights</h2>
+            <p>Placez les features sur le graphique importance/facilité</p>
+            <div class="navigation">
+              <button class="next-button" [disabled]="!canProceed()" (click)="proceedToPersona()">
+                Créer le persona →
+              </button>
+            </div>
           </div>
+          <insights-component />
         </div>
-        <insights-component />
-      </div>
       }
 
       <!-- Étape Persona -->
       @if (currentStep() === 'persona') {
-      <div class="persona-step">
-        <div class="step-header">
-          <h2>👤 Phase de Création du Persona</h2>
-          <p>Créez le persona type basé sur vos entretiens</p>
-          <div class="navigation">
-            <button class="next-button" [disabled]="!canProceed()" (click)="proceedToMaquette()">
-              Concevoir la maquette →
-            </button>
+        <div class="persona-step">
+          <div class="step-header">
+            <h2>👤 Phase de Création du Persona</h2>
+            <p>Créez le persona type basé sur vos entretiens</p>
+            <div class="navigation">
+              <button class="next-button" [disabled]="!canProceed()" (click)="proceedToMaquette()">
+                Concevoir la maquette →
+              </button>
+            </div>
           </div>
+          <persona-component />
         </div>
-        <persona-component />
-      </div>
       }
 
       <!-- Étape Maquette -->
       @if (currentStep() === 'maquette') {
-      <div class="maquette-step">
-        <div class="step-header">
-          <h2>🎨 Phase de Maquettage</h2>
-          <p>Concevez l'interface parfaite selon les besoins de vos clients</p>
-          <div class="navigation">
-            <button class="next-button" [disabled]="!canProceed()" (click)="finishGame()">
-              Voir les résultats →
-            </button>
+        <div class="maquette-step">
+          <div class="step-header">
+            <h2>🎨 Phase de Maquettage</h2>
+            <p>Concevez l'interface parfaite selon les besoins de vos clients</p>
+            <div class="navigation">
+              <button class="next-button" [disabled]="!canProceed()" (click)="finishGame()">
+                Voir les résultats →
+              </button>
+            </div>
           </div>
+          <maquette-component />
         </div>
-        <maquette-component />
-      </div>
       }
 
       <!-- Résultats -->
       @if (currentStep() === 'results') {
-      <div class="results-step">
-        <div class="step-header">
-          <h2>🏆 Résultats</h2>
-          <div class="navigation">
-            <button class="restart-button" (click)="restartGame()">
-              Rejouer
-            </button>
+        <div class="results-step">
+          <div class="step-header">
+            <h2>🏆 Résultats</h2>
+            <div class="navigation">
+              <button class="restart-button" (click)="restartGame()">Rejouer</button>
+            </div>
           </div>
+          <results-component />
         </div>
-        <results-component />
-      </div>
       }
     </div>
   </div>
