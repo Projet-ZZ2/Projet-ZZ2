@@ -10,6 +10,7 @@
   },
   "defaultScriptType":1,
   "Folders":[
+    {"$GMFolder":"","%Name":"Musique","folderPath":"folders/Musique.yy","name":"Musique","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objets","folderPath":"folders/Objets.yy","name":"Objets","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Police","folderPath":"folders/Police.yy","name":"Police","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -38,6 +39,10 @@
     {"id":{"name":"R2_Tutoriel","path":"rooms/R2_Tutoriel/R2_Tutoriel.yy",},},
     {"id":{"name":"R3_Jeu","path":"rooms/R3_Jeu/R3_Jeu.yy",},},
     {"id":{"name":"R4_Pause","path":"rooms/R4_Pause/R4_Pause.yy",},},
+    {"id":{"name":"mus_game","path":"sounds/mus_game/mus_game.yy",},},
+    {"id":{"name":"mus_lost","path":"sounds/mus_lost/mus_lost.yy",},},
+    {"id":{"name":"mus_succes","path":"sounds/mus_succes/mus_succes.yy",},},
+    {"id":{"name":"mus_tuto","path":"sounds/mus_tuto/mus_tuto.yy",},},
     {"id":{"name":"background","path":"sprites/background/background.yy",},},
     {"id":{"name":"bck_menu","path":"sprites/bck_menu/bck_menu.yy",},},
     {"id":{"name":"bullet","path":"sprites/bullet/bullet.yy",},},
