@@ -17,6 +17,7 @@ export class InterviewComponent {
   selectedDialogues = new Set<string>();
   interwiewEndedTooSoon = signal(false);
   triggerShake = signal(false);
+  canProceed = this.gameService.canProceedToNextStep;
 
   constructor(public gameService: ClientGameService) {}
 
@@ -95,5 +96,9 @@ export class InterviewComponent {
       persona: 'Persona',
     };
     return labels[type] || type;
+  }
+
+  proceedToInsights(): void {
+    this.gameService.proceedToInsights();
   }
 }

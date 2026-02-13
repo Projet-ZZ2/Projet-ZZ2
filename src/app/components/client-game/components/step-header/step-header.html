@@ -1,0 +1,52 @@
+<div class="step-header">
+  @if (currentStep() === 'entretien') {
+    <h2>🎤 Phase d'Entretien</h2>
+    <p>Interrogez vos clients et cliquez sur les informations importantes !</p>
+    <div class="navigation">
+      <button class="next-button" [disabled]="!canProceed()" (click)="proceedToInsights()">
+        Analyser les insights →
+      </button>
+    </div>
+  }
+
+  <!-- Étape Insights -->
+  @if (currentStep() === 'insights') {
+    <h2>📊 Phase d'Analyse des Insights</h2>
+    <p>Placez les features sur le graphique importance/facilité</p>
+    <div class="navigation">
+      <button class="next-button" [disabled]="!canProceed()" (click)="proceedToPersona()">
+        Créer le persona →
+      </button>
+    </div>
+  }
+
+  <!-- Étape Persona -->
+  @if (currentStep() === 'persona') {
+    <h2>👤 Phase de Création du Persona</h2>
+    <p>Créez le persona type basé sur vos entretiens</p>
+    <div class="navigation">
+      <button class="next-button" [disabled]="!canProceed()" (click)="proceedToMaquette()">
+        Concevoir la maquette →
+      </button>
+    </div>
+  }
+
+  <!-- Étape Maquette -->
+  @if (currentStep() === 'maquette') {
+    <h2>🎨 Phase de Maquettage</h2>
+    <p>Concevez l'interface parfaite selon les besoins de vos clients</p>
+    <div class="navigation">
+      <button class="next-button" [disabled]="!canProceed()" (click)="finishGame()">
+        Voir les résultats →
+      </button>
+    </div>
+  }
+
+  <!-- Résultats -->
+  @if (currentStep() === 'results') {
+    <h2>🏆 Résultats</h2>
+    <div class="navigation">
+      <button class="restart-button" (click)="restartGame()">Rejouer</button>
+    </div>
+  }
+</div>
