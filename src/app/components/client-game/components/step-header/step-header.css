@@ -1,0 +1,54 @@
+.step-header {
+  background: #ECE9D8;
+  color: black;
+  padding: 1rem 1.5rem;
+  border: 1px solid #ACA899;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.step-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #004E98;
+}
+
+.step-header p {
+  margin: 0.25rem 0 0 0;
+  opacity: 0.9;
+}
+
+.next-button,
+.restart-button {
+  background: #ECE9D8;
+  border: 1px solid #004E98;
+  color: black;
+  font-size: 1.3rem;
+  font-weight: normal;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 1px 1px #fff, -1px -1px #666;
+}
+
+.next-button:hover:not(:disabled),
+.restart-button:hover {
+  background: #E0DED1;
+}
+
+.next-button:disabled {
+  background: #D3D3D3;
+  color: #808080;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.restart-button {
+  background: #ECE9D8;
+}
+

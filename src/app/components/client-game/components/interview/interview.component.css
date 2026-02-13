@@ -14,9 +14,6 @@
 
 .person-selection h3 {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: #004E98;
 }
 
 .persons-grid {
@@ -67,16 +64,9 @@
   border-radius: 50%;
 }
 
-.person-info h4 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1rem;
-  font-weight: bold;
-}
 
 .person-info p {
   margin: 0;
-  opacity: 0.9;
-  font-size: 0.8rem;
 }
 
 .completed-badge {
@@ -84,7 +74,6 @@
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.7rem;
   margin-top: 0.5rem;
   display: inline-block;
 }
@@ -115,13 +104,10 @@
 
 .person-details h3 {
   margin: 0;
-  font-size: 1.2rem;
-  color: #004E98;
 }
 
 .person-details p {
   margin: 0.25rem 0 0 0;
-  opacity: 0.9;
 }
 
 .interview-progress {
@@ -130,13 +116,13 @@
 
 .complete-interview-btn {
   background: #ECE9D8;
+  font-size : 1rem;
   border: 1px solid #004E98;
   color: black;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   font-weight: normal;
-  margin-top: 0.5rem;
   box-shadow: 1px 1px #fff, -1px -1px #666;
 }
 
@@ -146,7 +132,6 @@
 
 .dialogue-section h4 {
   margin-bottom: 1rem;
-  font-size: 1.1rem;
 }
 
 .dialogues-list {
@@ -184,14 +169,9 @@
   background: #FDF5F5;
 }
 
-.dialogue-text {
-  font-size: 1rem;
-}
-
 .feedback {
   margin-top: 0.5rem;
   font-weight: bold;
-  font-size: 0.9rem;
 }
 
 .good-feedback {
@@ -212,13 +192,10 @@
 
 .collected-infos h4 {
   margin-bottom: 1rem;
-  font-size: 1.1rem;
-  color: #004E98;
 }
 
 .no-infos {
   text-align: center;
-  opacity: 0.7;
   font-style: italic;
 }
 
@@ -253,7 +230,6 @@
 }
 
 .info-type {
-  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 0.25rem;
@@ -261,10 +237,6 @@
   font-weight: bold;
 }
 
-.info-content {
-  font-weight: normal;
-  font-size: 0.9rem;
-}
 
 .instructions {
   display: grid;
@@ -281,38 +253,11 @@
 
 .instruction-card h4 {
   margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: #004E98;
 }
 
 .instruction-card p {
   margin: 0;
   opacity: 0.9;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .interview-container {
-    padding: 0.5rem;
-  }
-  
-  .current-person {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .interview-progress {
-    text-align: center;
-  }
-}
-
-.interview-too-soon p {
-  color: #A90000;
-  font-weight: bold;
-  display: inline-block;
-  background: #FFD2D2;
-  padding: 0.5rem;
-  border: 1px solid #A90000;
 }
 
 @keyframes fretille {

@@ -7,6 +7,8 @@ import { PersonaComponent } from './components/persona/persona.component';
 import { MaquetteComponent } from './components/maquette/maquette.component';
 import { ResultsComponent } from './components/results/results.component';
 import { Computer } from '../computer/computer';
+import { StepHeader } from './components/step-header/step-header';
+import { Menu } from './components/menu/menu';
 
 @Component({
   selector: 'client-game',
@@ -19,6 +21,8 @@ import { Computer } from '../computer/computer';
     MaquetteComponent,
     ResultsComponent,
     Computer,
+    StepHeader,
+    Menu,
   ],
   templateUrl: './client-game.html',
   styleUrls: ['./client-game.css'],
@@ -29,15 +33,10 @@ export class ClientGame {
   currentStep = this.gameService.currentStep;
   score = this.gameService.score;
   canProceed = this.gameService.canProceedToNextStep;
-
   constructor(private gameService: ClientGameService) {}
 
   startGame(): void {
     this.gameService.startGame();
-  }
-
-  proceedToInsights(): void {
-    this.gameService.proceedToInsights();
   }
 
   proceedToPersona(): void {

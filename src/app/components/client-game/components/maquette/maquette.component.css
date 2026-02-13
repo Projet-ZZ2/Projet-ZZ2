@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 .maquette-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -21,8 +23,6 @@
 
 .maquette-explanation h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 1.2rem;
-  color: #004E98;
 }
 
 .maquette-explanation p {
@@ -34,6 +34,7 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 1rem;
+  align-items: start;
 }
 
 .controls-panel {
@@ -44,13 +45,15 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: fit-content;
+  max-height: 50vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 1rem;
 }
 
 .controls-panel h4 {
   margin: 0;
   text-align: center;
-  font-size: 1.1rem;
   color: #004E98;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #ACA899;
@@ -58,7 +61,6 @@
 
 .control-section h5 {
   margin: 0 0 0.75rem 0;
-  font-size: 0.95rem;
   color: #004E98;
 }
 
@@ -74,7 +76,7 @@
   padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   background: #ECE9D8;
   box-shadow: 1px 1px #fff, -1px -1px #666;
 }
@@ -126,7 +128,7 @@
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   box-shadow: 1px 1px #fff, -1px -1px #666;
 }
 
@@ -197,45 +199,51 @@
 .preview-panel h4 {
   margin: 0 0 1rem 0;
   text-align: center;
-  font-size: 1.1rem;
   color: #004E98;
 }
 
 .mockup-container {
-  border: 2px solid #808080;
-  border-radius: 4px;
-  overflow: auto;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
   background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif !important;
 }
 
-.mockup-container.enfants {
-  border-color: #FF6B6B;
-}
-
-.mockup-container.épuré {
-  border-color: #E0E0E0;
-}
-
-.mockup-container.geek {
-  border-color: #00AA00;
-}
-
-.mockup-container.vieux {
-  border-color: #8D6E63;
+.mockup-container * {
+  font-family: 'Inter', sans-serif !important;
 }
 
 .mockup-header {
-  background: #3A6EA5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.75rem;
+  padding: 1.5rem;
   text-align: center;
-  border-bottom: 1px solid #004E98;
+  border-bottom: none;
+}
+
+.mockup-container.enfants .mockup-header {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+}
+
+.mockup-container.épuré .mockup-header {
+  background: linear-gradient(135deg, #718096 0%, #4A5568 100%);
+}
+
+.mockup-container.geek .mockup-header {
+  background: linear-gradient(135deg, #00D9A3 0%, #00B4A1 100%);
+}
+
+.mockup-container.vieux .mockup-header {
+  background: linear-gradient(135deg, #A67C52 0%, #8D6E63 100%);
 }
 
 .mockup-title {
   margin: 0;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
 }
 
 .mockup-content {
@@ -243,40 +251,49 @@
 }
 
 .mockup-section h2 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.3rem;
-  color: #004E98;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  letter-spacing: -0.5px;
 }
 
 .mockup-section p {
   margin: 0 0 1.5rem 0;
-  opacity: 0.9;
-  line-height: 1.5;
+  color: #4a5568;
+  line-height: 1.7;
+  font-size: 1rem;
 }
 
 .mockup-buttons {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .mockup-button {
-  border: 1px solid #004E98;
-  border-radius: 4px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: normal;
-  padding: 0.5rem 1rem;
-  box-shadow: 1px 1px #fff, -1px -1px #666;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mockup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .mockup-button.primary {
-  background: #3A6EA5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
 .mockup-button.secondary {
-  background: #ECE9D8;
-  color: black;
+  background: #f5f5f5;
+  color: #333;
 }
 
 .mockup-features {
@@ -287,25 +304,27 @@
 }
 
 .mockup-feature {
-  background: #F5F5F5;
-  border: 1px solid #ACA899;
-  padding: 0.5rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: normal;
+  background: linear-gradient(135deg, #f5f7fa 0%, #f1f3f5 100%);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #495057;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .mockup-footer {
-  background: #D3D3D3;
-  padding: 0.75rem;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1.25rem;
   text-align: center;
-  font-size: 0.8rem;
-  opacity: 0.9;
-  border-top: 1px solid #ACA899;
+  font-size: 0.85rem;
+  border-top: 1px solid #e0e0e0;
 }
 
 .mockup-footer p {
   margin: 0;
+  color: #6c757d;
 }
 
 .feedback-section {
@@ -326,7 +345,6 @@
 .design-feedback h4,
 .design-tips h4 {
   margin: 0 0 0.75rem 0;
-  font-size: 1rem;
   color: #004E98;
 }
 
@@ -343,7 +361,6 @@
   padding: 0.5rem;
   border-radius: 4px;
   border-left: 3px solid;
-  font-size: 0.85rem;
 }
 
 .feedback-item.good {
@@ -362,7 +379,7 @@
 }
 
 .feedback-icon {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .design-tips ul {
@@ -373,7 +390,6 @@
 .design-tips li {
   margin-bottom: 0.4rem;
   opacity: 0.9;
-  font-size: 0.85rem;
 }
 
 @media (max-width: 1200px) {

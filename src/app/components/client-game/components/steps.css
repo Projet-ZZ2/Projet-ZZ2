@@ -1,0 +1,41 @@
+*{
+  font-family: "Jersey 10", sans-serif;
+}
+
+
+p {
+    font-size: 1.3rem;
+}
+
+h2 {
+    font-size: 2rem;
+    
+  margin-bottom: 1rem;
+  color: #01182e;
+  padding: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #004E98;
+    margin-bottom: 0.5rem; 
+}
+
+h4{
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+h5{
+  font-size: 1.3rem;
+  color: #004E98;
+}
+
+li {
+  font-size:1.3rem;
+}
+
+.form-section p{
+  margin:0;
+}
