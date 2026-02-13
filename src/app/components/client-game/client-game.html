@@ -41,15 +41,7 @@
 
       <!-- Résultats -->
       @if (currentStep() === 'results') {
-        <div class="results-step">
-          <div class="step-header">
-            <h2>🏆 Résultats</h2>
-            <div class="navigation">
-              <button class="restart-button" (click)="restartGame()">Rejouer</button>
-            </div>
-          </div>
-          <results-component />
-        </div>
+        <results-component />
       }
     </div>
   </div>

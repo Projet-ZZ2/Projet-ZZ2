@@ -14,7 +14,7 @@ import { Insight } from '../../../../model/client-game.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './insights.component.html',
-  styleUrl: './insights.component.css',
+  styleUrls: ['../steps.css', './insights.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InsightsComponent {

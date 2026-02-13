@@ -68,13 +68,15 @@
                 (click)="selectDialogue(dialogue.id)"
               >
                 <div class="dialogue-content">
-                  <span class="dialogue-text">{{ dialogue.text }}</span>
+                  <div class="dialogue-text">
+                    <p>{{ dialogue.text }}</p>
+                  </div>
                   @if (selectedDialogues.has(dialogue.id)) {
                     <div class="feedback">
                       @if (dialogue.isImportant) {
-                        <span class="good-feedback">✓ Bonne information ! +20 pts</span>
+                        <span class="good-feedback"><p>✓ Bonne information ! +20 pts</p></span>
                       } @else {
-                        <span class="bad-feedback">✗ Information inutile... -10 pts</span>
+                        <span class="bad-feedback"><p>✗ Information inutile... -10 pts</p></span>
                       }
                     </div>
                   }

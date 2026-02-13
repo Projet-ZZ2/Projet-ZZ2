@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
+*{
+  font-family: "Jersey 10", sans-serif;
+}
+
 .client-game {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 100%;
   background: #3A6EA5;
-  font-family: "Jersey 10", sans-serif;
   color: black;
   overflow-y: hidden;
   image-rendering: pixelated;
@@ -24,7 +27,7 @@
 
 .game-header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
@@ -64,79 +67,8 @@
   height: 100%;
 }
 
-
-.steps p{
-  font-size:1.5 rem;
-}
-
-/* Menu de démarrage */
-.menu-step {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  overflow: auto;
-}
-
-
-
-.game-steps {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-
-
-
-
-
-
-
-
-/* Étapes du jeu */
-.interview-step,
-.insights-step,
-.persona-step,
-.maquette-step,
-.results-step {
-  height: 100%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
 .navigation {
   display: flex;
   gap: 0.5rem;
 }
 
-.next-button,
-.restart-button {
-  background: #ECE9D8;
-  border: 1px solid #004E98;
-  color: black;
-  font-size: 1rem;
-  font-weight: normal;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 1px 1px #fff, -1px -1px #666;
-}
-
-.next-button:hover:not(:disabled),
-.restart-button:hover {
-  background: #E0DED1;
-}
-
-.next-button:disabled {
-  background: #D3D3D3;
-  color: #808080;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.restart-button {
-  background: #ECE9D8;
-}

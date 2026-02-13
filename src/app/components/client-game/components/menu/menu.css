@@ -17,9 +17,6 @@
 }
 
 .menu-content h2 {
-  margin-bottom: 1rem;
-  color: #01182e;
-  padding: 0.5rem;
   border-bottom: 1px solid #ACA899;
 }
 
@@ -31,26 +28,14 @@
 }
 
 
-/*.step {
+.step {
   background: #F5F5F5;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid #ACA899;
   border-radius: 4px;
   text-align: center;
   box-shadow: inset -1px -1px #FFFFFF, inset 1px 1px #808080;
 }
-
-.step h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem; 
-  color: #1b3044;
-}
-
-.step p {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin: 0;
-}*/
 
 .start-button {
   background: #ECE9D8;

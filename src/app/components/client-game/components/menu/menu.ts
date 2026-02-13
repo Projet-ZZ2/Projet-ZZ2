@@ -5,10 +5,10 @@ import { ClientGameService } from '../../../../services/client-game.service';
   selector: 'app-menu',
   imports: [],
   templateUrl: './menu.html',
-  styleUrl: './menu.css',
+  styleUrls: ['../steps.css', './menu.css'],
 })
 export class Menu {
-  startGame = () => this.startGame;
+  startGame = () => this.gameService.startGame();
 
   constructor(public gameService: ClientGameService) {}
 }

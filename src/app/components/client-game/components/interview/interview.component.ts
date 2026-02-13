@@ -9,7 +9,7 @@ import { persons } from '../../../../data/client-game/persons';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './interview.component.html',
-  styleUrl: './interview.component.css',
+  styleUrls: ['../steps.css', './interview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InterviewComponent {

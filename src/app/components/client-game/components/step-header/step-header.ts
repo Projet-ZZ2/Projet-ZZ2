@@ -5,7 +5,7 @@ import { ClientGameService } from '../../../../services/client-game.service';
   selector: 'app-step-header',
   imports: [],
   templateUrl: './step-header.html',
-  styleUrl: './step-header.css',
+  styleUrls: ['../steps.css', './step-header.css'],
 })
 export class StepHeader {
   currentStep = this.gameService.currentStep;
