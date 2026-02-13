@@ -262,3 +262,6 @@ p.maintext {
   font-family: 'Consolas', monospace;
 }
 
+p.minitext{
+  color:#000;
+}
