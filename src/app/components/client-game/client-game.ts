@@ -1,4 +1,4 @@
-import { Component, signal, computed, ChangeDetectionStrategy } from "@angular/core";
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientGameService } from '../../services/client-game.service';
 import { InterviewComponent } from './components/interview/interview.component';
@@ -6,7 +6,7 @@ import { InsightsComponent } from './components/insights/insights.component';
 import { PersonaComponent } from './components/persona/persona.component';
 import { MaquetteComponent } from './components/maquette/maquette.component';
 import { ResultsComponent } from './components/results/results.component';
-import { Computer } from "../computer/computer";
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'client-game',
@@ -22,10 +22,9 @@ import { Computer } from "../computer/computer";
   ],
   templateUrl: './client-game.html',
   styleUrls: ['./client-game.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientGame {
-  
   // Signaux pour l'état du jeu
   currentStep = this.gameService.currentStep;
   score = this.gameService.score;
@@ -38,19 +37,19 @@ export class ClientGame {
   }
 
   proceedToInsights(): void {
-    this.gameService.proceedToInsights(); 
+    this.gameService.proceedToInsights();
   }
 
   proceedToPersona(): void {
-    this.gameService.proceedToPersona(); 
+    this.gameService.proceedToPersona();
   }
 
   proceedToMaquette(): void {
-    this.gameService.proceedToMaquette();  
+    this.gameService.proceedToMaquette();
   }
 
   finishGame(): void {
-    this.gameService.finishGame();  
+    this.gameService.finishGame();
   }
 
   restartGame(): void {

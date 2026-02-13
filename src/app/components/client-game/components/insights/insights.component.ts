@@ -1,4 +1,10 @@
-import { Component, signal, computed, ChangeDetectionStrategy, afterNextRender } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  afterNextRender,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientGameService } from '../../../../services/client-game.service';
 import { Insight } from '../../../../model/client-game.model';
@@ -9,13 +15,12 @@ import { Insight } from '../../../../model/client-game.model';
   imports: [CommonModule],
   templateUrl: './insights.component.html',
   styleUrl: './insights.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InsightsComponent {
-  
   draggedInsight = signal<string | null>(null);
   private placementResults = new Map<string, { distance: number; points: number }>();
-  
+
   constructor(public gameService: ClientGameService) {
     // Initialisation après le rendu pour s'assurer que les éléments DOM existent
     afterNextRender(() => {
@@ -24,14 +29,10 @@ export class InsightsComponent {
   }
 
   insights = computed(() => this.gameService.getInsights());
-  
-  unplacedInsights = computed(() => 
-    this.insights().filter(insight => !insight.placed)
-  );
-  
-  placedInsights = computed(() => 
-    this.insights().filter(insight => insight.placed)
-  );
+
+  unplacedInsights = computed(() => this.insights().filter((insight) => !insight.placed));
+
+  placedInsights = computed(() => this.insights().filter((insight) => insight.placed));
 
   startDrag(insightId: string, event: DragEvent): void {
     this.draggedInsight.set(insightId);
@@ -56,25 +57,25 @@ export class InsightsComponent {
 
     const dropZone = event.currentTarget as HTMLElement;
     const rect = dropZone.getBoundingClientRect();
-    
+
     // Calculer la position relative dans le graphique (0-10 sur chaque axe)
     const x = ((event.clientX - rect.left) / rect.width) * 10;
     const y = (1 - (event.clientY - rect.top) / rect.height) * 10;
 
     const position = {
       x: Math.max(0, Math.min(10, x)),
-      y: Math.max(0, Math.min(10, y))
+      y: Math.max(0, Math.min(10, y)),
     };
 
     const result = this.gameService.placeInsight(insightId, position);
     this.placementResults.set(insightId, result);
-    
+
     this.draggedInsight.set(null);
   }
 
   resetInsight(insightId: string): void {
     const insights = this.gameService.getInsights();
-    const insight = insights.find(i => i.id === insightId);
+    const insight = insights.find((i) => i.id === insightId);
     if (insight) {
       this.gameService.resetInsight(insightId);
       this.placementResults.delete(insightId);
@@ -94,7 +95,7 @@ export class InsightsComponent {
     if (!result) return null;
 
     const accuracy = Math.max(0, (1 - result.distance / Math.sqrt(200)) * 100);
-    
+
     if (accuracy >= 80) {
       return { message: '🔥 Très précis !', type: 'hot' };
     } else if (accuracy >= 60) {
@@ -108,11 +109,11 @@ export class InsightsComponent {
 
   getAverageAccuracy(): number {
     if (this.placementResults.size === 0) return 0;
-    
-    const accuracies = Array.from(this.placementResults.values()).map(result => 
-      Math.max(0, (1 - result.distance / Math.sqrt(200)) * 100)
+
+    const accuracies = Array.from(this.placementResults.values()).map((result) =>
+      Math.max(0, (1 - result.distance / Math.sqrt(200)) * 100),
     );
-    
+
     const average = accuracies.reduce((sum, acc) => sum + acc, 0) / accuracies.length;
     return Math.round(average);
   }

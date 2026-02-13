@@ -17,8 +17,7 @@
   border: 1px solid #ACA899;
   border-radius: 4px;
   padding: 2rem;
-}
-
+} 
 .final-score {
   display: flex;
   flex-direction: column;
