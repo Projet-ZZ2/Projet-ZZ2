@@ -23,6 +23,7 @@ if(menu_type == "menu") {
 	draw_set_font(S_Titre);
 	draw_text(centre_x, 620, "Taper 'help' pour lancer le tutoriel");
 	draw_text(centre_x, 700, "Taper 'init' pour lancer le jeu");
+	draw_text(centre_x, 780, "Taper 'exit' pour quitter le jeu");
 	
 	draw_set_color(c_silver);
 	draw_set_font(Corps);
@@ -64,6 +65,7 @@ if(menu_type == "menu") {
 	draw_text(centre_x + 10, y_start + y_spacing * 5, "Creer une nouvelle branche");
 	draw_text(centre_x + 10, y_start + y_spacing * 6, "Fusionner deux branches");
 	draw_text(centre_x + 10, y_start + y_spacing * 7, "Reprendre la partie");
+	
 }
 
 // Réinitialiser l'alignement
