@@ -12,7 +12,6 @@ export interface DialogueLine {
   personId: string;
   text: string;
   isImportant: boolean;
-  infoType: 'ui' | 'ux' | 'persona' | 'theme' | 'inutile';
   info?: ImportantInfo;
 }
 
@@ -64,4 +63,11 @@ export interface GameState {
   designElements: DesignElement[];
   errors: number;
   theme: 'enfants' | 'épuré' | 'geek' | 'vieux' | null;
+}
+
+export interface Option {
+  value: string;
+  label: string;
+  carcType: PersonaCharacteristic['type'];
+  caracValue: string;
 }

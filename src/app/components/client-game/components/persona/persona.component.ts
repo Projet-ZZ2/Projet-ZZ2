@@ -2,7 +2,8 @@ import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ClientGameService } from '../../../../services/client-game.service';
-import { PersonaCharacteristic } from '../../../../model/client-game.model';
+import { Option, PersonaCharacteristic } from '../../../../model/client-game.model';
+import { personaOptionsData } from '../../../../data/client-game/options';
 
 @Component({
   selector: 'persona-component',
@@ -18,46 +19,7 @@ export class PersonaComponent {
   isPersonaSubmitted = signal<boolean>(false);
   lastScore = signal<number>(0);
 
-  // Options pour chaque caractéristique
-  ageOptions = [
-    { value: 'young', label: 'Jeune (18-30)' },
-    { value: 'adult', label: 'Adulte (30-50)' },
-    { value: 'senior', label: 'Senior (50+)' },
-    { value: 'child', label: 'Enfant (8-17)' },
-  ];
-
-  professionOptions = [
-    { value: 'student', label: 'Étudiant' },
-    { value: 'developer', label: 'Développeur' },
-    { value: 'designer', label: 'Designer' },
-    { value: 'manager', label: 'Manager' },
-    { value: 'retiree', label: 'Retraité' },
-    { value: 'other', label: 'Autre' },
-  ];
-
-  needsOptions = [
-    { value: 'simplicity', label: 'Simplicité' },
-    { value: 'performance', label: 'Performance' },
-    { value: 'accessibility', label: 'Accessibilité' },
-    { value: 'fun', label: 'Amusement' },
-    { value: 'efficiency', label: 'Efficacité' },
-  ];
-
-  frustrationOptions = [
-    { value: 'complexity', label: 'Complexité' },
-    { value: 'slowness', label: 'Lenteur' },
-    { value: 'small-text', label: 'Texte trop petit' },
-    { value: 'confusion', label: 'Interface confuse' },
-    { value: 'technical', label: 'Trop technique' },
-  ];
-
-  goalsOptions = [
-    { value: 'quick-task', label: 'Tâche rapide' },
-    { value: 'learning', label: 'Apprendre' },
-    { value: 'entertainment', label: 'Se divertir' },
-    { value: 'productivity', label: 'Être productif' },
-    { value: 'social', label: 'Se connecter' },
-  ];
+  readonly personaOptions: [string, Option[]][] = Object.entries(personaOptionsData);
 
   constructor(public gameService: ClientGameService) {}
 
@@ -129,13 +91,10 @@ export class PersonaComponent {
   }
 
   getCharacteristicLabel(type: PersonaCharacteristic['type']): string {
-    const labels: Record<PersonaCharacteristic['type'], string> = {
-      age: 'Âge',
-      profession: 'Profession',
-      needs: 'Besoins',
-      frustrations: 'Frustrations',
-      goals: 'Objectifs',
-    };
-    return labels[type];
+    return personaOptionsData[type]?.[0]?.caracValue || type;
+  }
+
+  getCharacteristicValueLabel(type: PersonaCharacteristic['type'], value: string): string {
+    return personaOptionsData[type]?.find((opt) => opt.value === value)?.label || value;
   }
 }

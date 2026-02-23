@@ -44,85 +44,23 @@
     </div>
 
     <div class="characteristics-grid">
-      <!-- Âge -->
-      <div class="characteristic-section">
-        <h5>🎂 Âge</h5>
-        <div class="options-grid">
-          @for (option of ageOptions; track option.value) {
-            <button
-              class="option-button"
-              [class.selected]="getSelectedCharacteristic('age') === option.value"
-              (click)="selectCharacteristic('age', option.value, option.label)"
-            >
-              {{ option.label }}
-            </button>
-          }
+      @for (entry of personaOptions; track entry[0]) {
+        <div class="characteristic-section">
+          <h5>{{ entry[1][0].caracValue }}</h5>
+          <div class="options-grid">
+            @for (option of entry[1]; track option.value) {
+              <button
+                class="option-button"
+                [class.selected]="getSelectedCharacteristic(option.carcType) === option.value"
+                [disabled]="isPersonaSubmitted()"
+                (click)="selectCharacteristic(option.carcType, option.value, option.label)"
+              >
+                {{ option.label }}
+              </button>
+            }
+          </div>
         </div>
-      </div>
-
-      <!-- Profession -->
-      <div class="characteristic-section">
-        <h5>💼 Profession</h5>
-        <div class="options-grid">
-          @for (option of professionOptions; track option.value) {
-            <button
-              class="option-button"
-              [class.selected]="getSelectedCharacteristic('profession') === option.value"
-              (click)="selectCharacteristic('profession', option.value, option.label)"
-            >
-              {{ option.label }}
-            </button>
-          }
-        </div>
-      </div>
-
-      <!-- Besoins -->
-      <div class="characteristic-section">
-        <h5>⭐ Besoins principaux</h5>
-        <div class="options-grid">
-          @for (option of needsOptions; track option.value) {
-            <button
-              class="option-button"
-              [class.selected]="getSelectedCharacteristic('needs') === option.value"
-              (click)="selectCharacteristic('needs', option.value, option.label)"
-            >
-              {{ option.label }}
-            </button>
-          }
-        </div>
-      </div>
-
-      <!-- Frustrations -->
-      <div class="characteristic-section">
-        <h5>😤 Frustrations</h5>
-        <div class="options-grid">
-          @for (option of frustrationOptions; track option.value) {
-            <button
-              class="option-button"
-              [class.selected]="getSelectedCharacteristic('frustrations') === option.value"
-              (click)="selectCharacteristic('frustrations', option.value, option.label)"
-            >
-              {{ option.label }}
-            </button>
-          }
-        </div>
-      </div>
-
-      <!-- Objectifs -->
-      <div class="characteristic-section">
-        <h5>🎯 Objectifs</h5>
-        <div class="options-grid">
-          @for (option of goalsOptions; track option.value) {
-            <button
-              class="option-button"
-              [class.selected]="getSelectedCharacteristic('goals') === option.value"
-              (click)="selectCharacteristic('goals', option.value, option.label)"
-            >
-              {{ option.label }}
-            </button>
-          }
-        </div>
-      </div>
+      }
     </div>
 
     <!-- Validation -->
@@ -160,7 +98,7 @@
                 ><p>{{ getCharacteristicLabel(char.type) }}</p></span
               >
               <span class="result-value"
-                ><p>{{ char.value }}</p></span
+                ><p>{{ getCharacteristicValueLabel(char.type, char.value) }}</p></span
               >
             </div>
           }

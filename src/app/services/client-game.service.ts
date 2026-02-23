@@ -16,6 +16,46 @@ import { persons } from '../data/client-game/persons';
   providedIn: 'root',
 })
 export class ClientGameService {
+  // Mapping des caractéristiques du persona vers les infos collectées
+  private readonly personaMapping: Record<
+    string,
+    Record<string, Array<{ type: string; value: string }>>
+  > = {
+    age: {
+      child: [{ type: 'theme', value: 'enfants' }],
+      senior: [{ type: 'theme', value: 'vieux' }],
+      young: [{ type: 'theme', value: 'geek' }],
+      adult: [{ type: 'theme', value: 'épuré' }],
+    },
+    profession: {
+      student: [{ type: 'theme', value: 'enfants' }],
+      retiree: [{ type: 'theme', value: 'vieux' }],
+      developer: [{ type: 'theme', value: 'geek' }],
+      designer: [{ type: 'theme', value: 'épuré' }],
+    },
+    needs: {
+      simplicity: [{ type: 'ux', value: 'simple-nav' }],
+      performance: [{ type: 'ux', value: 'speed' }],
+      accessibility: [{ type: 'ui', value: 'large-font' }],
+      fun: [{ type: 'theme', value: 'enfants' }],
+      efficiency: [{ type: 'ux', value: 'speed' }],
+    },
+    frustrations: {
+      complexity: [{ type: 'ux', value: 'simple-nav' }],
+      slowness: [{ type: 'ux', value: 'speed' }],
+      'small-text': [{ type: 'ui', value: 'large-font' }],
+      confusion: [{ type: 'ux', value: 'simple-nav' }],
+      technical: [{ type: 'theme', value: 'vieux' }],
+    },
+    goals: {
+      'quick-task': [{ type: 'ux', value: 'speed' }],
+      learning: [{ type: 'theme', value: 'enfants' }],
+      entertainment: [{ type: 'theme', value: 'enfants' }],
+      productivity: [{ type: 'ui', value: 'spacing' }],
+      social: [{ type: 'theme', value: 'épuré' }],
+    },
+  };
+
   // État principal du jeu
   private gameState = signal<GameState>({
     currentStep: 'menu',
@@ -172,12 +212,14 @@ export class ClientGameService {
 
   submitPersona(characteristics: PersonaCharacteristic[]): number {
     const collectedInfos = this.gameState().collectedInfos;
+
+    // Indexer les infos pour une recherche O(1)
+    const infoSet = new Set(collectedInfos.map((i) => `${i.type}:${i.value}`));
+
     let points = 0;
 
     characteristics.forEach((char) => {
-      // Logique pour déterminer si la caractéristique est correcte
-      // basée sur les infos collectées
-      char.isCorrect = this.isPersonaCharacteristicCorrect(char, collectedInfos);
+      char.isCorrect = this.isPersonaCharacteristicCorrect(char, infoSet);
       if (char.isCorrect) points += 25;
     });
 
@@ -252,23 +294,15 @@ export class ClientGameService {
 
   private isPersonaCharacteristicCorrect(
     char: PersonaCharacteristic,
-    infos: ImportantInfo[],
+    infoSet: Set<string>,
   ): boolean {
-    // Logique simplifiée - à améliorer selon vos besoins
-    switch (char.type) {
-      case 'age':
-        return infos.some((i) => i.type === 'theme');
-      case 'profession':
-        return infos.some((i) => i.type === 'theme');
-      case 'needs':
-        return infos.some((i) => i.type === 'ux');
-      case 'frustrations':
-        return infos.some((i) => i.type === 'ux');
-      case 'goals':
-        return infos.some((i) => i.type === 'ui');
-      default:
-        return false;
-    }
+    const categoryMapping = this.personaMapping[char.type];
+    if (!categoryMapping) return false;
+
+    const expectedInfos = categoryMapping[char.value];
+    if (!expectedInfos) return false;
+
+    return expectedInfos.some((expected) => infoSet.has(`${expected.type}:${expected.value}`));
   }
 
   private determinePrimaryTheme(
