@@ -72,3 +72,22 @@
   gap: 0.5rem;
 }
 
+
+/* Scrollbar rétro */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ECE9D8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D0C8;
+  border: 2px solid #808080;
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #404040;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C0C0C0;
+}
