@@ -250,21 +250,33 @@ export class ClientGameService {
   }
 
   updateDesignElement(element: DesignElement): number {
-    const isCorrect = this.isDesignElementCorrect(element);
-    const points = isCorrect ? 30 : -5;
+    const state = this.gameState();
+    const existingElement = state.designElements.find(
+      (e) => e.type === element.type && e.property === element.property,
+    );
+    const previousPoints = existingElement ? this.getDesignElementScore(existingElement) : 0;
+    const points = this.getDesignElementScore(element);
+    const netPoints = points - previousPoints;
 
-    this.gameState.update((state) => ({
-      ...state,
+    this.gameState.update((s) => ({
+      ...s,
       designElements: [
-        ...state.designElements.filter(
+        ...s.designElements.filter(
           (e) => !(e.type === element.type && e.property === element.property),
         ),
         element,
       ],
-      score: state.score + points,
+      score: Math.max(0, s.score + netPoints),
     }));
 
     return points;
+  }
+
+  getDesignScore(): number {
+    return this.gameState().designElements.reduce(
+      (total, el) => total + this.getDesignElementScore(el),
+      0,
+    );
   }
 
   finishGame(): void {
@@ -324,26 +336,65 @@ export class ClientGameService {
     )[0] as any;
   }
 
-  private isDesignElementCorrect(element: DesignElement): boolean {
+  private getDesignElementScore(element: DesignElement): number {
     const state = this.gameState();
     const collectedInfos = state.collectedInfos;
+    const theme = state.theme;
 
-    // Logique pour déterminer si l'élément de design est correct
     switch (element.type) {
-      case 'background':
-        return element.value.includes(state.theme || '');
-      case 'button':
+      case 'background': {
+        if (!theme) return 10; // pas de thème détecté, neutre
+        return element.value.includes(theme) ? 30 : -5;
+      }
+      case 'button': {
         if (element.property === 'size') {
-          return collectedInfos.some((i) => i.value === 'large' || i.value === 'large-font');
+          const needsLarge = collectedInfos.some(
+            (i) => i.value === 'large' || i.value === 'large-font',
+          );
+          if (!needsLarge) return 10;
+          switch (element.value) {
+            case 'extra-large':
+              return 30;
+            case 'large':
+              return 20;
+            case 'medium':
+              return 5;
+            case 'small':
+              return -5;
+          }
         }
         break;
-      case 'title':
+      }
+      case 'title': {
         if (element.property === 'size') {
-          return collectedInfos.some((i) => i.value === 'large-font');
+          const needsLargeFont = collectedInfos.some((i) => i.value === 'large-font');
+          if (!needsLargeFont) return 10;
+          switch (element.value) {
+            case 'extra-large':
+              return 30;
+            case 'large':
+              return 20;
+            case 'medium':
+              return 5;
+            case 'small':
+              return -5;
+          }
         }
         break;
+      }
+      case 'chatbot': {
+        const needsChatbot = collectedInfos.some((i) => i.value === 'simple-nav');
+        return element.value === 'enabled' ? (needsChatbot ? 30 : 5) : needsChatbot ? -5 : 10;
+      }
+      case 'searchbar': {
+        const needsSearch = collectedInfos.some((i) => i.value === 'speed');
+        return element.value === 'enabled' ? (needsSearch ? 30 : 5) : needsSearch ? -5 : 10;
+      }
+      case 'news': {
+        return element.value === 'enabled' ? 15 : 10;
+      }
     }
-    return true; // Par défaut, accepter
+    return 10; // neutre par défaut
   }
 
   // Getters pour l'état
