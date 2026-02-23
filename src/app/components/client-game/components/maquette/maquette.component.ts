@@ -15,7 +15,7 @@ import { DesignElement } from '../../../../model/client-game.model';
 export class MaquetteComponent {
   selectedTheme = signal<string>('épuré');
   enabledFeatures = signal<Set<string>>(new Set());
-  designScore = signal<number>(0);
+  designScore = computed(() => this.gameService.getDesignScore());
 
   // Options de thème
   themeOptions = [
@@ -85,8 +85,7 @@ export class MaquetteComponent {
       value,
       theme: this.selectedTheme() as 'enfants' | 'épuré' | 'geek' | 'vieux',
     };
-    const points = this.gameService.updateDesignElement(element);
-    this.designScore.update((score) => score + points);
+    this.gameService.updateDesignElement(element);
   }
 
   getDesignElementValue(

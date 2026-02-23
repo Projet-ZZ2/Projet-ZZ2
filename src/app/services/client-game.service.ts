@@ -16,6 +16,46 @@ import { persons } from '../data/client-game/persons';
   providedIn: 'root',
 })
 export class ClientGameService {
+  // Mapping des caractéristiques du persona vers les infos collectées
+  private readonly personaMapping: Record<
+    string,
+    Record<string, Array<{ type: string; value: string }>>
+  > = {
+    age: {
+      child: [{ type: 'theme', value: 'enfants' }],
+      senior: [{ type: 'theme', value: 'vieux' }],
+      young: [{ type: 'theme', value: 'geek' }],
+      adult: [{ type: 'theme', value: 'épuré' }],
+    },
+    profession: {
+      student: [{ type: 'theme', value: 'enfants' }],
+      retiree: [{ type: 'theme', value: 'vieux' }],
+      developer: [{ type: 'theme', value: 'geek' }],
+      designer: [{ type: 'theme', value: 'épuré' }],
+    },
+    needs: {
+      simplicity: [{ type: 'ux', value: 'simple-nav' }],
+      performance: [{ type: 'ux', value: 'speed' }],
+      accessibility: [{ type: 'ui', value: 'large-font' }],
+      fun: [{ type: 'theme', value: 'enfants' }],
+      efficiency: [{ type: 'ux', value: 'speed' }],
+    },
+    frustrations: {
+      complexity: [{ type: 'ux', value: 'simple-nav' }],
+      slowness: [{ type: 'ux', value: 'speed' }],
+      'small-text': [{ type: 'ui', value: 'large-font' }],
+      confusion: [{ type: 'ux', value: 'simple-nav' }],
+      technical: [{ type: 'theme', value: 'vieux' }],
+    },
+    goals: {
+      'quick-task': [{ type: 'ux', value: 'speed' }],
+      learning: [{ type: 'theme', value: 'enfants' }],
+      entertainment: [{ type: 'theme', value: 'enfants' }],
+      productivity: [{ type: 'ui', value: 'spacing' }],
+      social: [{ type: 'theme', value: 'épuré' }],
+    },
+  };
+
   // État principal du jeu
   private gameState = signal<GameState>({
     currentStep: 'menu',
@@ -172,12 +212,14 @@ export class ClientGameService {
 
   submitPersona(characteristics: PersonaCharacteristic[]): number {
     const collectedInfos = this.gameState().collectedInfos;
+
+    // Indexer les infos pour une recherche O(1)
+    const infoSet = new Set(collectedInfos.map((i) => `${i.type}:${i.value}`));
+
     let points = 0;
 
     characteristics.forEach((char) => {
-      // Logique pour déterminer si la caractéristique est correcte
-      // basée sur les infos collectées
-      char.isCorrect = this.isPersonaCharacteristicCorrect(char, collectedInfos);
+      char.isCorrect = this.isPersonaCharacteristicCorrect(char, infoSet);
       if (char.isCorrect) points += 25;
     });
 
@@ -208,21 +250,33 @@ export class ClientGameService {
   }
 
   updateDesignElement(element: DesignElement): number {
-    const isCorrect = this.isDesignElementCorrect(element);
-    const points = isCorrect ? 30 : -5;
+    const state = this.gameState();
+    const existingElement = state.designElements.find(
+      (e) => e.type === element.type && e.property === element.property,
+    );
+    const previousPoints = existingElement ? this.getDesignElementScore(existingElement) : 0;
+    const points = this.getDesignElementScore(element);
+    const netPoints = points - previousPoints;
 
-    this.gameState.update((state) => ({
-      ...state,
+    this.gameState.update((s) => ({
+      ...s,
       designElements: [
-        ...state.designElements.filter(
+        ...s.designElements.filter(
           (e) => !(e.type === element.type && e.property === element.property),
         ),
         element,
       ],
-      score: state.score + points,
+      score: Math.max(0, s.score + netPoints),
     }));
 
     return points;
+  }
+
+  getDesignScore(): number {
+    return this.gameState().designElements.reduce(
+      (total, el) => total + this.getDesignElementScore(el),
+      0,
+    );
   }
 
   finishGame(): void {
@@ -252,23 +306,15 @@ export class ClientGameService {
 
   private isPersonaCharacteristicCorrect(
     char: PersonaCharacteristic,
-    infos: ImportantInfo[],
+    infoSet: Set<string>,
   ): boolean {
-    // Logique simplifiée - à améliorer selon vos besoins
-    switch (char.type) {
-      case 'age':
-        return infos.some((i) => i.type === 'theme');
-      case 'profession':
-        return infos.some((i) => i.type === 'theme');
-      case 'needs':
-        return infos.some((i) => i.type === 'ux');
-      case 'frustrations':
-        return infos.some((i) => i.type === 'ux');
-      case 'goals':
-        return infos.some((i) => i.type === 'ui');
-      default:
-        return false;
-    }
+    const categoryMapping = this.personaMapping[char.type];
+    if (!categoryMapping) return false;
+
+    const expectedInfos = categoryMapping[char.value];
+    if (!expectedInfos) return false;
+
+    return expectedInfos.some((expected) => infoSet.has(`${expected.type}:${expected.value}`));
   }
 
   private determinePrimaryTheme(
@@ -290,26 +336,65 @@ export class ClientGameService {
     )[0] as any;
   }
 
-  private isDesignElementCorrect(element: DesignElement): boolean {
+  private getDesignElementScore(element: DesignElement): number {
     const state = this.gameState();
     const collectedInfos = state.collectedInfos;
+    const theme = state.theme;
 
-    // Logique pour déterminer si l'élément de design est correct
     switch (element.type) {
-      case 'background':
-        return element.value.includes(state.theme || '');
-      case 'button':
+      case 'background': {
+        if (!theme) return 10; // pas de thème détecté, neutre
+        return element.value.includes(theme) ? 30 : -5;
+      }
+      case 'button': {
         if (element.property === 'size') {
-          return collectedInfos.some((i) => i.value === 'large' || i.value === 'large-font');
+          const needsLarge = collectedInfos.some(
+            (i) => i.value === 'large' || i.value === 'large-font',
+          );
+          if (!needsLarge) return 10;
+          switch (element.value) {
+            case 'extra-large':
+              return 30;
+            case 'large':
+              return 20;
+            case 'medium':
+              return 5;
+            case 'small':
+              return -5;
+          }
         }
         break;
-      case 'title':
+      }
+      case 'title': {
         if (element.property === 'size') {
-          return collectedInfos.some((i) => i.value === 'large-font');
+          const needsLargeFont = collectedInfos.some((i) => i.value === 'large-font');
+          if (!needsLargeFont) return 10;
+          switch (element.value) {
+            case 'extra-large':
+              return 30;
+            case 'large':
+              return 20;
+            case 'medium':
+              return 5;
+            case 'small':
+              return -5;
+          }
         }
         break;
+      }
+      case 'chatbot': {
+        const needsChatbot = collectedInfos.some((i) => i.value === 'simple-nav');
+        return element.value === 'enabled' ? (needsChatbot ? 30 : 5) : needsChatbot ? -5 : 10;
+      }
+      case 'searchbar': {
+        const needsSearch = collectedInfos.some((i) => i.value === 'speed');
+        return element.value === 'enabled' ? (needsSearch ? 30 : 5) : needsSearch ? -5 : 10;
+      }
+      case 'news': {
+        return element.value === 'enabled' ? 15 : 10;
+      }
     }
-    return true; // Par défaut, accepter
+    return 10; // neutre par défaut
   }
 
   // Getters pour l'état
