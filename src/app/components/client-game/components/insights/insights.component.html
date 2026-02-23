@@ -41,7 +41,7 @@
 
     <!-- Graphique -->
     <div class="chart-container">
-      <div class="chart" (dragover)="allowDrop($event)" (drop)="dropInsight($event)">
+      <div class="chart">
         <!-- Axes et labels -->
         <div class="y-axis">
           <div class="axis-label y-label">Importance</div>
@@ -62,7 +62,12 @@
         </div>
 
         <!-- Zone de drop -->
-        <div class="drop-zone" #dropZone>
+        <div
+          class="drop-zone"
+          #dropZone
+          (dragover)="allowDrop($event)"
+          (drop)="dropInsight($event)"
+        >
           @for (insight of placedInsights(); track insight.id) {
             <div
               class="placed-insight"

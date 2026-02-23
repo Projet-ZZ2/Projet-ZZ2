@@ -26,8 +26,8 @@
 }
 
 .score-circle {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -59,23 +59,21 @@
 }
 
 .score-number {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 
 .score-total {
-  font-size: 1rem;
+  font-size: 2rem;
   opacity: 0.7;
 }
 
 .results-header h2 {
-  font-size: 2rem;
-  margin: 1rem 0 0.5rem;
+  margin: 0;
   color: #004E98;
 }
 
 .score-description {
-  font-size: 1rem;
   opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
@@ -89,7 +87,6 @@
 
 .step-results h3,
 .detailed-analysis h3 {
-  font-size: 1.3rem;
   margin: 0 0 1rem 0;
   text-align: center;
   color: #004E98;
@@ -108,18 +105,16 @@
 
 .step-info h4 {
   margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
   color: #004E98;
 }
 
 .step-info p {
   margin: 0.2rem 0;
-  opacity: 0.9;
-  font-size: 0.8rem;
+  opacity: 0.6;
 }
 
 .step-score {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #3A6EA5;
 }
@@ -134,7 +129,6 @@
 
 .analysis-section h4 {
   margin: 0 0 0.75rem 0;
-  font-size: 1.1rem;
   color: #004E98;
 }
 
@@ -157,8 +151,7 @@
 
 .analysis-section li {
   margin-bottom: 0.4rem;
-  opacity: 0.9;
-  font-size: 0.9rem;
+  opacity: 0.6;
 }
 
 .achievements {
@@ -170,7 +163,6 @@
 
 .achievements h3 {
   text-align: center;
-  font-size: 1.5rem;
   margin: 0 0 1.5rem 0;
   color: #004E98;
 }
@@ -216,13 +208,12 @@
 
 .badge-info h5 {
   margin: 0 0 0.25rem 0;
-  font-size: 1rem;
 }
 
 .badge-info p {
   margin: 0;
   opacity: 0.8;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .no-badges {
@@ -240,7 +231,6 @@
 
 .player-stats h3 {
   text-align: center;
-  font-size: 1.5rem;
   margin: 0 0 1.5rem 0;
   color: #004E98;
 }
@@ -267,7 +257,7 @@
 }
 
 .stat-label {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   opacity: 0.8;
   margin-top: 0.25rem;
 }
@@ -281,7 +271,6 @@
 
 .replay-advice h3 {
   text-align: center;
-  font-size: 1.5rem;
   margin: 0 0 1.5rem 0;
   color: #004E98;
 }
@@ -302,13 +291,12 @@
 
 .advice-card h4 {
   margin: 0 0 0.5rem 0;
-  font-size: 1rem;
   color: #004E98;
 }
 
 .advice-card p {
   margin: 0;
   opacity: 0.9;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1.4;
 }

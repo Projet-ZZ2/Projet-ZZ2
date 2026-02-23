@@ -6,7 +6,7 @@ import { ClientGameService } from '../../../../services/client-game.service';
   selector: 'results-component',
   standalone: true,
   imports: [CommonModule],
-  template: ``,
+  templateUrl: './results.component.html',
   styleUrls: ['../steps.css', './results.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

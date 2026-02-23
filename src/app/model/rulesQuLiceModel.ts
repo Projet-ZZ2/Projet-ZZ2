@@ -24,7 +24,6 @@ export class RuleCategory {
   loadExpectedCode() {
     // Ne charger que côté navigateur, pas pendant le SSR
     if (typeof window === 'undefined') {
-      console.log('SSR détecté, chargement du code différé au client');
       return;
     }
 

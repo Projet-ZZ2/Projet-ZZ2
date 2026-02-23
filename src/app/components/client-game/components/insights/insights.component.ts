@@ -87,6 +87,7 @@ export class InsightsComponent {
   }
 
   getInsightYPosition(insight: Insight): number {
+    console.log(insight.playerPosition ? (insight.playerPosition.y / 10) * 100 : 0);
     return insight.playerPosition ? (insight.playerPosition.y / 10) * 100 : 0;
   }
 
