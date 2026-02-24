@@ -61,6 +61,7 @@ export class ClientGameService {
     currentStep: 'menu',
     score: 0,
     maxScore: 1000,
+    selectedPersonIds: [],
     completedInterviews: [],
     collectedInfos: [],
     insights: [],
@@ -80,10 +81,14 @@ export class ClientGameService {
   // Méthodes publiques
 
   startGame(): void {
+    const shuffled = [...persons].sort(() => 0.5 - Math.random());
+    const selectedPersonIds = shuffled.slice(0, 4).map((p) => p.id);
+
     this.gameState.update((state) => ({
       ...state,
       currentStep: 'entretien',
       score: 0,
+      selectedPersonIds,
       completedInterviews: [],
       collectedInfos: [],
       insights: [],
@@ -95,10 +100,22 @@ export class ClientGameService {
   }
 
   getDialoguesForPerson(personId: string): DialogueLine[] {
-    const personDialogues = dialogueDatabase.filter((d) => d.personId === personId);
-    // Mélanger les dialogues et en prendre 4-6 aléatoirement
-    const shuffled = [...personDialogues].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, Math.min(6, shuffled.length));
+    const important = dialogueDatabase.filter((d) => d.personId === personId && d.isImportant);
+    const notImportant = dialogueDatabase.filter((d) => d.personId === personId && !d.isImportant);
+
+    const shuffledImportant = [...important].sort(() => 0.5 - Math.random());
+    const shuffledNotImportant = [...notImportant].sort(() => 0.5 - Math.random());
+
+    // 2 ou 3 dialogues importants aléatoirement
+    const importantCount = Math.random() < 0.5 ? 2 : 3;
+    const selected = shuffledImportant.slice(0, Math.min(importantCount, shuffledImportant.length));
+
+    // Compléter jusqu'à 4 avec des dialogues non importants
+    const remaining = 4 - selected.length;
+    selected.push(...shuffledNotImportant.slice(0, remaining));
+
+    // Mélanger le résultat final
+    return selected.sort(() => 0.5 - Math.random());
   }
 
   selectDialogueLine(dialogueId: string): { correct: boolean; points: number } {
@@ -400,6 +417,10 @@ export class ClientGameService {
   // Getters pour l'état
   getGameState() {
     return this.gameState();
+  }
+
+  getSelectedPersons(): Person[] {
+    return this.gameState().selectedPersonIds.map((id) => persons.find((p) => p.id === id)!);
   }
 
   getPerson(id: string): Person | undefined {

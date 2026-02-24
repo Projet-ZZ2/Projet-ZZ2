@@ -56,6 +56,7 @@ export interface GameState {
   currentStep: 'menu' | 'entretien' | 'insights' | 'persona' | 'maquette' | 'results';
   score: number;
   maxScore: number;
+  selectedPersonIds: string[];
   completedInterviews: string[]; // IDs des personnes interviewées
   collectedInfos: ImportantInfo[];
   insights: Insight[];
