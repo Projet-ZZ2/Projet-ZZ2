@@ -115,10 +115,19 @@ export const VALIDATION_RULES: Rule[] = [
     {
         id: 6,
         name: 'Commentaires clairs',
-        description: 'Il doit y avoir des commentaires clairs et concis pour expliquer les parties complexes du code. On demande d\'écrire \"// commentaire\" avant le bloc afficher.',
+        description: 'Il doit y avoir des commentaires clairs et concis. On demande d\'écrire "// commentaire" avant le bloc afficher.',
         status: 'locked',
-        validator: (code) => code.includes('//') && code.split('//')[1].trim().length > 5,
-        indice: 'Indice : Ajoute des commentaires avec // pour expliquer les parties complexes de ton code. Assure-toi que tes commentaires sont clairs et contiennent plus de 5 caractères.'
+        validator: (code: string) => {
+            // Cette Regex cherche :
+            // 1. Les deux slashs //
+            // 2. Un nombre quelconque d'espaces \s*
+            // 3. Le mot exact "commentaire"
+            // 4. L'option 'i' rend la recherche insensible à la casse (Commentaire ou commentaire)
+            const regex = /\/\/\s*commentaire\b/i;
+            
+            return regex.test(code);
+        },
+        indice: 'Indice : N\'oublie pas d\'ajouter exactement "// commentaire" au-dessus de ta méthode afficher.'
     },
     {
         id: 7,
@@ -170,49 +179,5 @@ export const VALIDATION_RULES: Rule[] = [
             return true;
         },
         indice: 'Indice : Ton code est trop compact. Ajoute une ligne vide après chaque fermeture d\'accolade "}" et entre tes variables et tes méthodes.'
-    },
-    {
-        id: 9,
-        name: 'Structure attendue',
-        description: 'Le code doit respecter exactement la structure de la classe Ordinateur définie.',
-        status: 'locked',
-        validator: (code: string): boolean => {
-            const reference = globalExpectedCode || "";
-            const userCode = code || "";
-
-            if (!userCode || !reference) return false;
-
-            // Fonction pour normaliser SANS supprimer l'indentation de début
-            const normalizeWithIndentation = (str: string) => {
-                return str
-                    .replace(/\r\n/g, '\n')      // Harmonise les retours à la ligne (Windows/Linux)
-                    .split('\n')                 // Découpe par ligne
-                    .map(line => line.trimEnd()) // Garde l'espace au début, enlève celui à la fin
-                    .filter(line => line.length > 0) // Enlève les lignes totalement vides
-                    .join('\n');
-            };
-
-            const userClean = normalizeWithIndentation(userCode);
-            const refClean = normalizeWithIndentation(reference);
-
-            if (userClean !== refClean) {
-                // --- DEBUG POUR TROUVER LA LIGNE FAUSSE ---
-                const userLines = userClean.split('\n');
-                const refLines = refClean.split('\n');
-
-                for (let i = 0; i < Math.max(userLines.length, refLines.length); i++) {
-                    if (userLines[i] !== refLines[i]) {
-                        
-                        break; // On s'arrête à la première erreur trouvée
-                    }
-                }
-                return false;
-            }
-
-            return true;
-        },
-        indice: 'Indice : Ton code doit correspondre exactement au fichier de référence. Vérifie les noms de variables et la ponctuation.'
     }
 ];
-
-export const ruleCategoryInstance = new RuleCategory("Programmation", VALIDATION_RULES);

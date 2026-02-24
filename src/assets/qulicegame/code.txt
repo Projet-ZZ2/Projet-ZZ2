@@ -1,6 +1,6 @@
 class ordinateur
 {
-	private int espace_memoire;
+    private int espace_memoire;
     private string m;
 
     public void Afficher(){
