@@ -15,13 +15,13 @@ export const COMPUTER_ICONS: ComputerIconModel[] = [
     },
     {
         id: 3,
-        name: "Jeu de qulice",
+        name: "Jeu de formatage",
         picture: "assets/images/qulice.png",
         unlocked: false
     },
     {
         id: 4,
-        name: "Jeu de CTF : ou est Charlie",
+        name: "Jeu de CTF",
         picture: "assets/images/ctf_charlie.png",
         unlocked: false
     },
