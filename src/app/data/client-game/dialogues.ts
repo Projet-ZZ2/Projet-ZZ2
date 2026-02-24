@@ -1,7 +1,7 @@
 import { DialogueLine } from '../../model/client-game.model';
 
 export const dialogueDatabase: DialogueLine[] = [
-  // Sophie (enfants)
+  // --- Sophie (p1, enfants) ---
   {
     id: 'd1',
     personId: 'p1',
@@ -31,13 +31,34 @@ export const dialogueDatabase: DialogueLine[] = [
     },
   },
   {
-    id: 'd3',
+    id: 'd3b',
     personId: 'p1',
-    text: "Mon chat s'appelle Minou.",
+    text: "Je me perds vite, j'aimerais de l'aide pour naviguer.",
+    isImportant: true,
+    info: {
+      id: 'i2b',
+      type: 'ux',
+      content: 'Navigation simple',
+      importance: 7,
+      difficulty: 4,
+      value: 'simple-nav',
+    },
+  },
+  { id: 'd3', personId: 'p1', text: "Mon chat s'appelle Minou.", isImportant: false },
+  {
+    id: 'd3c',
+    personId: 'p1',
+    text: "Mon super-héros préféré c'est Spider-Man.",
+    isImportant: false,
+  },
+  {
+    id: 'd3d',
+    personId: 'p1',
+    text: "J'ai un cartable bleu avec des étoiles.",
     isImportant: false,
   },
 
-  // Jean (épuré)
+  // --- Jean (p2, épuré) ---
   {
     id: 'd4',
     personId: 'p2',
@@ -67,13 +88,29 @@ export const dialogueDatabase: DialogueLine[] = [
     },
   },
   {
-    id: 'd6',
+    id: 'd5b',
     personId: 'p2',
-    text: "J'ai pris un café ce matin.",
+    text: "Tout doit être rapide, je n'ai pas de temps à perdre.",
+    isImportant: true,
+    info: {
+      id: 'i4b',
+      type: 'ux',
+      content: 'Performance',
+      importance: 7,
+      difficulty: 6,
+      value: 'speed',
+    },
+  },
+  { id: 'd6', personId: 'p2', text: "J'ai pris un café ce matin.", isImportant: false },
+  { id: 'd6b', personId: 'p2', text: 'Mon appartement est entièrement blanc.', isImportant: false },
+  {
+    id: 'd6c',
+    personId: 'p2',
+    text: "Je lis beaucoup de livres sur l'architecture.",
     isImportant: false,
   },
 
-  // Alex (geek)
+  // --- Alex (p3, geek) ---
   {
     id: 'd7',
     personId: 'p3',
@@ -103,13 +140,29 @@ export const dialogueDatabase: DialogueLine[] = [
     },
   },
   {
-    id: 'd9',
+    id: 'd8b',
     personId: 'p3',
-    text: 'Je joue beaucoup aux jeux vidéo.',
+    text: "J'aime avoir beaucoup d'infos condensées sur un seul écran.",
+    isImportant: true,
+    info: {
+      id: 'i6b',
+      type: 'ui',
+      content: "Densité d'information",
+      importance: 6,
+      difficulty: 5,
+      value: 'spacing',
+    },
+  },
+  { id: 'd9', personId: 'p3', text: 'Je joue beaucoup aux jeux vidéo.', isImportant: false },
+  { id: 'd9b', personId: 'p3', text: "J'ai 3 écrans sur mon bureau.", isImportant: false },
+  {
+    id: 'd9c',
+    personId: 'p3',
+    text: 'Je compile mon code en écoutant du métal.',
     isImportant: false,
   },
 
-  // Marie (vieux)
+  // --- Marie (p4, vieux) ---
   {
     id: 'd10',
     personId: 'p4',
@@ -139,9 +192,253 @@ export const dialogueDatabase: DialogueLine[] = [
     },
   },
   {
+    id: 'd11b',
+    personId: 'p4',
+    text: "J'aime les couleurs sobres, ça ne me fatigue pas les yeux.",
+    isImportant: true,
+    info: {
+      id: 'i8b',
+      type: 'theme',
+      content: 'Interface sobre',
+      importance: 6,
+      difficulty: 4,
+      value: 'vieux',
+    },
+  },
+  {
     id: 'd12',
     personId: 'p4',
     text: 'Mes petits-enfants viennent me voir dimanche.',
     isImportant: false,
   },
+  {
+    id: 'd12b',
+    personId: 'p4',
+    text: 'Je fais des mots croisés tous les matins.',
+    isImportant: false,
+  },
+  {
+    id: 'd12c',
+    personId: 'p4',
+    text: "Mon médecin m'a dit de marcher 30 minutes par jour.",
+    isImportant: false,
+  },
+
+  // --- Lucas (p5, enfants) ---
+  {
+    id: 'd13',
+    personId: 'p5',
+    text: "J'aime les couleurs vives ! Le bleu et le jaune c'est top.",
+    isImportant: true,
+    info: {
+      id: 'i9',
+      type: 'theme',
+      content: 'Couleurs vives',
+      importance: 8,
+      difficulty: 3,
+      value: 'enfants',
+    },
+  },
+  {
+    id: 'd14',
+    personId: 'p5',
+    text: "Je veux de gros boutons ! C'est dur à appuyer sinon.",
+    isImportant: true,
+    info: {
+      id: 'i10',
+      type: 'ui',
+      content: 'Gros boutons',
+      importance: 9,
+      difficulty: 2,
+      value: 'large',
+    },
+  },
+  {
+    id: 'd15',
+    personId: 'p5',
+    text: 'Ça doit marcher vite, je suis pas patient du tout.',
+    isImportant: true,
+    info: {
+      id: 'i11',
+      type: 'ux',
+      content: 'Réactivité',
+      importance: 7,
+      difficulty: 5,
+      value: 'speed',
+    },
+  },
+  { id: 'd16', personId: 'p5', text: "Mon jeu préféré c'est Minecraft.", isImportant: false },
+  { id: 'd17', personId: 'p5', text: "J'ai un chien qui s'appelle Rex.", isImportant: false },
+  {
+    id: 'd18',
+    personId: 'p5',
+    text: "Je déteste les maths mais j'adore le sport.",
+    isImportant: false,
+  },
+
+  // --- Clara (p6, épuré) ---
+  {
+    id: 'd19',
+    personId: 'p6',
+    text: "Le minimalisme, c'est retirer tout ce qui est superflu.",
+    isImportant: true,
+    info: {
+      id: 'i12',
+      type: 'theme',
+      content: 'Minimalisme',
+      importance: 8,
+      difficulty: 5,
+      value: 'épuré',
+    },
+  },
+  {
+    id: 'd20',
+    personId: 'p6',
+    text: "L'espace entre les éléments est crucial pour le confort visuel.",
+    isImportant: true,
+    info: {
+      id: 'i13',
+      type: 'ui',
+      content: 'Espacement généreux',
+      importance: 7,
+      difficulty: 4,
+      value: 'spacing',
+    },
+  },
+  {
+    id: 'd21',
+    personId: 'p6',
+    text: 'La navigation doit être évidente, sans se poser de questions.',
+    isImportant: true,
+    info: {
+      id: 'i14',
+      type: 'ux',
+      content: 'Navigation intuitive',
+      importance: 8,
+      difficulty: 6,
+      value: 'simple-nav',
+    },
+  },
+  {
+    id: 'd22',
+    personId: 'p6',
+    text: "J'ai refait ma cuisine entièrement en blanc.",
+    isImportant: false,
+  },
+  { id: 'd23', personId: 'p6', text: 'Je bois du thé vert tous les matins.', isImportant: false },
+  { id: 'd24', personId: 'p6', text: "Mon chat s'appelle Gris.", isImportant: false },
+
+  // --- Théo (p7, geek) ---
+  {
+    id: 'd25',
+    personId: 'p7',
+    text: "J'utilise toujours le dark mode, c'est tellement plus classe.",
+    isImportant: true,
+    info: {
+      id: 'i15',
+      type: 'theme',
+      content: 'Mode sombre',
+      importance: 8,
+      difficulty: 3,
+      value: 'geek',
+    },
+  },
+  {
+    id: 'd26',
+    personId: 'p7',
+    text: "Les temps de chargement me rendent fou. La performance c'est tout.",
+    isImportant: true,
+    info: {
+      id: 'i16',
+      type: 'ux',
+      content: 'Performance maximale',
+      importance: 9,
+      difficulty: 7,
+      value: 'speed',
+    },
+  },
+  {
+    id: 'd27',
+    personId: 'p7',
+    text: "Je veux une interface dense, pas d'espace gaspillé.",
+    isImportant: true,
+    info: {
+      id: 'i17',
+      type: 'ui',
+      content: 'Interface dense',
+      importance: 6,
+      difficulty: 5,
+      value: 'spacing',
+    },
+  },
+  {
+    id: 'd28',
+    personId: 'p7',
+    text: 'Je dors 5 heures par nuit en période de sprint.',
+    isImportant: false,
+  },
+  { id: 'd29', personId: 'p7', text: "J'ai 4 écrans sur mon bureau.", isImportant: false },
+  {
+    id: 'd30',
+    personId: 'p7',
+    text: 'Je contribue à des projets open source le week-end.',
+    isImportant: false,
+  },
+
+  // --- Geneviève (p8, vieux) ---
+  {
+    id: 'd31',
+    personId: 'p8',
+    text: "Les applications d'aujourd'hui sont beaucoup trop compliquées.",
+    isImportant: true,
+    info: {
+      id: 'i18',
+      type: 'theme',
+      content: 'Interface simple',
+      importance: 9,
+      difficulty: 4,
+      value: 'vieux',
+    },
+  },
+  {
+    id: 'd32',
+    personId: 'p8',
+    text: 'Il faut que je puisse lire sans mettre mes lunettes.',
+    isImportant: true,
+    info: {
+      id: 'i19',
+      type: 'ui',
+      content: 'Très grande police',
+      importance: 10,
+      difficulty: 2,
+      value: 'large-font',
+    },
+  },
+  {
+    id: 'd33',
+    personId: 'p8',
+    text: "J'ai besoin qu'on me guide à chaque étape, comme un assistant.",
+    isImportant: true,
+    info: {
+      id: 'i20',
+      type: 'ux',
+      content: 'Aide contextuelle',
+      importance: 9,
+      difficulty: 6,
+      value: 'simple-nav',
+    },
+  },
+  {
+    id: 'd34',
+    personId: 'p8',
+    text: "Mon petit-fils m'a offert une tablette pour Noël.",
+    isImportant: false,
+  },
+  {
+    id: 'd35',
+    personId: 'p8',
+    text: 'Je fais des mots croisés tous les matins avec mon café.',
+    isImportant: false,
+  },
+  { id: 'd36', personId: 'p8', text: "J'ai 4 chats et un canari.", isImportant: false },
 ];
