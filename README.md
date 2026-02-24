@@ -16,6 +16,8 @@ Plusieurs concepts sont introduits à l'utilisateur :
 * Indentation : Garder un espacement de 4 colonnes partout pour les indentations.
 * Style Allman : L'accolade \{ doit être seule sur sa ligne, juste en dessous de la déclaration.
 * Commenter : Le code doit avoir au moins un commentaire.
+* Espace après les structures de contrôle : Il doit y avoir un espace après le mot-clé "if" pour une meilleure lisibilité.
+* Blocs logiques aérés : Les fonctions doivent être séparées par un saut de ligne.
 
 ### Jeu du développeur
 
