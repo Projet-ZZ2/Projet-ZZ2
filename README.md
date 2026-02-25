@@ -70,7 +70,7 @@ Ce fichier a pour but de décrire chacun des mini-jeux produits ainsi que la str
 
 ## Mini-jeux
 
-### Jeu de QuLice
+### Jeu de formatage
 
 Le but de ce mini-jeu est d'apprendre à l'utilisateur a rendre un code propre et formatté selon certaines règles. L'utilisateur a à sa disposition un morceau de code qu'il peut modifier, et à sa droite une liste de consignes qui se débloquent au fur et à mesure que l'utilisateur améliore le code. Si l'utilisateur modifie le fichier et rajoute une erreur de formattage qui avait été validée auparavant, il retombe à la consigne concernant ce point.
 
