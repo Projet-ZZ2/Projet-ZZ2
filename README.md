@@ -1,4 +1,70 @@
-# Documentation
+# Bucs DDL — The Basic but Ultra Captivating Story of a Developer's Daily Life
+
+## Présentation
+
+Ce projet est une plateforme web ludo-éducative développée dans le cadre du cursus ZZ2 à l'ISIMA. Elle propose une série de mini-jeux destinés à initier les utilisateurs à différentes disciplines du développement logiciel et du génie logiciel : bonnes pratiques de code, cybersécurité, gestion de versions, interaction homme-machine, etc.
+
+L'utilisateur est plongé dans une fiction interactive (environnement 3D, bureau d'ordinateur virtuel) qui lui permet de naviguer entre les différents jeux.
+
+**Démo en ligne :** [https://projet-zz2-b76a2607de6f.herokuapp.com/](https://projet-zz2-b76a2607de6f.herokuapp.com/)
+
+---
+
+## Stack technique
+
+| Couche | Technologie |
+|---|---|
+| Framework front-end | Angular 21 avec SSR (`@angular/ssr`) |
+| Serveur | Express 5 (Node.js ≥ 22) |
+| Jeu 2D (analyse insights) | Phaser.js 3 |
+| Jeu Git | GameMaker (export HTML5) |
+| Environnement 3D | Unity (export WebGL) |
+| Linting / formatage | Prettier + lint-staged + Husky |
+| Déploiement | Heroku (`heroku-postbuild` → `ng build --configuration production`) |
+
+---
+
+## Installation et lancement
+
+### Prérequis
+
+- Node.js ≥ 22
+- npm ≥ 10
+
+### Développement
+
+```bash
+npm install
+ng serve
+```
+
+### Production (comme sur Heroku)
+
+```bash
+npm run build   # compile Angular en mode production
+npm start       # lance le serveur Express SSR
+```
+
+---
+
+## Structure du projet
+
+```
+src/
+  app/
+    components/       # Un sous-dossier par mini-jeu/écran
+    data/             # Données statiques (dialogues, personnages, défis…)
+    model/            # Interfaces et types TypeScript
+    services/         # Logique métier partagée entre composants
+  assets/             # Ressources statiques (images, audio, exports GameMaker…)
+Engine/
+  GameMaker/          # Source et build du jeu Git (Space Shooter)
+  Unity/              # Source du jeu d'exploration 3D
+```
+
+---
+
+## Mini-jeux
 
 Ce fichier a pour but de décrire chacun des mini-jeux produits ainsi que la structure globale du site.
 
@@ -55,3 +121,30 @@ Voilà les différentes erreurs (etb leur correction si l'utilisateur est bloqu�
 - Problème : Retour de "result" (avec guillemets) au lieu de result.
 - Conséquence : La fonction renvoie le mot "result" littéralement au lieu de renvoyer la valeur contenue dans la variable (le chiffre 42).
 - Correction : Retirer les guillemets pour référencer la variable.
+
+### Jeu de recherche d'informations — "Respecte ton client"
+
+Le but de ce mini-jeu est de faire découvrir la discipline de l'Interaction Homme-Machine (IHM) à travers quatre phases successives.
+
+* **L'entretien** : quatre personnages générés aléatoirement livrent chacun quatre informations. Le joueur doit collecter uniquement les informations pertinentes (+20 pts par bonne réponse, -10 pts par erreur ou information manquée).
+* **Analyse des insights** : le joueur place des features sur une matrice (abscisse = facilité de mise en place, ordonnée = importance). Le score est calculé en fonction de la distance euclidienne entre la position posée et la position idéale.
+* **Création du persona** : le joueur compose un personnage fictif représentatif des personnes interrogées. Chaque caractéristique incohérente avec les infos collectées entraîne un malus.
+* **Conception de la maquette** : le joueur choisit parmi plusieurs options de design (thème visuel, taille des boutons, chatbot, barre de recherche…). Les choix cohérents avec les besoins identifiés rapportent plus de points.
+
+La logique métier est centralisée dans `ClientGameService`. Les trois premières phases sont codées en Angular pur ; l'analyse des insights utilise **Phaser.js** pour gérer le glisser-déposer des features sur la matrice (attention au SSR : Phaser ne doit s'exécuter que côté navigateur).
+
+### Jeu du CTF
+
+Le jeu de Capture The Flag (CTF) initie l'utilisateur à la cybersécurité et à l'analyse de code. Chaque niveau présente un extrait de code source contenant une vulnérabilité ou une erreur spécifique (fuite mémoire, logique incorrecte, etc.). Le joueur doit identifier et cliquer sur le token exact qui constitue la solution.
+
+La génération des niveaux est gérée par le `LevelGeneratorService`. Ce service utilise une mini-expression régulière (lexer) pour décomposer un extrait de code textuel en une série de tokens typés (mot-clé, fonction, chaîne, nombre, opérateur…), chacun coloré selon sa nature pour la coloration syntaxique. Le token correspondant à la solution est marqué comme cible (`targetId`). Cette architecture permet de créer de nouveaux défis en fournissant simplement le code source brut et le texte de la solution, sans modifier la logique du jeu.
+
+---
+
+## Déploiement
+
+Le projet est déployé sur **Heroku**. La commande `heroku-postbuild` déclenche automatiquement le build Angular lors du déploiement. Le serveur Express sert ensuite l'application avec le rendu côté serveur (SSR) activé.
+
+```
+https://projet-zz2-b76a2607de6f.herokuapp.com/
+```
