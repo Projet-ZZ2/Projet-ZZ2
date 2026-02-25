@@ -1,5 +1,10 @@
 /* --- GLOBAL WINDOWS XP STYLE --- */
 
+.client-app {
+  overflow: auto;
+  height: 100%;
+}
+
 .desktop {
   background-color: #ece9d8; /* Fond beige clair XP */
   border: 3px solid #0055e5;
