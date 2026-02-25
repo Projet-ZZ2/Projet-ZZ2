@@ -17,6 +17,7 @@ import { persons } from '../data/client-game/persons';
 })
 export class ClientGameService {
   // Mapping des caractéristiques du persona vers les infos collectées
+  // Chaque valeur possible d'une caractéristique est associée aux infos qui la valident
   private readonly personaMapping: Record<
     string,
     Record<string, Array<{ type: string; value: string }>>
@@ -56,7 +57,7 @@ export class ClientGameService {
     },
   };
 
-  // État principal du jeu
+  // État principal du jeu, géré via un signal Angular pour la réactivité
   private gameState = signal<GameState>({
     currentStep: 'menu',
     score: 0,
@@ -71,16 +72,16 @@ export class ClientGameService {
     theme: null,
   });
 
-  // Signaux dérivés
+  // Signaux dérivés — exposés en lecture seule aux composants
   readonly currentStep = computed(() => this.gameState().currentStep);
   readonly score = computed(() => this.gameState().score);
+  // Indique si le joueur peut passer à l'étape suivante selon l'étape courante
   readonly canProceedToNextStep = computed(() => this.validateCurrentStep());
-
-  // Dialogues générés aléatoirement
 
   // Méthodes publiques
 
   startGame(): void {
+    // Sélectionne 4 personnages aléatoires parmi tous les personnages disponibles
     const shuffled = [...persons].sort(() => 0.5 - Math.random());
     const selectedPersonIds = shuffled.slice(0, 4).map((p) => p.id);
 
@@ -99,6 +100,8 @@ export class ClientGameService {
     }));
   }
 
+  // Construit la liste de dialogues d'un entretien : 2 ou 3 réponses importantes
+  // complétées par des réponses inutiles pour atteindre un total de 4, mélangées aléatoirement
   getDialoguesForPerson(personId: string): DialogueLine[] {
     const important = dialogueDatabase.filter((d) => d.personId === personId && d.isImportant);
     const notImportant = dialogueDatabase.filter((d) => d.personId === personId && !d.isImportant);
@@ -118,6 +121,7 @@ export class ClientGameService {
     return selected.sort(() => 0.5 - Math.random());
   }
 
+  // Valide la sélection d'une ligne de dialogue : +20 pts si pertinente, -10 pts sinon
   selectDialogueLine(dialogueId: string): { correct: boolean; points: number } {
     const dialogue = dialogueDatabase.find((d) => d.id === dialogueId);
     if (!dialogue) return { correct: false, points: 0 };
@@ -141,6 +145,7 @@ export class ClientGameService {
     }
   }
 
+  // Clôture un entretien : applique un malus si toutes les infos n'ont pas été trouvées
   completeInterview(personId: string, foundEverything: boolean): void {
     if (!foundEverything) {
       this.gameState.update((state) => ({
@@ -161,6 +166,8 @@ export class ClientGameService {
     return state.completedInterviews.length == 4;
   }
 
+  // Filtre les infos collectées pour ne garder que les insights UI/UX
+  // et calcule leur position correcte sur la matrice
   proceedToInsights(): void {
     if (!this.canProceedFromInterview()) return;
 
@@ -182,6 +189,8 @@ export class ClientGameService {
     }));
   }
 
+  // Calcule le score d'un insight placé sur la matrice en fonction
+  // de la distance euclidienne entre la position du joueur et la position idéale
   computeInsightScore(
     insightId: string,
     position: { x: number; y: number },
@@ -190,6 +199,7 @@ export class ClientGameService {
 
     if (!insight || !insight.correctPosition) return { distance: 0, points: 0 };
 
+    // Si l'insight a déjà une position joueur, on l'utilise pour le recalcul
     if (insight.playerPosition !== undefined) position = insight.playerPosition;
 
     const distance = Math.sqrt(
@@ -197,6 +207,7 @@ export class ClientGameService {
         Math.pow(position.y - insight.correctPosition.y, 2),
     );
 
+    // Score proportionnel à la proximité (max 50 pts, 0 si à la distance maximale)
     const maxDistance = Math.sqrt(200);
     const points = Math.max(0, Math.round((1 - distance / maxDistance) * 50));
 
@@ -227,6 +238,8 @@ export class ClientGameService {
     }));
   }
 
+  // Valide chaque caractéristique du persona soumis par le joueur
+  // et attribue 25 pts par caractéristique cohérente avec les infos collectées
   submitPersona(characteristics: PersonaCharacteristic[]): number {
     const collectedInfos = this.gameState().collectedInfos;
 
@@ -254,6 +267,7 @@ export class ClientGameService {
     return points;
   }
 
+  // Détermine le thème dominant avant de passer à l'étape maquette
   proceedToMaquette(): void {
     // Déterminer le thème principal basé sur les infos collectées
     const themeInfos = this.gameState().collectedInfos.filter((i) => i.type === 'theme');
@@ -266,6 +280,8 @@ export class ClientGameService {
     }));
   }
 
+  // Met à jour un élément de design et recalcule le score en tenant compte
+  // de la différence avec l'ancien choix (évite le double-comptage)
   updateDesignElement(element: DesignElement): number {
     const state = this.gameState();
     const existingElement = state.designElements.find(
@@ -305,6 +321,7 @@ export class ClientGameService {
 
   // Méthodes privées
 
+  // Vérifie si les conditions de passage à l'étape suivante sont remplies
   private validateCurrentStep(): boolean {
     const state = this.gameState();
     switch (state.currentStep) {
@@ -321,6 +338,7 @@ export class ClientGameService {
     }
   }
 
+  // Vérifie qu'au moins une info collectée valide la caractéristique du persona
   private isPersonaCharacteristicCorrect(
     char: PersonaCharacteristic,
     infoSet: Set<string>,
@@ -334,6 +352,7 @@ export class ClientGameService {
     return expectedInfos.some((expected) => infoSet.has(`${expected.type}:${expected.value}`));
   }
 
+  // Retourne le thème le plus fréquent parmi les infos de type 'theme' collectées
   private determinePrimaryTheme(
     themeInfos: ImportantInfo[],
   ): 'enfants' | 'épuré' | 'geek' | 'vieux' | null {
@@ -353,6 +372,8 @@ export class ClientGameService {
     )[0] as any;
   }
 
+  // Attribue un score à un choix de design en fonction du thème et des besoins détectés
+  // Les éléments cohérents avec les infos collectées rapportent plus de points
   private getDesignElementScore(element: DesignElement): number {
     const state = this.gameState();
     const collectedInfos = state.collectedInfos;
