@@ -139,6 +139,14 @@ Le jeu de Capture The Flag (CTF) initie l'utilisateur à la cybersécurité et �
 
 La génération des niveaux est gérée par le `LevelGeneratorService`. Ce service utilise une mini-expression régulière (lexer) pour décomposer un extrait de code textuel en une série de tokens typés (mot-clé, fonction, chaîne, nombre, opérateur…), chacun coloré selon sa nature pour la coloration syntaxique. Le token correspondant à la solution est marqué comme cible (`targetId`). Cette architecture permet de créer de nouveaux défis en fournissant simplement le code source brut et le texte de la solution, sans modifier la logique du jeu.
 
+### Jeu du git
+
+Le Jeu du Git (Git Shooter) est une initiation ludique aux commandes Git les plus utilisées en projet. Inspiré des jeux de type Space Shooter, le joueur doit détruire des comètes en lançant des munitions. La particularité du jeu est que chaque action correspond à une commande Git réelle. Par exemple, pour récupérer des munitions, le joueur doit utiliser la commande git add ou pour changer de trajectoire, il doit entrer la commande git checkout.
+
+Un tutoriel est disponible dès l’écran d’accueil pour découvrir les mécaniques du jeu et comprendre le rôle des différentes commandes Git dans un projet réel. Pendant la partie, un menu pause est également accessible : il permet de revoir à tout moment l’utilité de chaque commande.
+
+Pour gagner, le joueur doit atteindre un certain nombre de points. Attention toutefois : chaque comète manquée fait perdre une vie, et le nombre de vies est limité. Il faut donc viser juste et utiliser les bonnes commandes pour atteindre le score requis avant d’être à court de vies.
+
 ---
 
 ## Déploiement
