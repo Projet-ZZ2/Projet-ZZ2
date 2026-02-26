@@ -13,7 +13,7 @@ if (room == R3_Jeu) {
     }
     
     // Pause
-    if (keyboard_check_pressed(vk_escape)) {
+    if (keyboard_check_pressed(vk_f1)) {
         room_goto(R4_Pause);
     }
     
@@ -27,7 +27,7 @@ if (room == R3_Jeu) {
 
 
 if (room == R2_Tutoriel) {
-	if (keyboard_check_pressed(vk_escape)) {
+	if (keyboard_check_pressed(vk_f1)) {
 		audio_stop_sound(mus_tuto);
         room_goto(R1_Menu);
     }

@@ -11,7 +11,7 @@ import { Computer } from '../computer/computer';
   standalone: true,
   imports: [CommonModule, FormsModule, Computer],
   templateUrl: './differences.html',
-  styleUrls: ['./differences.css']
+  styleUrls: ['./differences.css'],
 })
 export class DifferencesGame {
   selectedFile: DifferencesGameModel | null = null;
@@ -21,13 +21,13 @@ export class DifferencesGame {
   isError: boolean = false;
 
   constructor(
-  public differencesService: DifferencesService, 
-  private router: Router
+    public differencesService: DifferencesService,
+    private router: Router,
   ) {}
 
   openFile(file: DifferencesGameModel) {
     if (file.isLocked) {
-      this.feedback = "Ce fichier est verrouillé !";
+      this.feedback = 'Ce fichier est verrouillé !';
       return;
     }
     this.selectedFile = file;
@@ -42,17 +42,34 @@ export class DifferencesGame {
 
     if (success) {
       this.isError = false; // C'est un succès
-      this.feedback = "Bravo ! Erreur corrigée.";
+      this.feedback = 'Bravo ! Erreur corrigée.';
 
       if (this.differencesService.isAllResolved()) {
         // Affiche la page de victoire au lieu de naviguer immédiatement
         this.isGameWon = true;
       } // Fin du bloc isAllResolved
-
     } else {
       this.isError = true; // C'est une erreur
-      this.feedback = "Il reste encore une erreur sémantique...";
+      this.feedback = 'Il reste encore une erreur sémantique...';
     }
+  }
+
+  displayHint() {
+    if (!this.selectedFile) {
+      this.feedback = 'Aucun indice disponible.';
+      this.isError = false;
+      return;
+    }
+
+    const hints = this.selectedFile.content?.errorsFound;
+    if (hints && hints.length > 0) {
+      // join multiple hints with newlines for readability
+      this.feedback = hints.join('\n');
+    } else {
+      this.feedback = 'Aucun indice disponible.';
+    }
+    // hint is not an error itself
+    this.isError = false;
   }
 
   continueToDesktop() {
@@ -74,10 +91,10 @@ export class DifferencesGame {
         title: 'Aide - Bloc-notes',
         instructions: 'Indications pour le développement.',
         buggyCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nIndications :\n- === sert à comparer.\n- Tableau : let tab = [].`,
-        correctCode: '', 
+        correctCode: '',
         language: 'text',
-        errorsFound: []
-      }
+        errorsFound: [],
+      },
     } as any;
     this.selectedFile = helpFile;
     this.userCode = helpFile.content?.buggyCode ?? '';
