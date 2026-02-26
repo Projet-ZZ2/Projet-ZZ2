@@ -59,6 +59,13 @@
               </p>
             }    
             <div class="button-group">
+              
+              @if (selectedFile.id !== -1){
+                <button class="reset-btn" (click)="displayHint()">
+                  Indice supplémentaire
+                </button>
+              }
+
               @if(selectedFile.id !== -1){
                 <button class="reset-btn" (click)="resetCode()">
                   Réinitialiser le code

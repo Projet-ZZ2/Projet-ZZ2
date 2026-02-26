@@ -33,7 +33,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 2 : L\'accès aux données',
-      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès au premier ID du tableau.',
+      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès au premier ID du tableau (on accède au premier membre du tableau grâce à [0] placé à la suite du nom de la liste).',
       buggyCode: `function userId(users) {\n  const id = users.id;\n  return id;\n}`,
       correctCode: `function userId(users) {\n  const id = users[0].id;\n  return id;\n}`,
       language: 'javascript',
@@ -59,7 +59,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 4 : Multiplication Inutile',
-      instructions: 'Le score ne monte jamais, pourtant on traite bien les données. Corrige l\'opération.',
+      instructions: 'Le score ne monte jamais, pourtant on traite bien les données. Corrige l\'opération en augmentant de 1 à chaque fois.',
       buggyCode: `function incrementScore(score) {\n  return score = score * 1;\n}`,
       correctCode: `function incrementScore(score) {\n  return score = score + 1;\n}`,
       language: 'javascript',
@@ -72,7 +72,7 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 5 : Type de Variable',
-      instructions: 'Le programme essaie d\'ajouter un élément dans une variable qui n\'est pas une liste.',
+      instructions: 'Le programme essaie d\'ajouter un élément dans une variable qui n\'est pas une liste. Une liste vide se crée avec des crochets [].',
       buggyCode: `let listOfValues = 0;\nlistOfValues.push("item");`,
       correctCode: `let listOfValues = [];\nlistOfValues.push("item");`,
       language: 'javascript',
