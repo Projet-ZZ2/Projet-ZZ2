@@ -28,15 +28,15 @@
 }
 
 img {
-    width: 4vw;
-    height: 4vw;
+    width: 6vw;
+    height: 6vw;
 }
 
 h4 {
     text-align: center;
     width: 7em;
     font-family: "Pixelify Sans", sans-serif;
-    font-size: 1vw;
+    font-size: 1.3vw;
     color: whitesmoke;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
