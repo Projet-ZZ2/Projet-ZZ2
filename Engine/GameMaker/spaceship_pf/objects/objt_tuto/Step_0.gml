@@ -196,7 +196,7 @@ switch(step) {
     case 14:
         titre_etape = "GIT PULL";
 		explication_git = "Cette commande permet de recuperer et integrer les modifications du dépôt distant dans le depot local";
-        instruction = "Taper 'pull'pour quitter le menu pause";
+        instruction_jeu = "Taper 'pull'pour quitter le menu pause";
         allowed_commands = ["pull"];
 		
 		affiche_rectangle = true;
