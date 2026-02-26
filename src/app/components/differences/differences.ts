@@ -55,6 +55,24 @@ export class DifferencesGame {
     }
   }
 
+  displayHint() {
+    if (!this.selectedFile) {
+      this.feedback = "Aucun indice disponible.";
+      this.isError = false;
+      return;
+    }
+
+    const hints = this.selectedFile.content?.errorsFound;
+    if (hints && hints.length > 0) {
+      // join multiple hints with newlines for readability
+      this.feedback = hints.join('\n');
+    } else {
+      this.feedback = "Aucun indice disponible.";
+    }
+    // hint is not an error itself
+    this.isError = false;
+  }
+
   continueToDesktop() {
     this.router.navigate(['/desktop']);
   }
