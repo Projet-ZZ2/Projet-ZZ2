@@ -8,6 +8,11 @@
   --accent-old-blue: #000080; /* Bleu barre de titre classique */
 }
 
+.qulice-content{
+  height: 100%;
+  overflow: auto;
+}
+
 .game-wrapper {
   display: flex;
   justify-self: center;
