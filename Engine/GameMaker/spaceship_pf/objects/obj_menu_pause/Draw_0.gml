@@ -26,8 +26,8 @@ if(menu_type == "menu") {
 	
 	draw_set_color(c_silver);
 	draw_set_font(Corps);
-	draw_text(centre_x, 650, "Appuyer sur 'Echap' pour quitter le tutoriel");
-	draw_text(centre_x, 730, "Appuyer sur 'Echap' pour mettre en pause");
+	draw_text(centre_x, 650, "Appuyer sur 'F1' pour quitter le tutoriel");
+	draw_text(centre_x, 730, "Appuyer sur 'F1' pour mettre en pause");
 	
 	
 	

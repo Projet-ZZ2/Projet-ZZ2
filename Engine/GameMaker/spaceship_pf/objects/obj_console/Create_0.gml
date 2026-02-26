@@ -1,3 +1,11 @@
+if (instance_exists(obj_console) && id != obj_console.id) {
+    instance_destroy();
+    exit;
+}
+
+persistent = true;
+curseur_timer = 0;
+
 // Console
 console_input = "";
 console_max_length = 20;

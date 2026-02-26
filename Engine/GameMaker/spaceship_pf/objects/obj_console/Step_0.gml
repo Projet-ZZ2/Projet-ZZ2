@@ -123,7 +123,7 @@ if (keyboard_check_pressed(vk_enter) && console_input != "") {
 	keyboard_string = "";
 }
 
-// Effacer avec Échap
+// Effacer
 if (keyboard_check_pressed(vk_delete)) {
 	console_input = "";
 	keyboard_string = "";
