@@ -1,4 +1,4 @@
-import { DifferencesGameModel } from "../model/differencesGameModel";
+import { DifferencesGameModel } from '../model/differencesGameModel';
 
 export const DIFFERENCES: DifferencesGameModel[] = [
   {
@@ -11,47 +11,49 @@ export const DIFFERENCES: DifferencesGameModel[] = [
       buggyCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
       correctCode: `Ce jeu fonctionne à l'aide de Javascript.\n\nVoici quelques indications :\n- === sert à comparer deux variables.\n- Pour créer un tableau, on fait let tab = [].`,
       language: 'text',
-      errorsFound: []
-    }
+      errorsFound: [],
+    },
   },
   {
     id: 1,
-    label: 'Dépassement d\'indice',
+    label: "Dépassement d'indice",
     type: 'file',
     content: {
-      title: 'Erreur 1 : L\'Index',
-      instructions: 'Ce code plante car il cherche un utilisateur qui n\'existe pas à la fin du tableau. Corrige la condition de la boucle.',
+      title: "Erreur 1 : L'Index",
+      instructions:
+        "Ce code plante car il cherche un utilisateur qui n'existe pas à la fin du tableau. Corrige la condition de la boucle.",
       buggyCode: `function getFirstNames(users) {\n  for (let i = 0; i <= users.length; i++) {\n    console.log(users[i].name);\n  }\n}`,
       correctCode: `function getFirstNames(users) {\n  for (let i = 0; i < users.length; i++) {\n    console.log(users[i].name);\n  }\n}`,
       language: 'javascript',
-      errorsFound: ["L'index i va jusqu'à length, ce qui dépasse les limites du tableau."]
-    }
+      errorsFound: ["L'index i va jusqu'à length, ce qui dépasse les limites du tableau."],
+    },
   },
   {
     id: 2,
     label: 'Référence Objet',
     type: 'file',
     content: {
-      title: 'Erreur 2 : L\'accès aux données',
-      instructions: 'On essaie de récupérer l\'ID, mais le code ne regarde pas au bon endroit. Et si users n\'était pas un objet mais un tableau ? Corrige l\'accès au premier ID du tableau (on accède au premier membre du tableau grâce à [0] placé à la suite du nom de la liste).',
+      title: "Erreur 2 : L'accès aux données",
+      instructions:
+        "On essaie de récupérer l'ID, mais le code ne regarde pas au bon endroit. Et si users n'était pas un objet mais un tableau ? Corrige l'accès au premier ID du tableau (on accède au premier membre du tableau grâce à [0] placé à la suite du nom de la liste).",
       buggyCode: `function userId(users) {\n  const id = users.id;\n  return id;\n}`,
       correctCode: `function userId(users) {\n  const id = users[0].id;\n  return id;\n}`,
       language: 'javascript',
-      errorsFound: ["On essaie d'accéder à .id sur le tableau lui-même au lieu d'un élément."]
-    }
+      errorsFound: ["On essaie d'accéder à .id sur le tableau lui-même au lieu d'un élément."],
+    },
   },
   {
     id: 3,
     label: 'Test de Sécurité',
     type: 'file',
     content: {
-      title: 'Erreur 3 : L\'Assignation',
+      title: "Erreur 3 : L'Assignation",
       instructions: 'La condition de ce IF est toujours vraie. Trouve pourquoi.',
       buggyCode: `if (user.isAdmin = true) {\n  grantAccess();\n}`,
       correctCode: `if (user.isAdmin === true) {\n  grantAccess();\n}`,
       language: 'javascript',
-      errorsFound: ["Utilisation de = (assignation) au lieu de === (comparaison)."]
-    }
+      errorsFound: ['Utilisation de = (assignation) au lieu de === (comparaison).'],
+    },
   },
   {
     id: 4,
@@ -59,12 +61,13 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 4 : Multiplication Inutile',
-      instructions: 'Le score ne monte jamais, pourtant on traite bien les données. Corrige l\'opération en augmentant de 1 à chaque fois.',
+      instructions:
+        "Le score ne monte jamais, pourtant on traite bien les données. Corrige l'opération en augmentant de 1 à chaque fois.",
       buggyCode: `function incrementScore(score) {\n  return score = score * 1;\n}`,
       correctCode: `function incrementScore(score) {\n  return score = score + 1;\n}`,
       language: 'javascript',
-      errorsFound: ["Multiplier par 1 ne change pas la valeur du score."]
-    }
+      errorsFound: ['Multiplier par 1 ne change pas la valeur du score.'],
+    },
   },
   {
     id: 5,
@@ -72,12 +75,13 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 5 : Type de Variable',
-      instructions: 'Le programme essaie d\'ajouter un élément dans une variable qui n\'est pas une liste. Une liste vide se crée avec des crochets [].',
+      instructions:
+        "Le programme essaie d'ajouter un élément dans une variable qui n'est pas une liste. Une liste vide se crée avec des crochets [].",
       buggyCode: `let listOfValues = 0;\nlistOfValues.push("item");`,
       correctCode: `let listOfValues = [];\nlistOfValues.push("item");`,
       language: 'javascript',
-      errorsFound: ["On ne peut pas faire .push() sur un nombre, il faut un tableau []."]
-    }
+      errorsFound: ['On ne peut pas faire .push() sur un nombre, il faut un tableau [].'],
+    },
   },
   {
     id: 6,
@@ -85,12 +89,12 @@ export const DIFFERENCES: DifferencesGameModel[] = [
     type: 'file',
     content: {
       title: 'Erreur 6 : Spam Console',
-      instructions: 'Le message de fin s\'affiche beaucoup trop souvent. Sors-le de la boucle.',
+      instructions: "Le message de fin s'affiche beaucoup trop souvent. Sors-le de la boucle.",
       buggyCode: `for(let i=0; i<5; i++) {\n  // process...\n  console.log("Terminé");\n}`,
       correctCode: `for(let i=0; i<5; i++) {\n  // process...\n}\nconsole.log("Terminé");`,
       language: 'javascript',
-      errorsFound: ["Le log est situé à l'intérieur des accolades de la boucle."]
-    }
+      errorsFound: ["Le log est situé à l'intérieur des accolades de la boucle."],
+    },
   },
   {
     id: 7,
@@ -102,20 +106,23 @@ export const DIFFERENCES: DifferencesGameModel[] = [
       buggyCode: `function getResult() {\n  let result = 42;\n  return "result";\n}`,
       correctCode: `function getResult() {\n  let result = 42;\n  return result;\n}`,
       language: 'javascript',
-      errorsFound: ["Les guillemets transforment la variable en simple texte."]
-    }
+      errorsFound: ['Les guillemets transforment la variable en simple texte.'],
+    },
   },
   {
-  id: 8,
-  label: 'Action Incomplète',
-  type: 'file',
-  content: {
-    title: 'Erreur 8 : L\'appel de fonction',
-    instructions: 'Le jeu ne démarre pas. On essaie d\'utiliser "startGame", mais on a oublié de dire au programme de l\'exécuter avec des parenthèses ().',
-    buggyCode: `function pressButton() {\n  startGame;\n}`,
-    correctCode: `function pressButton() {\n  startGame();\n}`,
-    language: 'javascript',
-    errorsFound: ["Écrire le nom d'une fonction sans () ne l'exécute pas, cela fait juste citer son nom."]
-  }
-}
+    id: 8,
+    label: 'Action Incomplète',
+    type: 'file',
+    content: {
+      title: "Erreur 8 : L'appel de fonction",
+      instructions:
+        'Le jeu ne démarre pas. On essaie d\'utiliser "startGame", mais on a oublié de dire au programme de l\'exécuter avec des parenthèses ().',
+      buggyCode: `function pressButton() {\n  startGame;\n}`,
+      correctCode: `function pressButton() {\n  startGame();\n}`,
+      language: 'javascript',
+      errorsFound: [
+        "Écrire le nom d'une fonction sans () ne l'exécute pas, cela fait juste citer son nom.",
+      ],
+    },
+  },
 ];
