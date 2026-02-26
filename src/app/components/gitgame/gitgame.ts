@@ -25,23 +25,23 @@ export class Gitgame implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       stopBackgroundMusic();
-    (window as any).gmCallback_Script_OnInit = function() {
-        return {
-            base_url: "assets/gamemaker/html5game"
-        };
-    };
+      (window as any).gmCallback_Script_OnInit = function() {
+          return {
+              base_url: "assets/gamemaker/html5game"
+          };
+      };
 
-    window.addEventListener("message", (event: MessageEvent) => { 
-      const data = event.data; 
-      // Comme on envoie juste "gameFinished" 
-      if (data === "gameFinished") { 
-        console.log("Signal 'gameFinished' reçu depuis GameMaker"); 
-        this.onGameFinished(); } 
-      });
+      window.addEventListener("message", (event: MessageEvent) => { 
+        const data = event.data; 
+        // Comme on envoie juste "gameFinished" 
+        if (data === "gameFinished") { 
+          console.log("Signal 'gameFinished' reçu depuis GameMaker"); 
+          this.onGameFinished(); } 
+        });
 
-    this.loadGame();
+      this.loadGame();
+    }
   }
-}
 
   loadGame() {
       const script = this.renderer.createElement('script');
